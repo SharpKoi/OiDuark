@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Move element &apos;resources&apos; to &apos;OiDuark/src/application&apos;&#x0D;&#x0A;- Original project: &apos;OiDuark&apos;&#x0D;&#x0A;- Destination element: &apos;OiDuark/src/application&apos;&#x0D;&#x0A;- Original element: &apos;resources&apos;&#x0D;&#x0A;- Update references to refactored element" description="Move folder" destination="/src=/optional=/true=/=/maven.pomderived=/true=/&lt;application" element1="resources" files="0" flags="589830" folders="1" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1596732057416" units="0" version="1.0"/>
-</session>
