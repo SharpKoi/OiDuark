@@ -1,0 +1,8 @@
+package application;
+
+public class PlayerController {
+	
+	public void onPlayButtonClicked() {
+		System.out.println("Play audio!");
+	}
+}

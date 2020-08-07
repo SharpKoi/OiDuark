@@ -1,0 +1,64 @@
+package application;
+	
+import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+
+
+public class Main extends Application {
+	
+	private double xOffset;
+	private double yOffset;
+	
+	@Override
+	public void start(Stage primaryStage) {
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
+			
+			Node titlePane  = root.getChildrenUnmodifiable().get(0);
+			titlePane.setOnMousePressed(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent event) {
+					xOffset = event.getSceneX();
+					yOffset = event.getSceneY();
+				}
+			});
+			
+			titlePane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent event) {
+					primaryStage.setX(event.getScreenX() - xOffset);
+					primaryStage.setY(event.getScreenY() - yOffset);
+				}
+			});
+			
+			Pane mainContents = (Pane) root.getChildrenUnmodifiable().get(1);
+			VBox playListBox = (VBox) mainContents.getChildren().get(2);
+			ScrollPane playListPane = (ScrollPane) playListBox.getChildren().get(1);
+			
+			
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			primaryStage.initStyle(StageStyle.UNDECORATED);
+			primaryStage.setResizable(true);
+			primaryStage.setScene(scene);
+			
+			primaryStage.show();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void main(String[] args) {
+		launch(args);
+	}
+}

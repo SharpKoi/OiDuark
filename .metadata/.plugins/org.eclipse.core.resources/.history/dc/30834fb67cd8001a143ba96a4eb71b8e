@@ -1,0 +1,14 @@
+.pane .button-play {
+	-fx-background-color: #000;
+	-fx-background-radius: 50;
+}
+
+.pane .button-play:hover {
+	-fx-background-color: #ADB5BD;
+	-fx-background-radius: 50;
+}
+
+.pane .button-play:pressed {
+	-fx-background-color: #ADB5BD;
+	-fx-background-radius: 50;
+}

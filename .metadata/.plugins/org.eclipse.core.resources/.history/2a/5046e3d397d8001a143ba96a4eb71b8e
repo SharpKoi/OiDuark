@@ -1,0 +1,26 @@
+package application;
+
+import javafx.scene.input.MouseEvent;
+
+public class PlayerController {
+	
+	private double xOffset;
+	private double yOffset;
+	
+	public void onTitleBarPressed() {
+		
+	}
+	
+	public void onTitleBarDragged(MouseEvent event) {
+		
+	}
+	
+	public void onCloseButtonClicked() {
+		System.out.println("exit");
+		System.exit(1);
+	}
+	
+	public void onPlayButtonClicked() {
+		System.out.println("Play audio!");
+	}
+}

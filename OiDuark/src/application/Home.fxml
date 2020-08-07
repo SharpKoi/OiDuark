@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.pannable.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.shape.*?>
+<?import java.net.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="640.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PlayerController">
+   <children>
+      <Pane prefHeight="30.0" prefWidth="1024.0" style="-fx-background-color: #343A40;" styleClass="bar-pane" stylesheets="@application.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label layoutX="50.0" layoutY="6.0" text="OiDuark   v1.0" textFill="WHITE" />
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="995.0" layoutY="2.5" onMouseClicked="#onCloseButtonClicked" pickOnBounds="true" preserveRatio="true" styleClass="button-close">
+               <image>
+                  <Image url="@resources/images/icons/close_window_100px.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane layoutY="37.0" prefHeight="603.0" prefWidth="1024.0" stylesheets="@application.css" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="30.0">
+         <children>
+            <VBox prefHeight="610.0" prefWidth="185.0" style="-fx-background-color: #212529;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <JFXButton prefHeight="60.0" prefWidth="184.0" text="Home" textFill="#e0e0e0">
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </JFXButton>
+                  <JFXButton layoutX="10.0" layoutY="40.0" prefHeight="60.0" prefWidth="184.0" ripplerFill="WHITE" text="Select" textFill="#e0e0e0">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </JFXButton>
+                  <JFXButton layoutX="10.0" layoutY="90.0" prefHeight="60.0" prefWidth="184.0" ripplerFill="WHITE" text="Setting" textFill="#e0e0e0">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </JFXButton>
+                  <JFXButton layoutX="10.0" layoutY="140.0" prefHeight="60.0" prefWidth="184.0" ripplerFill="WHITE" text="About" textFill="#e0e0e0">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </JFXButton>
+               </children>
+            </VBox>
+            <VBox layoutX="184.0" prefHeight="610.0" prefWidth="640.0" style="-fx-background-color: #151515;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ImageView fitHeight="450.0" fitWidth="640.0" pickOnBounds="true" preserveRatio="true" />
+                  <Pane prefHeight="165.0" prefWidth="640.0" styleClass="control-pane">
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="110.0" layoutY="45.0" onMouseClicked="#onPlayButtonClicked" pickOnBounds="true" preserveRatio="true" styleClass="button-play">
+                           <image>
+                              <Image url="@resources/images/icons/play_64px.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <effect>
+                              <Glow />
+                           </effect>
+                        </ImageView>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="190.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" styleClass="button-next">
+                           <image>
+                              <Image url="@resources/images/icons/end_64px.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <effect>
+                              <Glow />
+                           </effect>
+                        </ImageView>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="30.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" styleClass="button-last">
+                           <image>
+                              <Image url="@resources/images/icons/skip_to_start_64px.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <effect>
+                              <Glow />
+                           </effect>
+                        </ImageView>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="32.0" layoutY="2.0" text="0:00" textAlignment="CENTER" textFill="WHITE" />
+                        <JFXSlider layoutX="70.0" layoutY="4.0" prefHeight="20.0" prefWidth="500.0" value="10.0" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="570.0" layoutY="2.0" text="12:39" textAlignment="CENTER" textFill="WHITE" />
+                     </children>
+                  </Pane>
+               </children>
+            </VBox>
+            <VBox layoutX="824.0" prefHeight="610.0" prefWidth="200.0" style="-fx-background-color: #2B3035;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Pane prefHeight="80.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="55.0" layoutY="26.0" prefHeight="28.0" prefWidth="131.0" text="Play list" textFill="WHITE">
+                           <font>
+                              <Font name="Courier New" size="24.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="14.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@resources/images/icons/headphones_64px.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <ScrollPane hbarPolicy="NEVER" prefHeight="530.0" prefWidth="200.0" style="-fx-background-color: #2B3035;" styleClass="play-list">
+                     <content>
+                        <ListView prefHeight="530.0" prefWidth="200.0" style="-fx-background-color: #2B3035;" />
+                     </content>
+                  </ScrollPane>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

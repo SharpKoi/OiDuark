@@ -1,0 +1,15 @@
+package application;
+
+import javafx.scene.input.MouseEvent;
+
+public class PlayerController {
+	
+	public void onCloseButtonClicked() {
+		System.out.println("exit");
+		System.exit(1);
+	}
+	
+	public void onPlayButtonClicked() {
+		System.out.println("Play audio!");
+	}
+}

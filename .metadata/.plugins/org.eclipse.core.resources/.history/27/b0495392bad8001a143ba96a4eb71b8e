@@ -1,0 +1,17 @@
+.bar-pane .button-close:hover {
+	-fx-opacity: 0.5;
+}
+
+.control-pane .button-play:hover {
+	-fx-opacity: 0.5;
+}
+
+.control-pane .button-next:hover {
+	-fx-opacity: 0.5;
+	-fx-background-radius: 50;
+}
+
+.control-pane .button-last:hover {
+	-fx-opacity: 0.5;
+	-fx-background-radius: 50;
+}

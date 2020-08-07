@@ -1,0 +1,3 @@
+.button.play {
+	-fx-graphic: url('https://icons8.com/icon/25603/icon');
+}
