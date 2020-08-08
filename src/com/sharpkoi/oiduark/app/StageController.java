@@ -56,16 +56,12 @@ public class StageController implements Initializable {
 	
 	/***** play list panel *****/
 	@FXML
-	private JFXListView<Button> l_playlist;
+	private JFXListView<String> l_playlist;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		player = new AudioPlayer();
-		ObservableList<Button> audioItemList = FXCollections.observableArrayList(
-				new Button("Apple"), 
-				new Button("ASUS"),
-				new Button("Sony"));
-		l_playlist.setItems(audioItemList);
+		
 //		b_home.setOnAction(e -> {
 //			TODO: switch page
 //		});
