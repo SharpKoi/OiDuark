@@ -1,0 +1,45 @@
+/* navigation */
+.navigation-button:pressed,
+.navigation-button:focused {
+	-fx-background-color:  #7b2cbf ;
+}
+
+/* player control panel */
+.title-bar .button-close:hover {
+	-fx-opacity: 0.5;
+}
+
+.control-pane .control-button:hover {
+	-fx-opacity: 0.5;
+}
+
+/* play list */
+.play-list .scroll-bar:vertical {
+	-fx-background-color: transparent ;
+	-fx-background-radius: 0em ;
+}
+
+.play-list .scroll-bar:vertical .track {
+	-fx-background-color: transparent ;
+	-fx-border-color: transparent ;
+	-fx-background-radius: 0em ;
+	-fx-border-radius: 0em ;
+}
+
+.play-list .scroll-bar:vertical .increment-button,
+.play-list .scroll-bar:vertical .decrement-button {
+	-fx-background-color: transparent ;
+	-fx-background-radius: 0.0em ;
+	-fx-padding: 0 10 0 0
+}
+
+.play-list .scroll-bar:vertical .increment-arrow, 
+.play-list .scroll-bar:vertical .decrement-arrow {
+	-fx-background-color: transparent ;
+	-fx-padding: -2
+}
+
+.play-list .scroll-bar:vertical .thumb {
+	-fx-background-color: #6C757D
+} 
+
