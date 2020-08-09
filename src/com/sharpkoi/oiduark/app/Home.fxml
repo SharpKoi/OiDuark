@@ -83,8 +83,8 @@
                   <AnchorPane prefHeight="196.0" prefWidth="640.0" styleClass="control-pane">
                      <children>
                         <Label alignment="CENTER" layoutX="10.0" layoutY="7.0" text="0:00" textFill="WHITE" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="7.0" />
-                        <JFXSlider layoutX="35.0" prefHeight="20.0" prefWidth="500.0" value="10.0" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="55.0" AnchorPane.topAnchor="4.0" />
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="603.0" layoutY="6.0" text="12:39" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="7.0" />
+                        <JFXSlider indicatorPosition="RIGHT" layoutX="35.0" prefHeight="20.0" prefWidth="500.0" value="-1.0" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="55.0" AnchorPane.topAnchor="4.0" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="603.0" layoutY="6.0" text="4.22" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="7.0" />
                         <ImageView fx:id="b_last" fitHeight="32.0" fitWidth="32.0" layoutX="12.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" styleClass="control-button">
                            <image>
                               <Image url="@resources/images/icons/skip_to_start_64px.png" />
