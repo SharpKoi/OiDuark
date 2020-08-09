@@ -5,7 +5,10 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
+import com.sharpkoi.oiduark.audio.Audio;
 import com.sharpkoi.oiduark.audio.AudioPlayer;
+import com.sharpkoi.oiduark.utils.MetaData;
+import com.sun.media.jfxmedia.events.MetadataListener;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,14 +16,17 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class StageController implements Initializable {
+public class HomeController implements Initializable {
 	
 	private double xOffset;
 	private double yOffset;
@@ -56,11 +62,16 @@ public class StageController implements Initializable {
 	
 	/***** play list panel *****/
 	@FXML
-	private JFXListView<String> l_playlist;
+	private JFXListView<Audio> l_playlist;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		player = new AudioPlayer();
+		
+		l_playlist.setCellFactory(cell -> {
+			return new AudioListCell();
+		});
+		l_playlist.setFocusTraversable(false);
 		
 //		b_home.setOnAction(e -> {
 //			TODO: switch page
@@ -96,6 +107,13 @@ public class StageController implements Initializable {
 				stage.setY(event.getScreenY() - yOffset);
 			}
 		});
+		
+		// test list view
+		player.addAudio(Audio.loadFromJson(MetaData.AUDIO_DATA_PATH, "audio01"));
+		
+		ObservableList<Audio> ol_playList = FXCollections.observableList(player.getPlayList());
+		l_playlist.setItems(ol_playList);
+		l_playlist.setFixedCellSize(64);
 	}
 	
 	public void onCloseButtonClicked() {

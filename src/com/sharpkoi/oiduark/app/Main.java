@@ -25,7 +25,7 @@ public class Main extends Application {
 			primaryStage.initStyle(StageStyle.UNDECORATED);
 			primaryStage.setResizable(true);
 			primaryStage.setScene(scene);
-			((StageController) loader.getController()).initWindow();
+			((HomeController) loader.getController()).initWindow();
 			
 			primaryStage.show();
 		} catch(Exception e) {

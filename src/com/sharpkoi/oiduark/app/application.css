@@ -1,3 +1,7 @@
+.title-bar {
+	-fx-background-color: linear-gradient(from 0% 0% to 100% 100%,  #e500a4,  #8900f2);
+}
+
 /* navigation */
 .navigation-button:pressed,
 .navigation-button:focused {
@@ -14,11 +18,25 @@
 }
 
 /* play list */
+.jfx-list-cell {
+	-fx-background-color:  #2B3035 ;
+}
+
+.jfx-list-cell .jfx-rippler {
+	-jfx-rippler-fill: #aaa;
+}
+
+.jfx-list-cell:selected {
+	-fx-background-color: #343A40 ;
+}
+
+.play-list .scroll-bar:horizontal,
 .play-list .scroll-bar:vertical {
 	-fx-background-color: transparent ;
 	-fx-background-radius: 0em ;
 }
 
+.play-list .scroll-bar:horizontal .track,
 .play-list .scroll-bar:vertical .track {
 	-fx-background-color: transparent ;
 	-fx-border-color: transparent ;
@@ -39,7 +57,7 @@
 	-fx-padding: -2
 }
 
+.play-list .scroll-bar:horizontal .thumb,
 .play-list .scroll-bar:vertical .thumb {
 	-fx-background-color: #6C757D
 } 
-

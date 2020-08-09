@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" prefHeight="640.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sharpkoi.oiduark.app.AudioPageController">
+   <children>
+      <AnchorPane fx:id="titleBar" prefHeight="24.0" prefWidth="896.0" styleClass="title-bar" stylesheets="@application.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fx:id="b_close" fitHeight="16.0" fitWidth="16.0" layoutX="990.0" layoutY="4.0" onMouseClicked="#onCloseButtonClicked" pickOnBounds="true" preserveRatio="true" styleClass="button-close" AnchorPane.bottomAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0">
+               <image>
+                  <Image url="@resources/images/icons/close_window_100px.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+            </ImageView>
+            <Label layoutY="1.0" text="OiDuark   v1.0" textFill="WHITE" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="48.0" AnchorPane.topAnchor="4.0">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="616.0" prefWidth="1024.0" stylesheets="@application.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <VBox prefHeight="617.0" prefWidth="185.0" style="-fx-background-color: #212529;" styleClass="navigation" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <JFXButton fx:id="b_home" graphicTextGap="16.0" prefHeight="60.0" prefWidth="184.0" ripplerFill="WHITE" styleClass="navigation-button" text="Home" textFill="#e0e0e0">
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="HOME" size="16" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="b_select" graphicTextGap="16.0" layoutX="10.0" layoutY="40.0" prefHeight="60.0" prefWidth="184.0" ripplerFill="WHITE" styleClass="navigation-button" text="My Audio" textFill="#e0e0e0">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="MUSIC" size="16.0" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="b_setting" graphicTextGap="16.0" layoutX="10.0" layoutY="90.0" prefHeight="60.0" prefWidth="184.0" ripplerFill="WHITE" styleClass="navigation-button" text="Setting" textFill="#e0e0e0">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="COG" size="16" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="b_about" graphicTextGap="16.0" layoutX="10.0" layoutY="140.0" prefHeight="60.0" prefWidth="184.0" ripplerFill="WHITE" styleClass="navigation-button" text="About" textFill="#e0e0e0">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="HAND_ALT_RIGHT" size="16" />
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </VBox>
+            <AnchorPane layoutX="185.0" prefHeight="617.0" prefWidth="639.0" style="-fx-background-color: #2B3035;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="184.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <TextField layoutX="54.0" layoutY="18.0" prefHeight="23.0" prefWidth="564.0" AnchorPane.leftAnchor="56.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="16.0">
+                     <effect>
+                        <InnerShadow choke="0.24" color="#5d5d5d" height="24.0" offsetX="2.0" radius="11.5" width="24.0" />
+                     </effect>
+                  </TextField>
+                  <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" layoutX="24.0" layoutY="34.0" size="16" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
+                  <JFXListView editable="true" layoutY="68.0" prefHeight="548.0" prefWidth="640.0" style="-fx-background-color: #2B3035;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
+                     <effect>
+                        <InnerShadow />
+                     </effect>
+                  </JFXListView>
+               </children>
+            </AnchorPane>
+            <VBox prefHeight="616.0" prefWidth="200.0" style="-fx-background-color: #2B3035;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Pane prefHeight="48.0" prefWidth="200.0" style="-fx-background-color: #5a189a;">
+                     <children>
+                        <Label layoutX="68.0" layoutY="8.0" prefHeight="32.0" prefWidth="102.0" text="播放列表" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="31.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@resources/images/icons/headphones_64px.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <ScrollPane hbarPolicy="NEVER" prefHeight="550.0" prefWidth="200.0" style="-fx-background-color: #212529;" styleClass="play-list">
+                     <content>
+                        <JFXListView fx:id="l_playlist" prefHeight="550.0" prefWidth="200.0" style="-fx-background-color: #212529;" />
+                     </content>
+                  </ScrollPane>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
