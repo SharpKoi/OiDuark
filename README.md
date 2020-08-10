@@ -1,4 +1,5 @@
 # OiDuark
+![Screenshot](static/screenshot.png)
 ## Description
 *With this audio manager, you can manage your audio by attaching tags on them. Then you would be able to act with the specified tags.*
 
