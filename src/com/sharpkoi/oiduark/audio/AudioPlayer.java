@@ -1,6 +1,5 @@
 package com.sharpkoi.oiduark.audio;
 
-import java.applet.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -54,6 +53,7 @@ public class AudioPlayer {
 			String audioPath = MetaData.MEDIA_DIR + playList.get(indicator).getFilename();
 			Media media = new Media(audioPath);
 			player = new MediaPlayer(media);
+			player.setVolume(volume);
 		}
 		isPlaying = true;
 	}

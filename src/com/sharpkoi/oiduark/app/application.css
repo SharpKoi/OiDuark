@@ -3,10 +3,6 @@
 }
 
 /* navigation */
-.navigation-button:pressed,
-.navigation-button:focused {
-	-fx-background-color:  #7b2cbf ;
-}
 
 /* player control panel */
 .title-bar .button-close:hover {

@@ -1,5 +1,10 @@
 package com.sharpkoi.oiduark.app;
 	
+import com.sharpkoi.oiduark.app.controller.*;
+import com.sharpkoi.oiduark.audio.Audio;
+import com.sharpkoi.oiduark.audio.AudioPlayer;
+import com.sharpkoi.oiduark.utils.MetaData;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -7,17 +12,41 @@ import javafx.stage.StageStyle;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
-
 public class Main extends Application {
 	
+	private static Main instance;
+	
+	public static Main getInstance() {
+		return instance;
+	}
+	
+	private Stage stage;
+	private AudioPlayer player;
+		
 	public static final String PLAY_IMAGE_PATH = "resources/images/icons/play_64px.png";
 	public static final String PAUSE_IMAGE_PATH = "resources/images/icons/pause_100px.png";
 	
+	public Stage getStage() {
+		return stage;
+	}
+	
+	public AudioPlayer getAudioPlayer() {
+		return player;
+	}
+	
 	@Override
 	public void start(Stage primaryStage) {
+		instance = this;
+		stage = primaryStage;
+		player = new AudioPlayer();
+		
+		// test play list
+		player.addAudio(Audio.loadFromJson(MetaData.AUDIO_DATA_PATH, "audio01"));
+		
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("Home.fxml"));
 			Parent root = loader.load();
+			
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			
@@ -25,7 +54,7 @@ public class Main extends Application {
 			primaryStage.initStyle(StageStyle.UNDECORATED);
 			primaryStage.setResizable(true);
 			primaryStage.setScene(scene);
-			((HomeController) loader.getController()).initWindow();
+			((HomeController) loader.getController()).initTitleBar();
 			
 			primaryStage.show();
 		} catch(Exception e) {
