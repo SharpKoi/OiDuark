@@ -20,6 +20,11 @@
 	    <artifactId>json-simple</artifactId>
 	    <version>1.1.1</version>
 	</dependency>
+	<dependency>
+	  <groupId>io.github.typhon0</groupId>
+	  <artifactId>AnimateFX</artifactId>
+	  <version>1.2.1</version>
+	</dependency>
   </dependencies>
   <build>
     <sourceDirectory>src</sourceDirectory>

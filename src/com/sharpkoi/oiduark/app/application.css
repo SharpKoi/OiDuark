@@ -1,28 +1,36 @@
 .title-bar {
-	-fx-background-color: linear-gradient(from 0% 0% to 100% 100%,  #e500a4,  #8900f2);
+	-fx-background-color: linear-gradient(to right, #e500a4, #8900f2);
+}
+
+.title-bar .button-close:hover {
+	-fx-opacity: 0.5;
+}
+
+.title-bar .button-minimize:hover {
+	-fx-opacity: 0.5;
 }
 
 /* navigation */
 
 /* player control panel */
-.title-bar .button-close:hover {
-	-fx-opacity: 0.5;
-}
-
 .control-pane .control-button:hover {
 	-fx-opacity: 0.5;
 }
 
+.control-pane .progress-bar {
+	-jfx-default-thumb: linear-gradient(to right, #8900f2, #e500a4);
+}
+
+.control-pane .progress-bar > .thumb {
+	-fx-background-color: #CED4DA ;
+}
+
 /* play list */
-.jfx-list-cell {
+.list-cell {
 	-fx-background-color:  #2B3035 ;
 }
 
-.jfx-list-cell .jfx-rippler {
-	-jfx-rippler-fill: #aaa;
-}
-
-.jfx-list-cell:selected {
+.list-cell:selected {
 	-fx-background-color: #343A40 ;
 }
 

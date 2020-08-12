@@ -4,7 +4,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.jfoenix.controls.JFXListView;
+import com.sharpkoi.oiduark.app.AudioListCell;
 import com.sharpkoi.oiduark.app.Main;
 import com.sharpkoi.oiduark.app.PlayListCell;
 import com.sharpkoi.oiduark.audio.Audio;
@@ -13,53 +13,73 @@ import com.sharpkoi.oiduark.utils.MetaData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
 public class AudioPageController extends GlobalController {
 	
+	public static AudioPageController instance;
+	
+	public static AudioPageController getInstance() {
+		return instance;
+	}
+	
 	@FXML
-    private JFXListView<Audio> audioList;
+    private ListView<Audio> l_audioList;
 
     @FXML
     private TextField searchBar;
     
     @FXML
-    private JFXListView<Audio> l_playlist;
+    private ListView<Audio> l_playlist;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		instance = this;
 		super.initialize(location, resources);
 		currentPageName = "AudioPage";
 		b_select.setStyle("-fx-background-color:  #7b2cbf ;");
 		
 		//TODO: initialize the audio list
-		
 		File mediaDir = new File(MetaData.MEDIA_DIR);
 		if(!mediaDir.exists()) mediaDir.mkdir();
 		
-		if(mediaDir.isDirectory()) {
-			File[] audioFiles = mediaDir.listFiles();
-			loadAudioList(audioFiles);
+		if(l_audioList.getItems().isEmpty()) {
+			if(mediaDir.isDirectory()) {
+				File[] audioFiles = mediaDir.listFiles();
+				loadAudioList(audioFiles);
+			}
 		}
 		
+		l_audioList.setCellFactory(cell -> {
+			return new AudioListCell();
+		});
+			
 		l_playlist.setCellFactory(cell -> {
 			return new PlayListCell();
 		});
-		l_playlist.setFocusTraversable(false);
 		
-		playList = FXCollections.observableList(Main.getInstance().getAudioPlayer().getPlayList());
+		ObservableList<Audio> playList = Main.getInstance().getAudioPlayer().getObservablePlayList();
 		l_playlist.setItems(playList);
-		l_playlist.setFixedCellSize(64);
+		l_playlist.setFixedCellSize(48);
+	}
+	
+	public void removeAudioFromPlaylist(Audio audio) {
+		l_playlist.getItems().remove(audio);
+	}
+	
+	public void addAudioToPlaylist(Audio audio) {
+		l_playlist.getItems().add(audio);
 	}
 	
 	public void loadAudioList(File[] audioFiles) {
-		ObservableList<Audio> ol_audioList = FXCollections.emptyObservableList();
+		ObservableList<Audio> ol_audioList = FXCollections.observableArrayList();
 		for(File f : audioFiles) {
-			Audio audio = Audio.loadFromJson(MetaData.AUDIO_DATA_PATH, f.getName());
-			ol_audioList.add(audio);
+			String filename = f.getName();
+			Audio audio = Audio.loadFromJson(MetaData.AUDIO_DATA_PATH, filename);
+			if(audio != null) ol_audioList.add(audio);
 		}
 		
-		audioList.setItems(ol_audioList);
+		l_audioList.setItems(ol_audioList);
 	}
-
 }

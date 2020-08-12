@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXListView?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
@@ -20,22 +20,13 @@
    <children>
       <AnchorPane fx:id="titleBar" prefHeight="20.0" prefWidth="1024.0" styleClass="title-bar" stylesheets="@application.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ImageView fx:id="b_close" fitHeight="16.0" fitWidth="16.0" layoutX="990.0" layoutY="4.0" onMouseClicked="#onCloseButtonClicked" pickOnBounds="true" preserveRatio="true" styleClass="button-close" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="2.0">
-               <image>
-                  <Image url="@resources/images/icons/close_window_100px.png" />
-               </image>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <viewport>
-                  <Rectangle2D />
-               </viewport>
-            </ImageView>
             <Label layoutY="1.0" text="OiDuark   v1.0" textFill="WHITE" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="48.0" AnchorPane.topAnchor="2.0">
                <font>
                   <Font size="12.0" />
                </font>
             </Label>
+            <FontAwesomeIconView fx:id="b_close" fill="WHITE" glyphName="CLOSE" size="16" styleClass="button-close" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="2.0" />
+            <FontAwesomeIconView fx:id="b_minimize" fill="WHITE" glyphName="MINUS" size="16" styleClass="button-minimize" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="4.0" />
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="620.0" prefWidth="1024.0" stylesheets="@application.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
@@ -79,16 +70,16 @@
             <AnchorPane layoutX="185.0" prefHeight="617.0" prefWidth="639.0" style="-fx-background-color: #2B3035;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="184.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">
                <children>
                   <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" layoutX="24.0" layoutY="34.0" size="16" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
-                  <JFXListView fx:id="audioList" editable="true" layoutY="68.0" prefHeight="548.0" prefWidth="640.0" style="-fx-background-color: #2B3035; -fx-background-radius: 8;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="70.0">
-                     <effect>
-                        <InnerShadow />
-                     </effect>
-                  </JFXListView>
-                  <TextField fx:id="searchBar" layoutX="72.0" layoutY="25.0" prefHeight="23.0" prefWidth="539.0" promptText="Type keywords here..." style="-fx-background-radius: 8;" AnchorPane.leftAnchor="56.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="16.0">
+                  <TextField fx:id="searchBar" layoutX="72.0" layoutY="25.0" prefHeight="23.0" prefWidth="539.0" promptText="Type keywords here..." style="-fx-background-radius: 8;" AnchorPane.leftAnchor="46.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="16.0">
                      <effect>
                         <InnerShadow color="#7e7e7e" height="10.0" offsetX="1.5" radius="4.5" width="10.0" />
                      </effect>
                   </TextField>
+                  <ListView fx:id="l_audioList" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #2B3035; -fx-background-radius: 8;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="70.0">
+                     <effect>
+                        <InnerShadow />
+                     </effect>
+                  </ListView>
                </children>
             </AnchorPane>
             <VBox prefHeight="616.0" prefWidth="200.0" style="-fx-background-color: #2B3035;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -107,11 +98,11 @@
                         </ImageView>
                      </children>
                   </Pane>
-                  <JFXListView fx:id="l_playlist" prefHeight="550.0" prefWidth="200.0" style="-fx-background-color: #212529;" styleClass="play-list">
+                  <ListView fx:id="l_playlist" prefHeight="550.0" prefWidth="200.0" style="-fx-background-color: #212529;" styleClass="play-list">
                      <effect>
                         <InnerShadow />
                      </effect>
-                  </JFXListView>
+                  </ListView>
                </children>
             </VBox>
          </children>

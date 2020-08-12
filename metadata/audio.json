@@ -1,6 +1,30 @@
 {
-	"audio01": {
-		"title": "【猫の恩返し】『風になる』（フル歌詞付き）【スタジオジブリ  Covered by Macro Stereo & Elmon】",
+	"audio01.m4a": {
+		"title": "《大笑江湖》電影同名主題曲MV",
+		"author": "Unknown",
+		"cover": "Unknown",
+		"duration": 262.0,
+		"tags": []
+		"lyrics_file": "Unknown"
+	},
+	"audio02.txt": {
+		"title": "Audio 2",
+		"author": "Unknown",
+		"cover": "Unknown",
+		"duration": 262.0,
+		"tags": []
+		"lyrics_file": "Unknown"
+	},
+	"audio03.txt": {
+		"title": "Audio 3",
+		"author": "Unknown",
+		"cover": "Unknown",
+		"duration": 262.0,
+		"tags": []
+		"lyrics_file": "Unknown"
+	},
+	"audio04.txt": {
+		"title": "Audio 4",
 		"author": "Unknown",
 		"cover": "Unknown",
 		"duration": 262.0,

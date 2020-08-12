@@ -6,15 +6,13 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 import com.sharpkoi.oiduark.app.Main;
-import com.sharpkoi.oiduark.audio.Audio;
 
-import javafx.collections.ObservableList;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -29,8 +27,6 @@ public abstract class GlobalController implements Initializable {
 	
 	protected String currentPageName; 
 	
-	protected ObservableList<Audio> playList;
-	
 	@FXML
 	protected AnchorPane root;
 	
@@ -38,7 +34,9 @@ public abstract class GlobalController implements Initializable {
 	@FXML
 	protected AnchorPane titleBar;
 	@FXML
-	protected ImageView b_close;
+	protected FontAwesomeIconView b_close;
+	@FXML
+	protected FontAwesomeIconView b_minimize;
 	
 	/***** navigation *****/
 	@FXML
@@ -56,24 +54,18 @@ public abstract class GlobalController implements Initializable {
 	// TODO: Move initWindow() into initialize()
 	public void initialize(URL location, ResourceBundle resources) {
 		b_home.setOnAction(e -> {
-			System.out.println("[Hint] Home button clicked!");
-//			TODO: switch page
 			if(!currentPageName.equals("Home")) {
 				activateScene("Home");
 			}
 		});
 		
 		b_select.setOnAction(e -> {
-			System.out.println("[Hint] Select button clicked!");
-//			TODO: switch page
 			if(!currentPageName.equals("AudioPage")) {
 				activateScene("AudioPage");
 			}
 		});
 		
 		b_setting.setOnAction(e -> {
-			System.out.println("[Hint] Setting button clicked!");
-//			TODO: switch page
 			if(!currentPageName.equals("Setting")) {
 				activateScene("Setting");
 			}
@@ -106,6 +98,15 @@ public abstract class GlobalController implements Initializable {
 			}
 		});
 		
+		b_close.setOnMouseClicked(e -> {
+			//TODO: check there's anything has to be processed
+			System.exit(1);
+		});
+		
+		b_minimize.setOnMouseClicked(e -> {
+			stage.setIconified(true);
+		});
+		
 		System.out.println("initialized");
 	}
 	
@@ -128,10 +129,4 @@ public abstract class GlobalController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	
-	public void onCloseButtonClicked() {
-		System.out.println("exit");
-		System.exit(1);
-	}
-
 }

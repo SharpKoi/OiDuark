@@ -46,6 +46,10 @@ public class Audio {
 		JSONParser parser = new JSONParser();
 		try(InputStreamReader reader = new InputStreamReader(new FileInputStream(MetaData.AUDIO_DATA_PATH), Charset.forName("utf-8"))) {
 			JSONObject audioDatabase = (JSONObject) parser.parse(reader);
+			if(!audioDatabase.containsKey(filename)) {
+				System.out.printf("[Warning] Can not find audio file: %s\n", filename);
+				return null;
+			}
 			JSONObject audioData = (JSONObject) audioDatabase.get(filename);
 			
 			audio = new Audio(
@@ -77,6 +81,10 @@ public class Audio {
 	public double getDuration() {
 		return duration;
 	}
+	
+	public void setDuration(double d) {
+		this.duration = d;
+	}
 
 	public List<Integer> getTags() {
 		return tags;
@@ -85,13 +93,25 @@ public class Audio {
 	public String getTitle() {
 		return title;
 	}
+	
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
 	public String getAuthor() {
 		return author;
 	}
+	
+	public void setAuthor(String author) {
+		this.author = author;
+	}
 
 	public String getCoverPath() {
 		return coverPath;
+	}
+	
+	public void setCoverPath(String path) {
+		this.coverPath = path;
 	}
 
 	public LinkedHashMap<Integer, String> getTimeLyrics() {

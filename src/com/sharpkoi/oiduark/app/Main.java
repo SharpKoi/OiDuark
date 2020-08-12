@@ -1,9 +1,7 @@
 package com.sharpkoi.oiduark.app;
 	
 import com.sharpkoi.oiduark.app.controller.*;
-import com.sharpkoi.oiduark.audio.Audio;
 import com.sharpkoi.oiduark.audio.AudioPlayer;
-import com.sharpkoi.oiduark.utils.MetaData;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -23,8 +21,8 @@ public class Main extends Application {
 	private Stage stage;
 	private AudioPlayer player;
 		
-	public static final String PLAY_IMAGE_PATH = "resources/images/icons/play_64px.png";
-	public static final String PAUSE_IMAGE_PATH = "resources/images/icons/pause_100px.png";
+	public static final String PLAY_IMAGE_PATH = "../resources/images/icons/play_64px.png";
+	public static final String PAUSE_IMAGE_PATH = "../resources/images/icons/pause_100px.png";
 	
 	public Stage getStage() {
 		return stage;
@@ -39,9 +37,6 @@ public class Main extends Application {
 		instance = this;
 		stage = primaryStage;
 		player = new AudioPlayer();
-		
-		// test play list
-		player.addAudio(Audio.loadFromJson(MetaData.AUDIO_DATA_PATH, "audio01"));
 		
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("Home.fxml"));
