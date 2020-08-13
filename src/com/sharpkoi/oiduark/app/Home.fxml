@@ -16,9 +16,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" prefHeight="640.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sharpkoi.oiduark.app.controller.HomeController">
+<AnchorPane fx:id="root" prefHeight="640.0" prefWidth="1024.0" style="-fx-background-radius: 4;" styleClass="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sharpkoi.oiduark.app.controller.HomeController">
    <children>
-      <AnchorPane fx:id="titleBar" prefHeight="20.0" prefWidth="1024.0" styleClass="title-bar" stylesheets="@application.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="titleBar" opacity="0.95" prefHeight="20.0" prefWidth="1024.0" style="-fx-background-radius: 4;" styleClass="title-bar" stylesheets="@application.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label layoutY="1.0" text="OiDuark   v1.0" textFill="WHITE" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="48.0" AnchorPane.topAnchor="2.0">
                <font>
@@ -67,16 +67,16 @@
                   </JFXButton>
                </children>
             </VBox>
-            <VBox layoutX="184.0" prefHeight="617.0" prefWidth="640.0" style="-fx-background-color: #151515;" styleClass="review-page" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="184.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">
+            <VBox layoutX="184.0" opacity="0.95" prefHeight="617.0" prefWidth="640.0" style="-fx-background-color: #151515;" styleClass="review-page" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="184.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <ImageView fitHeight="450.0" fitWidth="640.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="coverView" fitHeight="450.0" fitWidth="640.0" pickOnBounds="true" />
                   <AnchorPane prefHeight="196.0" prefWidth="640.0" styleClass="control-pane">
                      <children>
                         <Label fx:id="t_timeTick" alignment="CENTER_RIGHT" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="20.0" layoutY="7.0" text="0:00" textAlignment="RIGHT" textFill="WHITE" AnchorPane.rightAnchor="585.0" AnchorPane.topAnchor="7.0">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets></Label>
-                        <JFXSlider fx:id="progressBar" indicatorPosition="RIGHT" layoutX="35.0" prefHeight="20.0" prefWidth="500.0" styleClass="progress-bar" value="-1.0" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="65.0" AnchorPane.topAnchor="4.0" />
+                        <JFXSlider fx:id="progressBar" disable="true" indicatorPosition="RIGHT" layoutX="35.0" prefHeight="20.0" prefWidth="500.0" styleClass="progress-bar" value="-1.0" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="65.0" AnchorPane.topAnchor="4.0" />
                         <Label fx:id="t_endTimeTick" alignment="CENTER" contentDisplay="CENTER" layoutX="603.0" layoutY="6.0" text="0:00" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="585.0" AnchorPane.topAnchor="7.0" />
                         <ImageView fx:id="b_last" fitHeight="32.0" fitWidth="32.0" layoutX="12.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" styleClass="control-button">
                            <image>
@@ -102,7 +102,13 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
-                        <MaterialDesignIconView fx:id="i_playMode" fill="WHITE" glyphName="SHUFFLE" layoutX="238.0" layoutY="72.0" size="32" />
+                        <MaterialDesignIconView fx:id="i_playMode" fill="WHITE" glyphName="SHUFFLE_DISABLED" layoutX="238.0" layoutY="72.0" size="32" styleClass="control-button">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></MaterialDesignIconView>
+                        <FontAwesomeIconView fill="WHITE" glyphName="VOLUME_DOWN" layoutX="422.0" layoutY="71.0" size="24" text="" />
+                        <JFXSlider fx:id="volumeSlider" layoutX="450.0" layoutY="54.0" prefWidth="120.0" styleClass="volume-slider" />
+                        <FontAwesomeIconView fill="WHITE" glyphName="VOLUME_UP" layoutX="582.0" layoutY="70.0" size="24" />
                      </children>
                   </AnchorPane>
                </children>

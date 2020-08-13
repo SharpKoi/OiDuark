@@ -18,15 +18,15 @@
 
 <AnchorPane fx:id="root" prefHeight="640.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sharpkoi.oiduark.app.controller.AudioPageController">
    <children>
-      <AnchorPane fx:id="titleBar" prefHeight="20.0" prefWidth="1024.0" styleClass="title-bar" stylesheets="@application.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="titleBar" opacity="0.95" prefHeight="20.0" prefWidth="1024.0" styleClass="title-bar" stylesheets="@application.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label layoutY="1.0" text="OiDuark   v1.0" textFill="WHITE" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="48.0" AnchorPane.topAnchor="2.0">
                <font>
                   <Font size="12.0" />
                </font>
             </Label>
-            <FontAwesomeIconView fx:id="b_close" fill="WHITE" glyphName="CLOSE" size="16" styleClass="button-close" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="2.0" />
-            <FontAwesomeIconView fx:id="b_minimize" fill="WHITE" glyphName="MINUS" size="16" styleClass="button-minimize" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="4.0" />
+            <FontAwesomeIconView fx:id="b_close" fill="WHITE" glyphName="CLOSE" size="16" styleClass="button-close" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="2.0" />
+            <FontAwesomeIconView fx:id="b_minimize" fill="WHITE" glyphName="MINUS" size="16" styleClass="button-minimize" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="4.0" />
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="620.0" prefWidth="1024.0" stylesheets="@application.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">

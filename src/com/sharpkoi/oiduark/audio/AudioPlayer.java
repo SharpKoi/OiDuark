@@ -1,11 +1,10 @@
 package com.sharpkoi.oiduark.audio;
 
-import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import com.sharpkoi.oiduark.utils.MetaData;
+import com.sharpkoi.oiduark.utils.ResourceLoader;
 
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -23,7 +22,7 @@ public class AudioPlayer {
 	
 	// values
 	public int indicator = -1;
-	private int volume = 20;
+	private double volume = 1;
 	
 	// tools
 	private Random selector;
@@ -42,12 +41,35 @@ public class AudioPlayer {
 		isPlaying = false;
 	}
 	
+	public String getModeName() {
+		return mode.name();
+	}
+	
+	public void setNextMode() {
+		int i = mode.ordinal() + 1;
+		if(i >= PlayMode.values().length) {
+			i = 0;
+		}
+		mode = PlayMode.values()[i];
+	}
+	
+	public void setMode(String modeName) {
+		this.mode = PlayMode.valueOf(modeName);
+	}
+	
 	public boolean isPlaying() {
 		return isPlaying;
 	}
 	
-	public int getVolume() {
+	public double getVolume() {
 		return volume;
+	}
+	
+	public void setVolume(double val) {
+		this.volume = val;
+		if(player != null) {
+			player.setVolume(volume);
+		}
 	}
 	
 	public Audio getCurrentAudio() {
@@ -81,8 +103,8 @@ public class AudioPlayer {
 		
 		updateIndicator();
 		
-		String audioPath = MetaData.MEDIA_DIR + playList.get(indicator).getFilename();
-		Media media = new Media("file:///" + new File(audioPath).getAbsolutePath().replace("\\", "/"));
+		String audioFileName = playList.get(indicator).getFilename();
+		Media media = ResourceLoader.loadMedia(audioFileName);
 		player = new MediaPlayer(media);
 		player.setVolume(volume);
 		
@@ -111,14 +133,23 @@ public class AudioPlayer {
 	}
 	
 	public void pause() {
-		//TODO: pause the current audio
-		player.pause();
-		isPlaying = false;
+		if(player != null) {
+			isPlaying = false;
+			player.pause();
+		}
 	}
 	
 	public void resume() {
 		player.play();
 		isPlaying = true;
+	}
+	
+	public boolean jumpTo(double seconds) {
+		if(player != null) {
+			player.seek(Duration.seconds(seconds));
+		}
+		
+		return false;
 	}
 	
 	public boolean removeAudio(int index) {

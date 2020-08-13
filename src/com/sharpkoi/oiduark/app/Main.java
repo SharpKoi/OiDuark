@@ -1,7 +1,11 @@
 package com.sharpkoi.oiduark.app;
 	
+import java.util.HashMap;
+import java.util.ResourceBundle;
+
 import com.sharpkoi.oiduark.app.controller.*;
 import com.sharpkoi.oiduark.audio.AudioPlayer;
+import com.sharpkoi.oiduark.utils.ResourceLoader;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +13,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 
 public class Main extends Application {
 	
@@ -20,9 +25,10 @@ public class Main extends Application {
 	
 	private Stage stage;
 	private AudioPlayer player;
-		
-	public static final String PLAY_IMAGE_PATH = "../resources/images/icons/play_64px.png";
-	public static final String PAUSE_IMAGE_PATH = "../resources/images/icons/pause_100px.png";
+	private HashMap<String, Parent> sceneCache = new HashMap<>();
+	
+	private ResourceBundle config = null;
+	private ResourceLoader resLoader = null;
 	
 	public Stage getStage() {
 		return stage;
@@ -32,9 +38,33 @@ public class Main extends Application {
 		return player;
 	}
 	
+	public HashMap<String, Parent> getSceneCache() {
+		return sceneCache;
+	}
+	
+	public ResourceBundle getConfig() {
+		return config;
+	}
+	
+	public String getMediaDir() {
+		return config.getString("media-dir");
+	}
+	
+	public String getMediaDataPath() {
+		return config.getString("media-data");
+	}
+	
+	public ResourceLoader getResourceLoader() {
+		return resLoader;
+	}
+	
 	@Override
 	public void start(Stage primaryStage) {
 		instance = this;
+		
+		config = ResourceBundle.getBundle("app");
+		resLoader = new ResourceLoader("resources/");
+		
 		stage = primaryStage;
 		player = new AudioPlayer();
 		
@@ -44,12 +74,13 @@ public class Main extends Application {
 			
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			scene.setFill(Color.TRANSPARENT);
 			
 			primaryStage.setTitle("OiDuark");
-			primaryStage.initStyle(StageStyle.UNDECORATED);
+			primaryStage.initStyle(StageStyle.TRANSPARENT);
 			primaryStage.setResizable(true);
 			primaryStage.setScene(scene);
-			((HomeController) loader.getController()).initTitleBar();
+			((HomeController) loader.getController()).initScene();
 			
 			primaryStage.show();
 		} catch(Exception e) {

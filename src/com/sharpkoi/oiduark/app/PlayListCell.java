@@ -9,7 +9,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
-import javafx.scene.effect.Glow;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 

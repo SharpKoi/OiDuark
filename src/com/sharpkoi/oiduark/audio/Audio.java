@@ -1,11 +1,13 @@
 package com.sharpkoi.oiduark.audio;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -13,7 +15,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import com.sharpkoi.oiduark.utils.MetaData;
+import com.sharpkoi.oiduark.app.Main;
 
 public class Audio {
 	// for operation
@@ -40,27 +42,32 @@ public class Audio {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static Audio loadFromJson(String path, String filename) {
+	public static Audio loadFromJson(String audioFileName) throws FileNotFoundException {
 		Audio audio = null;
-		//TODO: set audio info
+		
 		JSONParser parser = new JSONParser();
-		try(InputStreamReader reader = new InputStreamReader(new FileInputStream(MetaData.AUDIO_DATA_PATH), Charset.forName("utf-8"))) {
+		InputStream mediaDataFile = new FileInputStream(Main.getInstance().getMediaDataPath());
+		try(InputStreamReader reader = new InputStreamReader(mediaDataFile, Charset.forName("utf-8"))) {
 			JSONObject audioDatabase = (JSONObject) parser.parse(reader);
-			if(!audioDatabase.containsKey(filename)) {
-				System.out.printf("[Warning] Can not find audio file: %s\n", filename);
-				return null;
+			if(!audioDatabase.containsKey(audioFileName)) {
+				System.out.printf("[Warning] Audio %s has not been set.\n", audioFileName);
+				return new Audio(
+							audioFileName,
+							audioFileName.substring(0, audioFileName.lastIndexOf(".")),
+							"Unknown",
+							"Unknown",
+							0.0
+						);
 			}
-			JSONObject audioData = (JSONObject) audioDatabase.get(filename);
+			JSONObject audioData = (JSONObject) audioDatabase.get(audioFileName);
 			
 			audio = new Audio(
-						filename,
+						audioFileName,
 						audioData.getOrDefault("title", "Unknown").toString(),
 						audioData.getOrDefault("author", "Unknown").toString(),
 						audioData.getOrDefault("cover", "Unknown").toString(),
 						(Double) audioData.getOrDefault("duration", 0.0)
 					);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ParseException e) {
@@ -71,7 +78,8 @@ public class Audio {
 	}
 	
 	public String getGlobalPath() {
-		return new File(MetaData.MEDIA_DIR + filename).getAbsolutePath();
+		Path gpath = Paths.get(Main.getInstance().getMediaDir(), filename);
+		return gpath.toFile().getAbsolutePath();
 	}
 
 	public String getFilename() {

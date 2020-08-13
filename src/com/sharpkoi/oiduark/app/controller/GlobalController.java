@@ -2,6 +2,7 @@ package com.sharpkoi.oiduark.app.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -27,6 +28,7 @@ public abstract class GlobalController implements Initializable {
 	
 	protected String currentPageName; 
 	
+	/***** root *****/
 	@FXML
 	protected AnchorPane root;
 	
@@ -47,12 +49,15 @@ public abstract class GlobalController implements Initializable {
 	protected JFXButton b_setting;
 	@FXML
 	protected JFXButton b_about;
-	
+		
 	// Scene is still null during loading the home page. 
 	// So it's necessary to initialize window after the scene is created
 	// TODO: Add a pre-loading page to create Scene entity.
 	// TODO: Move initWindow() into initialize()
 	public void initialize(URL location, ResourceBundle resources) {
+		loadPageInfo();
+		Main.getInstance().getSceneCache().put(currentPageName, root);
+		
 		b_home.setOnAction(e -> {
 			if(!currentPageName.equals("Home")) {
 				activateScene("Home");
@@ -75,12 +80,16 @@ public abstract class GlobalController implements Initializable {
 			System.out.println("[Hint] About button clicked!");
 //			TODO: switch page
 		});
-		
-		Main.getInstance().getStage().requestFocus();
 	}
 	
-	public void initTitleBar() {
+	public void initScene() {
 		Stage stage = (Stage) Main.getInstance().getStage();
+		
+		Main.getInstance().getStage().getScene().getRoot().requestFocus();
+		
+		stage.getScene().rootProperty().addListener((observable, oldRoot, newRoot) -> {
+			loadPageInfo();
+		});
 		
 		titleBar.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
@@ -100,6 +109,7 @@ public abstract class GlobalController implements Initializable {
 		
 		b_close.setOnMouseClicked(e -> {
 			//TODO: check there's anything has to be processed
+			//TODO: save the volume value
 			System.exit(1);
 		});
 		
@@ -107,26 +117,33 @@ public abstract class GlobalController implements Initializable {
 			stage.setIconified(true);
 		});
 		
-		System.out.println("initialized");
+		System.out.println("scene initialized");
 	}
 	
 	public void activateScene(String pageName) {
 		String fxml = pageName + ".fxml";
 		Stage stage = Main.getInstance().getStage();
-		try {
-			FXMLLoader loader = new FXMLLoader(Main.class.getResource(fxml));
-			Parent root = loader.load();
-			GlobalController controller = loader.getController();
-			
-			if(controller == null) {
-				System.out.println("[Warning] Can not find the controller");
-			}else {
-				controller.initTitleBar();
+		HashMap<String, Parent> cache = Main.getInstance().getSceneCache();
+		if(cache.containsKey(pageName)) {
+			stage.getScene().setRoot(cache.get(pageName));
+		}else {
+			try {
+				FXMLLoader loader = new FXMLLoader(Main.class.getResource(fxml));
+				Parent root = loader.load();
+				GlobalController controller = loader.getController();
+				
+				if(controller == null) {
+					System.out.println("[Warning] Can not find the controller");
+				}else {
+					controller.initScene();
+				}
+				
+				stage.getScene().setRoot(root);
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-			
-			stage.getScene().setRoot(root);
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
+	
+	protected abstract void loadPageInfo();
 }

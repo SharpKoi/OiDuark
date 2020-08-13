@@ -47,13 +47,13 @@ public class AudioListCell extends ListCell<Audio> {
 		
 		b_add.setOnAction(e -> {
 			if(isAudioInPlayList) {
-				System.out.println("Remove the audio from the play list");
 				AudioPageController.getInstance().removeAudioFromPlaylist(item);
 				((MaterialDesignIconView) b_add.getGraphic()).setIcon(MaterialDesignIcon.PLUS_CIRCLE_OUTLINE);
+				isAudioInPlayList = false;
 			}else {
-				System.out.println("Add the audio into the play list");
 				AudioPageController.getInstance().addAudioToPlaylist(item);
 				((MaterialDesignIconView) b_add.getGraphic()).setIcon(MaterialDesignIcon.MINUS_CIRCLE_OUTLINE);
+				isAudioInPlayList = true;
 			}
 		});
 		

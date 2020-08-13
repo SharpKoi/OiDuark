@@ -1,3 +1,7 @@
+.root {
+	-fx-background-color: transparent ;
+}
+
 .title-bar {
 	-fx-background-color: linear-gradient(to right, #e500a4, #8900f2);
 }
@@ -22,6 +26,14 @@
 }
 
 .control-pane .progress-bar > .thumb {
+	-fx-background-color: #CED4DA ;
+}
+
+.control-pane .volume-slider {
+	-jfx-default-thumb: linear-gradient(to right, #8900f2, #0096c7);
+}
+
+.control-pane .volume-slider > .thumb {
 	-fx-background-color: #CED4DA ;
 }
 
