@@ -8,14 +8,16 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 import com.sharpkoi.oiduark.app.Main;
 
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /****** The global handler ******/
@@ -36,9 +38,11 @@ public abstract class GlobalController implements Initializable {
 	@FXML
 	protected AnchorPane titleBar;
 	@FXML
-	protected FontAwesomeIconView b_close;
+	protected ImageView b_close;
 	@FXML
-	protected FontAwesomeIconView b_minimize;
+	protected ImageView b_maximize;
+	@FXML
+	protected ImageView b_minimize;
 	
 	/***** navigation *****/
 	@FXML
@@ -50,8 +54,7 @@ public abstract class GlobalController implements Initializable {
 	@FXML
 	protected JFXButton b_about;
 		
-	// Scene is still null during loading the home page. 
-	// So it's necessary to initialize window after the scene is created
+	// called once while loading the corresponding page.
 	// TODO: Add a pre-loading page to create Scene entity.
 	// TODO: Move initWindow() into initialize()
 	public void initialize(URL location, ResourceBundle resources) {
@@ -89,6 +92,7 @@ public abstract class GlobalController implements Initializable {
 		
 		stage.getScene().rootProperty().addListener((observable, oldRoot, newRoot) -> {
 			loadPageInfo();
+			Main.getInstance().getStage().getScene().getRoot().requestFocus();
 		});
 		
 		titleBar.setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -109,9 +113,20 @@ public abstract class GlobalController implements Initializable {
 		
 		b_close.setOnMouseClicked(e -> {
 			//TODO: check there's anything has to be processed
+			
 			//TODO: save the volume value
 			System.exit(1);
 		});
+		
+//		b_maximize.setOnMouseClicked(e -> {
+//			Screen screen = Screen.getPrimary();
+//			Rectangle2D bounds = screen.getVisualBounds();
+//
+//			stage.setX(bounds.getMinX());
+//			stage.setY(bounds.getMinY());
+//			stage.setWidth(bounds.getWidth());
+//			stage.setHeight(bounds.getHeight());
+//		});
 		
 		b_minimize.setOnMouseClicked(e -> {
 			stage.setIconified(true);
@@ -145,5 +160,6 @@ public abstract class GlobalController implements Initializable {
 		}
 	}
 	
+	// called when activate the corresponding page
 	protected abstract void loadPageInfo();
 }

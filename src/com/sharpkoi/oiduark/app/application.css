@@ -6,11 +6,7 @@
 	-fx-background-color: linear-gradient(to right, #e500a4, #8900f2);
 }
 
-.title-bar .button-close:hover {
-	-fx-opacity: 0.5;
-}
-
-.title-bar .button-minimize:hover {
+.title-bar .window-button:hover {
 	-fx-opacity: 0.5;
 }
 

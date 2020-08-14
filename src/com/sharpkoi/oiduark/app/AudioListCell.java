@@ -2,6 +2,7 @@ package com.sharpkoi.oiduark.app;
 
 import com.sharpkoi.oiduark.app.controller.AudioPageController;
 import com.sharpkoi.oiduark.audio.Audio;
+import com.sharpkoi.oiduark.audio.AudioPlayer;
 
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
@@ -14,8 +15,6 @@ import javafx.scene.text.Font;
 
 public class AudioListCell extends ListCell<Audio> {
 	
-	private boolean isAudioInPlayList = false;
-	
 	private Button b_add;
 	
 	@Override
@@ -23,18 +22,30 @@ public class AudioListCell extends ListCell<Audio> {
 		super.updateItem(item, empty);
 		
 		if(item == null) {
+			setGraphic(null);
+			setText("");
 			return;
 		}
 		
-		MaterialDesignIconView plusIcon = new MaterialDesignIconView(MaterialDesignIcon.PLUS_CIRCLE_OUTLINE);
-		plusIcon.setGlyphSize(32);
-		plusIcon.setFill(Paint.valueOf("#fff"));
+		MaterialDesignIconView opIcon = new MaterialDesignIconView();
+		
+		opIcon.setGlyphSize(32);
+		opIcon.setFill(Paint.valueOf("#fff"));
+		
+		AudioPlayer player = Main.getInstance().getAudioPlayer();
 		
 		b_add = new Button();
 		b_add.setPadding(Insets.EMPTY);
 		b_add.setOpacity(0.6);
 		b_add.setCursor(Cursor.HAND);
-		b_add.setGraphic(plusIcon);
+		
+		b_add.setGraphic(opIcon);
+		if(player.getPlayList().contains(item)) {
+			((MaterialDesignIconView) b_add.getGraphic()).setIcon(MaterialDesignIcon.MINUS_CIRCLE_OUTLINE);
+		}else {
+			((MaterialDesignIconView) b_add.getGraphic()).setIcon(MaterialDesignIcon.PLUS_CIRCLE_OUTLINE);
+		}
+		
 		b_add.setStyle("-fx-background-color:  transparent ;");
 		
 		b_add.setOnMouseEntered(e -> {
@@ -46,19 +57,17 @@ public class AudioListCell extends ListCell<Audio> {
 		});
 		
 		b_add.setOnAction(e -> {
-			if(isAudioInPlayList) {
+			if(player.getPlayList().contains(item)) {
 				AudioPageController.getInstance().removeAudioFromPlaylist(item);
 				((MaterialDesignIconView) b_add.getGraphic()).setIcon(MaterialDesignIcon.PLUS_CIRCLE_OUTLINE);
-				isAudioInPlayList = false;
 			}else {
 				AudioPageController.getInstance().addAudioToPlaylist(item);
 				((MaterialDesignIconView) b_add.getGraphic()).setIcon(MaterialDesignIcon.MINUS_CIRCLE_OUTLINE);
-				isAudioInPlayList = true;
 			}
 		});
 		
 		setGraphic(b_add);
-		
+		setGraphicTextGap(8); 
 		setText(item.getTitle());
 		setWrapText(false);
 		setFont(Font.font(16));

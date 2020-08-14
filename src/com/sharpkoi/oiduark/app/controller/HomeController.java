@@ -18,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 
 public class HomeController extends GlobalController {
@@ -33,6 +34,8 @@ public class HomeController extends GlobalController {
 	/***** preview ******/
 	@FXML
 	private ImageView coverView;
+	@FXML
+	private Label l_loading;
 	
 	/***** player controller *****/
 	@FXML
@@ -65,6 +68,12 @@ public class HomeController extends GlobalController {
 		
 		l_playlist.setCellFactory(cell -> {
 			return new PlayListCell();
+		});
+		
+		disableControlPane();
+		
+		coverView.imageProperty().addListener((observable, oldCover, newCover) -> {
+			centerCover(newCover);
 		});
 		
 		AudioPlayer player = Main.getInstance().getAudioPlayer();
@@ -104,6 +113,22 @@ public class HomeController extends GlobalController {
 			player.resume();
 		});
 		
+		progressBar.setOnKeyPressed(e -> {
+			if(e.getCode().equals(KeyCode.RIGHT) || e.getCode().equals(KeyCode.LEFT)) {
+				player.pause();
+				double secs = (progressBar.getValue() / 100) * player.getCurrentAudio().getDuration();
+				t_timeTick.setText(TimeUtils.parseSecondsToTime(secs));
+			}
+		});
+		
+		progressBar.setOnKeyReleased(e -> {
+			if(e.getCode().equals(KeyCode.RIGHT) || e.getCode().equals(KeyCode.LEFT)) {
+				double secs = (progressBar.getValue() / 100) * player.getCurrentAudio().getDuration();
+				player.jumpTo(secs);
+				player.resume();
+			}
+		});
+		
 		player.setOnTimeUpdate((observable, oldTime, newTime) -> {
 			if(player.isPlaying()) {
 				double totalSecs = newTime.toSeconds();
@@ -116,10 +141,20 @@ public class HomeController extends GlobalController {
 		
 		player.setOnMediaReady(() -> {
 			Image cover = new Image("file:///" + player.getCurrentAudio().getCoverPath());
+	        
+			l_loading.setOpacity(0);
 			coverView.setImage(cover);
 			
 			t_endTimeTick.setText(TimeUtils.parseSecondsToTime(player.getCurrentAudio().getDuration()));
 			progressBar.setDisable(false);
+		});
+		
+		player.setOnPlayerStop(() -> {
+			progressBar.setValue(0);
+			coverView.setImage(null);
+			t_timeTick.setText("0:00");
+			b_play.setImage(ResourceLoader.loadPlayIcon());
+			disableControlPane();
 		});
 	}
 	
@@ -129,6 +164,9 @@ public class HomeController extends GlobalController {
 		b_home.setStyle("-fx-background-color:  #7b2cbf ;");
 		
 		ObservableList<Audio> playList = Main.getInstance().getAudioPlayer().getObservablePlayList();
+		if(!playList.isEmpty()) {
+			enableControlPane();
+		}
 		l_playlist.setItems(playList);
 		l_playlist.setFixedCellSize(48);
 	}
@@ -140,6 +178,7 @@ public class HomeController extends GlobalController {
 			b_play.setImage(ResourceLoader.loadPlayIcon());
 		}else {
 			if(player.indicator == -1) {
+				l_loading.setOpacity(1);
 				if(player.play()) {
 					b_play.setImage(ResourceLoader.loadPauseIcon());
 				}
@@ -148,5 +187,44 @@ public class HomeController extends GlobalController {
 				b_play.setImage(ResourceLoader.loadPlayIcon());
 			}
 		}
+	}
+	
+	public void disableControlPane() {
+		b_last.setDisable(true);
+		b_play.setDisable(true);
+		b_next.setDisable(true);
+		i_playMode.setDisable(true);
+		progressBar.setDisable(true);
+	}
+	
+	public void enableControlPane() {
+		b_last.setDisable(false);
+		b_play.setDisable(false);
+		b_next.setDisable(false);
+		i_playMode.setDisable(false);
+		progressBar.setDisable(false);
+	}
+	
+	public void centerCover(Image image) {
+		if (image != null) {
+            double w = 0;
+            double h = 0;
+
+            double ratioX = coverView.getFitWidth() / image.getWidth();
+            double ratioY = coverView.getFitHeight() / image.getHeight();
+
+            double reducCoeff = 0;
+            if(ratioX >= ratioY) {
+                reducCoeff = ratioY;
+            } else {
+                reducCoeff = ratioX;
+            }
+
+            w = image.getWidth() * reducCoeff;
+            h = image.getHeight() * reducCoeff;
+
+            coverView.setLayoutX((coverView.getFitWidth() - w) / 2);
+            coverView.setLayoutY((coverView.getFitHeight() - h) / 2);
+        }
 	}
 }

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 
 import com.sharpkoi.oiduark.app.AudioListCell;
 import com.sharpkoi.oiduark.app.Main;
@@ -12,6 +13,7 @@ import com.sharpkoi.oiduark.audio.Audio;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -23,6 +25,8 @@ public class AudioPageController extends GlobalController {
 	public static AudioPageController getInstance() {
 		return instance;
 	}
+	
+	private FilteredList<Audio> searchedItems;
 	
 	@FXML
     private ListView<Audio> l_audioList;
@@ -48,12 +52,17 @@ public class AudioPageController extends GlobalController {
 			}
 		}
 		
-		l_audioList.setCellFactory(cell -> {
+		l_audioList.setCellFactory(cellList -> {
 			return new AudioListCell();
 		});
 			
-		l_playlist.setCellFactory(cell -> {
+		l_playlist.setCellFactory(cellList -> {
 			return new PlayListCell();
+		});
+		
+		searchBar.textProperty().addListener((observable, oldText, newText) -> {
+			Predicate<Audio> containsSearchText = audio -> audio.getTitle().contains(newText);
+			searchedItems.setPredicate(containsSearchText);
 		});
 	}
 	
@@ -64,7 +73,7 @@ public class AudioPageController extends GlobalController {
 		
 		ObservableList<Audio> playList = Main.getInstance().getAudioPlayer().getObservablePlayList();
 		l_playlist.setItems(playList);
-		l_playlist.setFixedCellSize(48);
+		l_playlist.setFixedCellSize(48); 
 	}
 	
 	public void removeAudioFromPlaylist(Audio audio) {
@@ -86,12 +95,16 @@ public class AudioPageController extends GlobalController {
 				String filename = f.getName();
 				Audio audio = Audio.loadFromJson(filename);
 				if(audio != null) ol_audioList.add(audio);
-				
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		
-		l_audioList.setItems(ol_audioList);
+		searchedItems = new FilteredList<>(ol_audioList);
+		l_audioList.setItems(searchedItems);
+	}
+	
+	public void refreshAudioList() {
+		l_audioList.refresh();
 	}
 }

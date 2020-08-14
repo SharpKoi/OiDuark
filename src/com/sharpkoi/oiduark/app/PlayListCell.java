@@ -1,6 +1,8 @@
 package com.sharpkoi.oiduark.app;
 
+import com.sharpkoi.oiduark.app.controller.AudioPageController;
 import com.sharpkoi.oiduark.audio.Audio;
+import com.sharpkoi.oiduark.audio.AudioPlayer;
 
 //import animatefx.animation.SlideOutRight;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
@@ -48,9 +50,22 @@ public class PlayListCell extends ListCell<Audio> {
 			
 			b_remove.setOnAction(e -> {
 				System.out.println("Remove the audio from the play list");
-//				 TODO: Slide out with animation
+				AudioPlayer player = Main.getInstance().getAudioPlayer();
+				
+				if(player.getCurrentAudio() != null) {
+					if(player.getCurrentAudio().equals(item)) {
+						if(player.getPlayList().size() <= 1) {
+							player.stop();
+						}else {
+							player.play();
+						}
+					}
+				}
+				
+//				TODO: Slide out with animation
 //				cellAnim.play();
 				getListView().getItems().remove(this.getIndex());
+				AudioPageController.getInstance().refreshAudioList();
 			});
 			
 			setGraphic(b_remove);
@@ -61,7 +76,7 @@ public class PlayListCell extends ListCell<Audio> {
 			setTextFill(Paint.valueOf("#fff"));
 		}else {
 			setGraphic(null);
-			setText(null);
+			setText("");
 		}
 	}
 }

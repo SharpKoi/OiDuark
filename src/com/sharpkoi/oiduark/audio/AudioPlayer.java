@@ -17,6 +17,7 @@ import javafx.util.Duration;
 public class AudioPlayer {
 	
 	// status
+	private Audio currentAudio;
 	private PlayMode mode = PlayMode.ORDERED;
 	private boolean isPlaying;
 	
@@ -28,6 +29,7 @@ public class AudioPlayer {
 	private Random selector;
 	private ChangeListener<? super Duration> onTimeUpdateListener;
 	private Runnable onMediaReady;
+	private Runnable onPlayerStop;
 	
 	// collections
 	private List<Audio> playList;
@@ -73,7 +75,7 @@ public class AudioPlayer {
 	}
 	
 	public Audio getCurrentAudio() {
-		return playList.get(indicator);
+		return currentAudio;
 	}
 	
 	public List<Audio> getPlayList() {
@@ -96,12 +98,17 @@ public class AudioPlayer {
 		this.onMediaReady = task;
 	}
 	
+	public void setOnPlayerStop(Runnable task) {
+		this.onPlayerStop = task;
+	}
+	
 	public boolean play() {
 		if(playList.isEmpty()) {
 			return false;
 		}
 		
 		updateIndicator();
+		currentAudio = playList.get(indicator);
 		
 		String audioFileName = playList.get(indicator).getFilename();
 		Media media = ResourceLoader.loadMedia(audioFileName);
@@ -140,8 +147,19 @@ public class AudioPlayer {
 	}
 	
 	public void resume() {
-		player.play();
 		isPlaying = true;
+		player.play();
+	}
+	
+	public void stop() {
+		isPlaying = false;
+		if(player != null) {
+			if(onPlayerStop != null) {
+				Platform.runLater(onPlayerStop);
+			}
+			resetIndicator();
+			player.stop();
+		}
 	}
 	
 	public boolean jumpTo(double seconds) {
@@ -179,13 +197,19 @@ public class AudioPlayer {
 			}
 			break;
 		case RANDOM:
-			indicator = selector.nextInt(playList.size());
+			int step = selector.nextInt(playList.size() - 1);
+			indicator += step + 1;
+			indicator = indicator % playList.size();
 			break;
 		case LOOP:
 			break;
 		default:
 			break;
 		}
+	}
+	
+	public void resetIndicator() {
+		indicator = -1;
 	}
 }
 
