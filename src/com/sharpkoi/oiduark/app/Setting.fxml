@@ -19,12 +19,17 @@
    <children>
       <AnchorPane fx:id="titleBar" opacity="0.95" prefHeight="20.0" prefWidth="1024.0" styleClass="title-bar" stylesheets="@application.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label layoutY="1.0" text="OiDuark   v1.0" textFill="WHITE" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="48.0" AnchorPane.topAnchor="2.0">
+            <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="2.0">
+               <image>
+                  <Image url="@resources/images/icons/oiduark-icon.png" />
+               </image>
+            </ImageView>
+            <Label layoutY="1.0" text="OiDuark   v1.0" textFill="WHITE" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="2.0">
                <font>
                   <Font size="12.0" />
                </font>
             </Label>
-			<ImageView fx:id="b_close" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" styleClass="window-button" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="2.0">
+            <ImageView fx:id="b_close" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" styleClass="window-button" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="2.0">
                <image>
                   <Image url="@resources/images/icons/close_window_100px.png" />
                </image>
@@ -45,38 +50,56 @@
          <children>
             <VBox prefHeight="617.0" prefWidth="185.0" style="-fx-background-color: #212529;" styleClass="navigation" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <JFXButton fx:id="b_home" graphicTextGap="16.0" prefHeight="60.0" prefWidth="184.0" ripplerFill="WHITE" styleClass="navigation-button" text="Home" textFill="#e0e0e0">
+                  <Button fx:id="b_home" graphicTextGap="16.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="185.0" style="-fx-background-color: transparent;" styleClass="navigation-button" text="Home" textFill="WHITE">
                      <VBox.margin>
                         <Insets top="30.0" />
                      </VBox.margin>
                      <graphic>
                         <FontAwesomeIconView fill="WHITE" glyphName="HOME" size="16" />
                      </graphic>
-                  </JFXButton>
-                  <JFXButton fx:id="b_select" graphicTextGap="16.0" layoutX="10.0" layoutY="40.0" prefHeight="60.0" prefWidth="184.0" ripplerFill="WHITE" styleClass="navigation-button" text="My Audio" textFill="#e0e0e0">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
+                     <padding>
+                        <Insets left="-8.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="b_select" graphicTextGap="16.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="185.0" style="-fx-background-color: transparent;" styleClass="navigation-button" text="My Audio" textFill="WHITE">
                      <graphic>
                         <FontAwesomeIconView fill="WHITE" glyphName="MUSIC" size="16.0" />
                      </graphic>
-                  </JFXButton>
-                  <JFXButton fx:id="b_setting" graphicTextGap="16.0" layoutX="10.0" layoutY="90.0" prefHeight="60.0" prefWidth="184.0" ripplerFill="WHITE" styleClass="navigation-button" text="Setting" textFill="#e0e0e0">
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets top="15.0" />
                      </VBox.margin>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="b_setting" graphicTextGap="16.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="185.0" style="-fx-background-color: transparent;" styleClass="navigation-button" text="Setting" textFill="WHITE">
                      <graphic>
                         <FontAwesomeIconView fill="WHITE" glyphName="COG" size="16" />
                      </graphic>
-                  </JFXButton>
-                  <JFXButton fx:id="b_about" graphicTextGap="16.0" layoutX="10.0" layoutY="140.0" prefHeight="60.0" prefWidth="184.0" ripplerFill="WHITE" styleClass="navigation-button" text="About" textFill="#e0e0e0">
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets top="15.0" />
                      </VBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="b_about" graphicTextGap="16.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="185.0" style="-fx-background-color: transparent;" styleClass="navigation-button" text="About" textFill="WHITE">
                      <graphic>
                         <FontAwesomeIconView fill="WHITE" glyphName="HAND_ALT_RIGHT" size="16" />
                      </graphic>
-                  </JFXButton>
+                     <VBox.margin>
+                        <Insets top="15.0" />
+                     </VBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
                </children>
             </VBox>
             <AnchorPane layoutX="185.0" prefHeight="617.0" prefWidth="639.0" style="-fx-background-color: #2B3035;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="184.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

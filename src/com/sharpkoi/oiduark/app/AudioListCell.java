@@ -72,5 +72,14 @@ public class AudioListCell extends ListCell<Audio> {
 		setWrapText(false);
 		setFont(Font.font(16));
 		setTextFill(Paint.valueOf("#fff"));
+		
+		selectedProperty().addListener((observable, o_select, n_select) -> {
+			if(n_select) {
+				this.setStyle("-fx-background-color: linear-gradient("
+						+ "from 0% 0% to 75% 75%, rgba(0, 209, 195, 1), rgba(0, 0, 0, 0)) ;");
+			}else {
+				this.setStyle("");
+			}
+		});
 	}
 }

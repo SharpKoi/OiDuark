@@ -108,6 +108,7 @@ public class AudioPlayer {
 		}
 		
 		updateIndicator();
+		System.out.println("Now play id " + indicator);
 		currentAudio = playList.get(indicator);
 		
 		String audioFileName = playList.get(indicator).getFilename();
@@ -131,7 +132,6 @@ public class AudioPlayer {
 		});
 		
 		player.setOnEndOfMedia(() -> {
-			System.out.println("[Info] Played to end!");
 			play();
 		});
 		
@@ -159,12 +159,30 @@ public class AudioPlayer {
 			}
 			resetIndicator();
 			player.stop();
+			player.dispose();
 		}
+	}
+	
+	public boolean jumpToStart() {
+		if(player != null) {
+			player.seek(Duration.ZERO);
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean jumpToEnd() {
+		if(player != null) {
+			player.seek(player.getTotalDuration());
+			return true;
+		}
+		return false;
 	}
 	
 	public boolean jumpTo(double seconds) {
 		if(player != null) {
 			player.seek(Duration.seconds(seconds));
+			return true;
 		}
 		
 		return false;

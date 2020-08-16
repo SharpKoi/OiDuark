@@ -3,7 +3,7 @@
 }
 
 .title-bar {
-	-fx-background-color: linear-gradient(to right, #e500a4, #8900f2);
+	-fx-background-color: linear-gradient(to right, #8900f2, #e500a4, #8900f2);
 }
 
 .title-bar .window-button:hover {
@@ -42,34 +42,40 @@
 	-fx-background-color: #343A40 ;
 }
 
-.play-list .scroll-bar:horizontal,
-.play-list .scroll-bar:vertical {
+.scroll-bar:horizontal,
+.scroll-bar:vertical {
 	-fx-background-color: transparent ;
 	-fx-background-radius: 0em ;
 }
 
-.play-list .scroll-bar:horizontal .track,
-.play-list .scroll-bar:vertical .track {
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track {
 	-fx-background-color: transparent ;
 	-fx-border-color: transparent ;
 	-fx-background-radius: 0em ;
 	-fx-border-radius: 0em ;
 }
 
-.play-list .scroll-bar:vertical .increment-button,
-.play-list .scroll-bar:vertical .decrement-button {
+.scroll-bar:vertical .increment-button,
+.scroll-bar:vertical .decrement-button {
 	-fx-background-color: transparent ;
 	-fx-background-radius: 0.0em ;
 	-fx-padding: 0 10 0 0
 }
 
-.play-list .scroll-bar:vertical .increment-arrow, 
-.play-list .scroll-bar:vertical .decrement-arrow {
+.scroll-bar:vertical .increment-arrow, 
+.scroll-bar:vertical .decrement-arrow {
 	-fx-background-color: transparent ;
 	-fx-padding: -2
 }
 
-.play-list .scroll-bar:horizontal .thumb,
-.play-list .scroll-bar:vertical .thumb {
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
 	-fx-background-color: #6C757D
 } 
+
+.separator *.line {
+	-fx-border-style: solid ;
+	-fx-border-width: 1px ;
+	-fx-border-color:  #555 ;
+}

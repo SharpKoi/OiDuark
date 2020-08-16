@@ -9,6 +9,7 @@ import com.sharpkoi.oiduark.app.Main;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.effect.Glow;
 import javafx.stage.DirectoryChooser;
 
 public class SettingController extends GlobalController {
@@ -21,6 +22,7 @@ public class SettingController extends GlobalController {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		super.initialize(location, resources);
+		loadPageInfo();
 		
 		b_browse.setOnAction(e -> {
 			DirectoryChooser chooser = new DirectoryChooser();
@@ -35,6 +37,8 @@ public class SettingController extends GlobalController {
 	@Override
 	protected void loadPageInfo() {
 		currentPageName = "Setting";
-		b_setting.setStyle("-fx-background-color:  #7b2cbf ;");
+		b_setting.setStyle("-fx-background-color: linear-gradient(from 50% 50% to 100% 100%, #075782, #11aacc) ;\n"
+				+ "-fx-background-radius: 4 ;");
+		b_setting.setEffect(new Glow(0.4));
 	}
 }

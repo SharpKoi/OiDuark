@@ -5,6 +5,16 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>OiDuark</name>
   <dependencies>
+  	<dependency>
+	    <groupId>org.apache.maven.plugins</groupId>
+	    <artifactId>maven-shade-plugin</artifactId>
+	    <version>3.2.4</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.apache.maven.plugins</groupId>
+	    <artifactId>maven-assembly-plugin</artifactId>
+	    <version>3.2.0</version>
+	</dependency>
 	<dependency>
 	    <groupId>com.jfoenix</groupId>
 	    <artifactId>jfoenix</artifactId>
@@ -45,6 +55,51 @@
           <target>1.8</target>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.2.4</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <transformers>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>com.sharpkoi.oiduark.app.Main</mainClass>
+                </transformer>
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+	    <groupId>org.apache.maven.plugins</groupId>
+	    <artifactId>maven-assembly-plugin</artifactId>
+	    <version>3.2.0</version>
+	    <configuration>
+	        <descriptorRefs>
+	            <descriptorRef>jar-with-dependencies</descriptorRef>
+	        </descriptorRefs>
+	        <archive>
+	            <manifest>
+	            	<addClasspath>true</addClasspath>
+	            	<mainClass>com.sharpkoi.oiduark.app.Main</mainClass>
+	           	</manifest>
+	        </archive>
+	    </configuration>
+	    <executions>
+	        <execution>
+	            <id>make-assembly</id>
+	            <phase>package</phase>
+	            <goals>
+	                <goal>single</goal>
+	            </goals>
+	        </execution>
+	    </executions>
+	  </plugin>
     </plugins>
   </build>
 </project>

@@ -1,6 +1,10 @@
 package com.sharpkoi.oiduark.app.controller;
 
+import java.awt.GradientPaint;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXSlider;
@@ -16,10 +20,13 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 
 public class HomeController extends GlobalController {
 	
@@ -28,6 +35,8 @@ public class HomeController extends GlobalController {
 	public static HomeController getInstance() {
 		return instance;
 	}
+	
+	private List<Image> defaultCoverList = null;
 		
 	@FXML
 	private AnchorPane root;
@@ -65,6 +74,9 @@ public class HomeController extends GlobalController {
 	public void initialize(URL location, ResourceBundle resources) {
 		instance = this;
 		super.initialize(location, resources);
+		loadPageInfo();
+		
+		loadDefaultCovers();
 		
 		l_playlist.setCellFactory(cell -> {
 			return new PlayListCell();
@@ -95,6 +107,108 @@ public class HomeController extends GlobalController {
 			player.setVolume(newVal.intValue() / 100.0);
 		});
 		
+		initProgressBar();
+		initPlayerUI();
+	}
+	
+	@Override
+	protected void loadPageInfo() {
+		currentPageName = "Home";
+		b_home.setStyle("-fx-background-color: linear-gradient(from 50% 50% to 100% 100%, #075782, #11aacc) ;\n"
+						+ "-fx-background-radius: 4 ;");
+		b_home.setEffect(new Glow(0.4));
+		
+		ObservableList<Audio> playList = Main.getInstance().getAudioPlayer().getObservablePlayList();
+		if(!playList.isEmpty()) {
+			enableControlPane();
+		}
+		l_playlist.setItems(playList);
+		l_playlist.setFixedCellSize(48);
+	}
+	
+	public void onLastButtonClicked() {
+		AudioPlayer player = Main.getInstance().getAudioPlayer();
+		player.jumpToStart();
+	}
+	 
+	public void onPlayButtonClicked() {
+		AudioPlayer player = Main.getInstance().getAudioPlayer();
+		if(player.isPlaying()) {
+			player.pause();
+			b_play.setImage(ResourceLoader.loadPlayIcon());
+		}else {
+			if(player.indicator == -1) {
+				l_loading.setOpacity(1);
+				if(player.play()) {
+					b_play.setImage(ResourceLoader.loadPauseIcon()); 
+				}
+			}else {
+				player.resume();
+				b_play.setImage(ResourceLoader.loadPauseIcon());
+			}
+		}
+	}
+	
+	public void onEndButtonClicked() {
+		AudioPlayer player = Main.getInstance().getAudioPlayer();
+		player.jumpToEnd();
+	}
+	
+	public void disableControlPane() {
+		b_last.setDisable(true);
+		b_play.setDisable(true);
+		b_next.setDisable(true);
+		i_playMode.setDisable(true);
+		progressBar.setDisable(true);
+	}
+	
+	public void enableControlPane() {
+		b_last.setDisable(false);
+		b_play.setDisable(false);
+		b_next.setDisable(false);
+		i_playMode.setDisable(false);
+		progressBar.setDisable(false);
+	}
+	
+	public void initPlayerUI() {
+		AudioPlayer player = Main.getInstance().getAudioPlayer();
+		player.setOnTimeUpdate((observable, oldTime, newTime) -> {
+			if(player.isPlaying()) {
+				double totalSecs = newTime.toSeconds();
+				t_timeTick.setText(TimeUtils.parseSecondsToTime(totalSecs));
+				
+				double progress = totalSecs / player.getCurrentAudio().getDuration() * 100;
+				progressBar.setValue(progress);
+			}
+		});
+		
+		player.setOnMediaReady(() -> {
+			Image cover = null;
+			String coverPath = player.getCurrentAudio().getCoverPath();
+			if(coverPath.equals("Unknown")) {
+				cover = randomCover();
+			}else {
+				cover = new Image("file:///" + coverPath);
+			}
+	        
+			l_loading.setOpacity(0);
+			coverView.setImage(cover);
+			
+			t_endTimeTick.setText(TimeUtils.parseSecondsToTime(player.getCurrentAudio().getDuration()));
+			progressBar.setDisable(false);
+		});
+		
+		player.setOnPlayerStop(() -> {
+			progressBar.setValue(0);
+			coverView.setImage(null);
+			t_timeTick.setText("0:00");
+			b_play.setImage(ResourceLoader.loadPlayIcon());
+			disableControlPane();
+		});
+	}
+	
+	public void initProgressBar() {
+		AudioPlayer player = Main.getInstance().getAudioPlayer();
 		progressBar.setOnDragDetected(e -> {
 			player.pause();
 			double secs = (progressBar.getValue() / 100) * player.getCurrentAudio().getDuration();
@@ -128,81 +242,6 @@ public class HomeController extends GlobalController {
 				player.resume();
 			}
 		});
-		
-		player.setOnTimeUpdate((observable, oldTime, newTime) -> {
-			if(player.isPlaying()) {
-				double totalSecs = newTime.toSeconds();
-				t_timeTick.setText(TimeUtils.parseSecondsToTime(totalSecs));
-				
-				double progress = totalSecs / player.getCurrentAudio().getDuration() * 100;
-				progressBar.setValue(progress);
-			}
-		});
-		
-		player.setOnMediaReady(() -> {
-			Image cover = new Image("file:///" + player.getCurrentAudio().getCoverPath());
-	        
-			l_loading.setOpacity(0);
-			coverView.setImage(cover);
-			
-			t_endTimeTick.setText(TimeUtils.parseSecondsToTime(player.getCurrentAudio().getDuration()));
-			progressBar.setDisable(false);
-		});
-		
-		player.setOnPlayerStop(() -> {
-			progressBar.setValue(0);
-			coverView.setImage(null);
-			t_timeTick.setText("0:00");
-			b_play.setImage(ResourceLoader.loadPlayIcon());
-			disableControlPane();
-		});
-	}
-	
-	@Override
-	protected void loadPageInfo() {
-		currentPageName = "Home";
-		b_home.setStyle("-fx-background-color:  #7b2cbf ;");
-		
-		ObservableList<Audio> playList = Main.getInstance().getAudioPlayer().getObservablePlayList();
-		if(!playList.isEmpty()) {
-			enableControlPane();
-		}
-		l_playlist.setItems(playList);
-		l_playlist.setFixedCellSize(48);
-	}
-	 
-	public void onPlayButtonClicked() {
-		AudioPlayer player = Main.getInstance().getAudioPlayer();
-		if(player.isPlaying()) {
-			player.pause();
-			b_play.setImage(ResourceLoader.loadPlayIcon());
-		}else {
-			if(player.indicator == -1) {
-				l_loading.setOpacity(1);
-				if(player.play()) {
-					b_play.setImage(ResourceLoader.loadPauseIcon());
-				}
-			}else {
-				player.resume();
-				b_play.setImage(ResourceLoader.loadPlayIcon());
-			}
-		}
-	}
-	
-	public void disableControlPane() {
-		b_last.setDisable(true);
-		b_play.setDisable(true);
-		b_next.setDisable(true);
-		i_playMode.setDisable(true);
-		progressBar.setDisable(true);
-	}
-	
-	public void enableControlPane() {
-		b_last.setDisable(false);
-		b_play.setDisable(false);
-		b_next.setDisable(false);
-		i_playMode.setDisable(false);
-		progressBar.setDisable(false);
 	}
 	
 	public void centerCover(Image image) {
@@ -226,5 +265,14 @@ public class HomeController extends GlobalController {
             coverView.setLayoutX((coverView.getFitWidth() - w) / 2);
             coverView.setLayoutY((coverView.getFitHeight() - h) / 2);
         }
+	}
+	
+	public void loadDefaultCovers() {
+		defaultCoverList = Arrays.asList(ResourceLoader.loadDefaultCovers());
+	}
+	
+	public Image randomCover() {
+		Random ran = new Random();
+		return defaultCoverList.get(ran.nextInt(defaultCoverList.size()));
 	}
 }

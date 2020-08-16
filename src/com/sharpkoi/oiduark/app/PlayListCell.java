@@ -49,22 +49,28 @@ public class PlayListCell extends ListCell<Audio> {
 //			});
 			
 			b_remove.setOnAction(e -> {
-				System.out.println("Remove the audio from the play list");
 				AudioPlayer player = Main.getInstance().getAudioPlayer();
 				
+				// TODO: mark the current playing audio cell. So here I will not let users remove the current audio.
 				if(player.getCurrentAudio() != null) {
 					if(player.getCurrentAudio().equals(item)) {
+						player.pause();
 						if(player.getPlayList().size() <= 1) {
 							player.stop();
+							getListView().getItems().remove(this.getIndex());
 						}else {
+							getListView().getItems().remove(this.getIndex());
 							player.play();
 						}
+					}else {
+						getListView().getItems().remove(this.getIndex());
 					}
+				}else {
+					getListView().getItems().remove(this.getIndex());
 				}
 				
 //				TODO: Slide out with animation
 //				cellAnim.play();
-				getListView().getItems().remove(this.getIndex());
 				AudioPageController.getInstance().refreshAudioList();
 			});
 			

@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -46,13 +47,13 @@ public abstract class GlobalController implements Initializable {
 	
 	/***** navigation *****/
 	@FXML
-	protected JFXButton b_home;
+	protected Button b_home;
 	@FXML
-	protected JFXButton b_select;
+	protected Button b_select;
 	@FXML
-	protected JFXButton b_setting;
+	protected Button b_setting;
 	@FXML
-	protected JFXButton b_about;
+	protected Button b_about;
 		
 	// called once while loading the corresponding page.
 	// TODO: Add a pre-loading page to create Scene entity.

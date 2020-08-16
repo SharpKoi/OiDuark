@@ -5,6 +5,7 @@
 
 .button-browse {
 	-fx-background-color: transparent ;
+	-fx-border-color: rgba(225, 225, 225, 0.3) ;
 	-fx-border-radius: 12 ;
 }
 
