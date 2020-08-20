@@ -9,6 +9,7 @@ import com.sharpkoi.oiduark.app.controller.*;
 import com.sharpkoi.oiduark.audio.Audio;
 import com.sharpkoi.oiduark.audio.AudioPlayer;
 import com.sharpkoi.oiduark.utils.ResourceLoader;
+import com.sharpkoi.oiduark.utils.UserSetting;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -31,9 +32,11 @@ public class Main extends Application {
 	private Stage stage;
 	private AudioPlayer player;
 	private ObservableList<Audio> ol_audioList;
-	private HashMap<String, Parent> sceneCache = new HashMap<>();
+	private HashMap<String, Parent> pageCache = new HashMap<>();	// store the page roots to activate without loading
 	
-	private ResourceBundle config = null;
+	private UserSetting usrSetting;
+	
+	private ResourceBundle properties = null;
 	private ResourceLoader resLoader = null;
 	
 	public Stage getStage() {
@@ -48,20 +51,24 @@ public class Main extends Application {
 		return ol_audioList;
 	}
 	
-	public HashMap<String, Parent> getSceneCache() {
-		return sceneCache;
+	public HashMap<String, Parent> getPageCache() {
+		return pageCache;
 	}
 	
-	public ResourceBundle getConfig() {
-		return config;
+	public UserSetting getUserSetting() {
+		return usrSetting;
+	}
+	
+	public ResourceBundle getProperties() {
+		return properties;
 	}
 	
 	public String getMediaDir() {
-		return config.getString("media-dir");
+		return usrSetting.getUserMediaDir();
 	}
 	
 	public String getMediaDataPath() {
-		return config.getString("media-data");
+		return properties.getString("media-data");
 	}
 	
 	public ResourceLoader getResourceLoader() {
@@ -89,21 +96,28 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		instance = this;
 		
-		config = ResourceBundle.getBundle("app");
+		properties = ResourceBundle.getBundle("app");
 		resLoader = new ResourceLoader("resources/");
 		
 		stage = primaryStage;
 		player = new AudioPlayer();
 		
-		File mediaDir = new File(getMediaDir());
-		if(!mediaDir.exists()) mediaDir.mkdir();
-		
-		if(mediaDir.isDirectory()) {
-			File[] audioFiles = mediaDir.listFiles();
-			loadAudioList(audioFiles);
-		}
-		
 		try {
+			File userSettingFile = new File(properties.getString("user-setting"));
+			if(userSettingFile.exists()) {
+				usrSetting = UserSetting.load(userSettingFile);
+			}else {
+				usrSetting = new UserSetting(properties.getString("media-dir"), 100);
+			}
+			
+			File mediaDir = new File(usrSetting.getUserMediaDir());
+			if(!mediaDir.exists()) mediaDir.mkdir();
+			
+			if(mediaDir.isDirectory()) {
+				File[] audioFiles = mediaDir.listFiles();
+				loadAudioList(audioFiles);
+			}
+			
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("Home.fxml"));
 			Parent root = loader.load();
 			

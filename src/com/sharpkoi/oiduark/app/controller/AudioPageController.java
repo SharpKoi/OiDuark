@@ -33,7 +33,7 @@ public class AudioPageController extends GlobalController {
     private TextField searchBar;
     
     @FXML
-    private ListView<Audio> l_playlist;
+    private ListView<Audio> l_playlist; 
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -68,6 +68,7 @@ public class AudioPageController extends GlobalController {
 		ObservableList<Audio> playList = Main.getInstance().getAudioPlayer().getObservablePlayList();
 		l_playlist.setItems(playList);
 		l_playlist.setFixedCellSize(48); 
+		l_playlist.refresh();
 	}
 	
 	public void removeAudioFromPlaylist(Audio audio) {

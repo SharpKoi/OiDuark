@@ -1,5 +1,7 @@
 package com.sharpkoi.oiduark.audio;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -39,6 +41,8 @@ public class Audio {
 		this.author = author;
 		this.coverPath = coverPath;
 		this.duration = duration;
+		
+		timeLyrics = new LinkedHashMap<>();
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -46,8 +50,8 @@ public class Audio {
 		Audio audio = null;
 		
 		JSONParser parser = new JSONParser();
-		InputStream mediaDataFile = new FileInputStream(Main.getInstance().getMediaDataPath());
-		try(InputStreamReader reader = new InputStreamReader(mediaDataFile, Charset.forName("utf-8"))) {
+		InputStream mediaDataStream = new FileInputStream(Main.getInstance().getMediaDataPath());
+		try(InputStreamReader reader = new InputStreamReader(mediaDataStream, Charset.forName("utf-8"))) {
 			JSONObject audioDatabase = (JSONObject) parser.parse(reader);
 			if(!audioDatabase.containsKey(audioFileName)) {
 				System.out.printf("[Warning] Audio %s has not been set.\n", audioFileName);
@@ -124,5 +128,18 @@ public class Audio {
 
 	public LinkedHashMap<Integer, String> getTimeLyrics() {
 		return timeLyrics;
+	}
+	
+	public void loadLyrics(File txt) throws FileNotFoundException {
+		InputStream in = new FileInputStream(txt);
+		try(BufferedReader reader = new BufferedReader(new InputStreamReader(in, Charset.forName("utf-8")))) {
+			String line = "";
+			while((line = reader.readLine()) != null) {
+				int segIndex = line.indexOf(" ");
+				timeLyrics.put(Integer.valueOf(line.substring(0, segIndex)), line.substring(segIndex).trim());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

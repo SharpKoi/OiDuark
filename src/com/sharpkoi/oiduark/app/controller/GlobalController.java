@@ -5,20 +5,17 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
-import com.jfoenix.controls.JFXButton;
 import com.sharpkoi.oiduark.app.Main;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /****** The global handler ******/
@@ -60,7 +57,7 @@ public abstract class GlobalController implements Initializable {
 	// TODO: Move initWindow() into initialize()
 	public void initialize(URL location, ResourceBundle resources) {
 		loadPageInfo();
-		Main.getInstance().getSceneCache().put(currentPageName, root);
+		Main.getInstance().getPageCache().put(currentPageName, root);
 		
 		b_home.setOnAction(e -> {
 			if(!currentPageName.equals("Home")) {
@@ -139,7 +136,7 @@ public abstract class GlobalController implements Initializable {
 	public void activateScene(String pageName) {
 		String fxml = pageName + ".fxml";
 		Stage stage = Main.getInstance().getStage();
-		HashMap<String, Parent> cache = Main.getInstance().getSceneCache();
+		HashMap<String, Parent> cache = Main.getInstance().getPageCache();
 		if(cache.containsKey(pageName)) {
 			stage.getScene().setRoot(cache.get(pageName));
 		}else {

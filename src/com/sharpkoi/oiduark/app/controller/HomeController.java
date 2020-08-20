@@ -1,6 +1,5 @@
 package com.sharpkoi.oiduark.app.controller;
 
-import java.awt.GradientPaint;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
@@ -25,8 +24,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 
 public class HomeController extends GlobalController {
 	
@@ -122,8 +119,10 @@ public class HomeController extends GlobalController {
 		if(!playList.isEmpty()) {
 			enableControlPane();
 		}
+		
 		l_playlist.setItems(playList);
 		l_playlist.setFixedCellSize(48);
+		l_playlist.refresh();
 	}
 	
 	public void onLastButtonClicked() {
@@ -196,6 +195,8 @@ public class HomeController extends GlobalController {
 			
 			t_endTimeTick.setText(TimeUtils.parseSecondsToTime(player.getCurrentAudio().getDuration()));
 			progressBar.setDisable(false);
+			
+			l_playlist.refresh();
 		});
 		
 		player.setOnPlayerStop(() -> {

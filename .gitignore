@@ -1,6 +1,8 @@
+/app/
 /bin/
 /build/
 /media/
+/metadata/
 /target/
 /lib/fontawesomefx-glyphsbrowser-1.3.0/
 /**/test/

@@ -91,7 +91,7 @@
                   </Button>
                   <Button fx:id="b_about" graphicTextGap="16.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="185.0" style="-fx-background-color: transparent;" styleClass="navigation-button" text="About" textFill="WHITE">
                      <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="HAND_ALT_RIGHT" size="16" />
+                        <FontAwesomeIconView fill="WHITE" glyphName="INFO_CIRCLE" size="16" />
                      </graphic>
                      <VBox.margin>
                         <Insets top="15.0" />
