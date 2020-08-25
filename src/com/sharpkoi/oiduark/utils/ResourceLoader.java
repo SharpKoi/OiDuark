@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.CodeSource;
@@ -13,6 +15,7 @@ import java.util.List;
 import java.util.jar.JarFile;
 
 import com.sharpkoi.oiduark.app.Main;
+import com.sharpkoi.oiduark.audio.Audio;
 
 import javafx.scene.image.Image;
 import javafx.scene.media.Media;
@@ -46,7 +49,7 @@ public class ResourceLoader {
 		CodeSource src = Main.class.getProtectionDomain().getCodeSource();
 		
 		try {
-			File codeRoot = new File(src.getLocation().getPath());
+			File codeRoot = new File(URLDecoder.decode(src.getLocation().getPath(), StandardCharsets.UTF_8.name()));
 			if(codeRoot.isFile()) {
 				// running in jar
 				List<Image> covers = new ArrayList<>();
@@ -81,6 +84,10 @@ public class ResourceLoader {
 		return null;
 	}
 	
+	public static Image loadIcon(String name) {
+		return new Image(Main.class.getResourceAsStream(ICON_PATH + name));
+	}
+	
 	public static Image loadAppIcon() {
 		return new Image(Main.class.getResourceAsStream(ICON_PATH + "oiduark-icon.png"));
 	}
@@ -93,8 +100,8 @@ public class ResourceLoader {
 		return new Image(Main.class.getResourceAsStream(ICON_PATH + "pause_64px.png"));
 	}
 	
-	public static Media loadMedia(String fileName) {
-		Path audioPath = Paths.get(Main.getInstance().getMediaDir(), fileName);
+	public static Media loadMedia(Audio audio) {
+		Path audioPath = Paths.get(audio.getFilePath());
 		Media media = null;
 		try {
 			media = new Media(audioPath.toUri().toURL().toExternalForm());

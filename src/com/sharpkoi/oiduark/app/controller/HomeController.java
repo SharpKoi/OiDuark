@@ -8,8 +8,8 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXSlider;
 import com.sharpkoi.oiduark.app.*;
-import com.sharpkoi.oiduark.audio.Audio;
-import com.sharpkoi.oiduark.audio.AudioPlayer;
+import com.sharpkoi.oiduark.app.listview.PlayListCell;
+import com.sharpkoi.oiduark.audio.*;
 import com.sharpkoi.oiduark.utils.ResourceLoader;
 import com.sharpkoi.oiduark.utils.TimeUtils;
 
@@ -24,6 +24,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 public class HomeController extends GlobalController {
 	
@@ -38,6 +40,8 @@ public class HomeController extends GlobalController {
 	@FXML
 	private AnchorPane root;
 	/***** preview ******/
+	@FXML
+	private BorderPane coverContainer;
 	@FXML
 	private ImageView coverView;
 	@FXML
@@ -81,8 +85,12 @@ public class HomeController extends GlobalController {
 		
 		disableControlPane();
 		
-		coverView.imageProperty().addListener((observable, oldCover, newCover) -> {
-			centerCover(newCover);
+		
+		coverContainer.widthProperty().addListener((observable, oldWidth, newWidth) -> {
+			fitCover();
+		});
+		coverContainer.heightProperty().addListener((observable, oldHeight, newHeight) -> {
+			fitCover();
 		});
 		
 		AudioPlayer player = Main.getInstance().getAudioPlayer();
@@ -111,9 +119,24 @@ public class HomeController extends GlobalController {
 	@Override
 	protected void loadPageInfo() {
 		currentPageName = "Home";
-		b_home.setStyle("-fx-background-color: linear-gradient(from 50% 50% to 100% 100%, #075782, #11aacc) ;\n"
-						+ "-fx-background-radius: 4 ;");
+		b_home.setStyle("-fx-background-color: linear-gradient(from 50% 50% to 100% 100%, #075782, #11aacc) ;");
+		b_home.setOpacity(1);
 		b_home.setEffect(new Glow(0.4));
+		
+		Stage stage = Main.getInstance().getStage();
+		if(stage.isMaximized()) {
+			ImageView icon = new ImageView(ResourceLoader.loadIcon("restore_down_64px.png"));
+			icon.setFitWidth(16);
+			icon.setFitHeight(16);
+			b_maximize.setGraphic(icon);
+		}else {
+			ImageView icon = new ImageView(ResourceLoader.loadIcon("maximize_button_64px.png"));
+			icon.setFitWidth(16);
+			icon.setFitHeight(16);
+			b_maximize.setGraphic(icon);
+		}
+		
+		fitCover();
 		
 		ObservableList<Audio> playList = Main.getInstance().getAudioPlayer().getObservablePlayList();
 		if(!playList.isEmpty()) {
@@ -245,27 +268,9 @@ public class HomeController extends GlobalController {
 		});
 	}
 	
-	public void centerCover(Image image) {
-		if (image != null) {
-            double w = 0;
-            double h = 0;
-
-            double ratioX = coverView.getFitWidth() / image.getWidth();
-            double ratioY = coverView.getFitHeight() / image.getHeight();
-
-            double reducCoeff = 0;
-            if(ratioX >= ratioY) {
-                reducCoeff = ratioY;
-            } else {
-                reducCoeff = ratioX;
-            }
-
-            w = image.getWidth() * reducCoeff;
-            h = image.getHeight() * reducCoeff;
-
-            coverView.setLayoutX((coverView.getFitWidth() - w) / 2);
-            coverView.setLayoutY((coverView.getFitHeight() - h) / 2);
-        }
+	public void fitCover() {
+		coverView.setFitHeight(coverContainer.getHeight());
+		coverView.setFitWidth(coverContainer.getWidth());
 	}
 	
 	public void loadDefaultCovers() {

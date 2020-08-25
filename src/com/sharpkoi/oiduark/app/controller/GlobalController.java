@@ -6,15 +6,16 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import com.sharpkoi.oiduark.app.Main;
+import com.sharpkoi.oiduark.utils.ResizeHelper;
+import com.sharpkoi.oiduark.utils.ResizeHelper.ResizeListener;
+import com.sharpkoi.oiduark.utils.ResourceLoader;
 
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -36,11 +37,11 @@ public abstract class GlobalController implements Initializable {
 	@FXML
 	protected AnchorPane titleBar;
 	@FXML
-	protected ImageView b_close;
+	protected Button b_close;
 	@FXML
-	protected ImageView b_maximize;
+	protected Button b_maximize;
 	@FXML
-	protected ImageView b_minimize;
+	protected Button b_minimize;
 	
 	/***** navigation *****/
 	@FXML
@@ -93,30 +94,40 @@ public abstract class GlobalController implements Initializable {
 			Main.getInstance().getStage().getScene().getRoot().requestFocus();
 		});
 		
-		titleBar.setOnMousePressed(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				xOffset = event.getSceneX();
-				yOffset = event.getSceneY();
-			}
+		ResizeListener listener = ResizeHelper.addResizeListener(stage);
+		
+		titleBar.setOnMousePressed(e -> {
+			xOffset = e.getSceneX();
+			yOffset = e.getSceneY();
 		});
 		
-		titleBar.setOnMouseDragged(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				stage.setX(event.getScreenX() - xOffset);
-				stage.setY(event.getScreenY() - yOffset);
-			}
+		titleBar.setOnMouseDragged(e -> {
+			stage.setX(e.getScreenX() - xOffset);
+			stage.setY(e.getScreenY() - yOffset);
 		});
 		
-		b_close.setOnMouseClicked(e -> {
+		b_close.setOnAction(e -> {
 			//TODO: check there's anything has to be processed
 			
 			//TODO: save the volume value
+			Main.getInstance().getUserSetting().save();
 			System.exit(1);
 		});
 		
-//		b_maximize.setOnMouseClicked(e -> {
+		b_maximize.setOnAction(e -> {
+			if(stage.isMaximized()) {
+				stage.setMaximized(false);
+				ImageView icon = new ImageView(ResourceLoader.loadIcon("maximize_button_64px.png"));
+				icon.setFitWidth(16);
+				icon.setFitHeight(16);
+				b_maximize.setGraphic(icon);
+			}else {
+				stage.setMaximized(true);
+				ImageView icon = new ImageView(ResourceLoader.loadIcon("restore_down_64px.png"));
+				icon.setFitWidth(16);
+				icon.setFitHeight(16);
+				b_maximize.setGraphic(icon);
+			}
 //			Screen screen = Screen.getPrimary();
 //			Rectangle2D bounds = screen.getVisualBounds();
 //
@@ -124,13 +135,11 @@ public abstract class GlobalController implements Initializable {
 //			stage.setY(bounds.getMinY());
 //			stage.setWidth(bounds.getWidth());
 //			stage.setHeight(bounds.getHeight());
-//		});
-		
-		b_minimize.setOnMouseClicked(e -> {
-			stage.setIconified(true);
 		});
 		
-		System.out.println("scene initialized");
+		b_minimize.setOnAction(e -> {
+			stage.setIconified(true);
+		});
 	}
 	
 	public void activateScene(String pageName) {
@@ -141,7 +150,7 @@ public abstract class GlobalController implements Initializable {
 			stage.getScene().setRoot(cache.get(pageName));
 		}else {
 			try {
-				FXMLLoader loader = new FXMLLoader(Main.class.getResource(fxml));
+				FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/"+fxml));
 				Parent root = loader.load();
 				GlobalController controller = loader.getController();
 				

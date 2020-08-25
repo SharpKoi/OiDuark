@@ -11,19 +11,20 @@ import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.LinkedList;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import com.sharpkoi.oiduark.app.Main;
+import com.sharpkoi.oiduark.utils.OiDuarkUtils;
 
 public class Audio {
 	// for operation
-	private String filename;
+	private String filepath;
 	private double duration;
-	private List<Integer> tags;
+	private LinkedList<Integer> tags;
 	
 	//for display
 	private String title;
@@ -31,42 +32,49 @@ public class Audio {
 	private String coverPath;
 	private LinkedHashMap<Integer, String> timeLyrics;
 	
-	public Audio(String filename) {
-		this(filename, "Unknown", "Unknown", "Unknown", 0.0);
+	public Audio(String filepath) {
+		this(filepath, "Unknown", "Unknown", "Unknown", 0.0);
 	}
 	
-	public Audio(String filename, String title, String author, String coverPath, double duration) {
-		this.filename = filename;
+	public Audio(String filepath, String title, String author, String coverPath, double duration) {
+		this.filepath = filepath;
 		this.title = title;
 		this.author = author;
 		this.coverPath = coverPath;
 		this.duration = duration;
 		
+		tags = new LinkedList<>();
 		timeLyrics = new LinkedHashMap<>();
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static Audio loadFromJson(String audioFileName) throws FileNotFoundException {
+	public static Audio loadFor(String audioFilePath) throws FileNotFoundException {
 		Audio audio = null;
 		
 		JSONParser parser = new JSONParser();
-		InputStream mediaDataStream = new FileInputStream(Main.getInstance().getMediaDataPath());
-		try(InputStreamReader reader = new InputStreamReader(mediaDataStream, Charset.forName("utf-8"))) {
+		try {
+			File mediaDataFile = new File(Main.getInstance().getMediaDataPath());
+			if(!mediaDataFile.exists()) {
+				OiDuarkUtils.createEmptyJsonFile(mediaDataFile);
+			}
+			
+			InputStream mediaDataStream = new FileInputStream(mediaDataFile);
+			InputStreamReader reader = new InputStreamReader(mediaDataStream, Charset.forName("utf-8"));
 			JSONObject audioDatabase = (JSONObject) parser.parse(reader);
-			if(!audioDatabase.containsKey(audioFileName)) {
-				System.out.printf("[Warning] Audio %s has not been set.\n", audioFileName);
+			if(!audioDatabase.containsKey(audioFilePath)) {
+				System.out.printf("[Warning] Audio %s has not been set.\n", audioFilePath);
 				return new Audio(
-							audioFileName,
-							audioFileName.substring(0, audioFileName.lastIndexOf(".")),
+							audioFilePath,
+							audioFilePath.substring(audioFilePath.lastIndexOf("\\")+1, audioFilePath.lastIndexOf(".")),
 							"Unknown",
 							"Unknown",
 							0.0
 						);
 			}
-			JSONObject audioData = (JSONObject) audioDatabase.get(audioFileName);
+			JSONObject audioData = (JSONObject) audioDatabase.get(audioFilePath);
 			
 			audio = new Audio(
-						audioFileName,
+						audioFilePath,
 						audioData.getOrDefault("title", "Unknown").toString(),
 						audioData.getOrDefault("author", "Unknown").toString(),
 						audioData.getOrDefault("cover", "Unknown").toString(),
@@ -82,12 +90,12 @@ public class Audio {
 	}
 	
 	public String getGlobalPath() {
-		Path gpath = Paths.get(Main.getInstance().getMediaDir(), filename);
+		Path gpath = Paths.get(Main.getInstance().getMediaDir(), filepath);
 		return gpath.toFile().getAbsolutePath();
 	}
 
-	public String getFilename() {
-		return filename;
+	public String getFilePath() {
+		return filepath;
 	}
 
 	public double getDuration() {
@@ -98,7 +106,7 @@ public class Audio {
 		this.duration = d;
 	}
 
-	public List<Integer> getTags() {
+	public LinkedList<Integer> getTags() {
 		return tags;
 	}
 

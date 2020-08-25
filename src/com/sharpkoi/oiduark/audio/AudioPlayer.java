@@ -111,8 +111,7 @@ public class AudioPlayer {
 		System.out.println("Now play id " + indicator);
 		currentAudio = playList.get(indicator);
 		
-		String audioFileName = playList.get(indicator).getFilename();
-		Media media = ResourceLoader.loadMedia(audioFileName);
+		Media media = ResourceLoader.loadMedia(playList.get(indicator));
 		player = new MediaPlayer(media);
 		player.setVolume(volume);
 		

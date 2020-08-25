@@ -62,7 +62,7 @@ public class AudioSetter implements Initializable {
 	}
 	
 	public void initByAudio(Audio audio) {
-		f_audioFile.setText(audio.getFilename());
+		f_audioFile.setText(audio.getFilePath());
 		f_title.setPromptText(audio.getTitle());
 		f_author.setPromptText(audio.getAuthor());
 		f_cover.setPromptText(audio.getCoverPath());

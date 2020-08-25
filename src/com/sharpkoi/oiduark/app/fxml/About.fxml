@@ -45,40 +45,52 @@
       </AnchorPane>
       <AnchorPane prefHeight="620.0" prefWidth="1024.0" stylesheets="@application.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
          <children>
-            <VBox prefHeight="617.0" prefWidth="185.0" style="-fx-background-color: #212529;" styleClass="navigation" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <VBox prefHeight="617.0" prefWidth="185.0" spacing="40.0" style="-fx-background-color: #212529;" styleClass="navigation" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <JFXButton fx:id="b_home" graphicTextGap="16.0" prefHeight="60.0" prefWidth="184.0" ripplerFill="WHITE" styleClass="navigation-button" text="Home" textFill="#e0e0e0">
+                  <Button fx:id="b_home" contentDisplay="TOP" mnemonicParsing="false" opacity="0.8" prefHeight="60.0" prefWidth="185.0" style="-fx-background-color: transparent;" styleClass="navigation-button" text="Home" textFill="WHITE">
                      <VBox.margin>
-                        <Insets top="30.0" />
+                        <Insets top="40.0" />
                      </VBox.margin>
                      <graphic>
                         <FontAwesomeIconView fill="WHITE" glyphName="HOME" size="16" />
                      </graphic>
-                  </JFXButton>
-                  <JFXButton fx:id="b_select" graphicTextGap="16.0" layoutX="10.0" layoutY="40.0" prefHeight="60.0" prefWidth="184.0" ripplerFill="WHITE" styleClass="navigation-button" text="My Audio" textFill="#e0e0e0">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="b_select" contentDisplay="TOP" mnemonicParsing="false" opacity="0.8" prefHeight="60.0" prefWidth="185.0" style="-fx-background-color: transparent;" styleClass="navigation-button" text="My Audio" textFill="WHITE">
                      <graphic>
                         <FontAwesomeIconView fill="WHITE" glyphName="MUSIC" size="16.0" />
                      </graphic>
-                  </JFXButton>
-                  <JFXButton fx:id="b_setting" graphicTextGap="16.0" layoutX="10.0" layoutY="90.0" prefHeight="60.0" prefWidth="184.0" ripplerFill="WHITE" styleClass="navigation-button" text="Setting" textFill="#e0e0e0">
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets />
                      </VBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="b_setting" contentDisplay="TOP" mnemonicParsing="false" opacity="0.8" prefHeight="60.0" prefWidth="185.0" style="-fx-background-color: transparent;" styleClass="navigation-button" text="Setting" textFill="WHITE">
                      <graphic>
                         <FontAwesomeIconView fill="WHITE" glyphName="COG" size="16" />
                      </graphic>
-                  </JFXButton>
-                  <JFXButton fx:id="b_about" graphicTextGap="16.0" layoutX="10.0" layoutY="140.0" prefHeight="60.0" prefWidth="184.0" ripplerFill="WHITE" styleClass="navigation-button" text="About" textFill="#e0e0e0">
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets />
                      </VBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="b_about" contentDisplay="TOP" mnemonicParsing="false" opacity="0.8" prefHeight="60.0" prefWidth="185.0" style="-fx-background-color: transparent;" styleClass="navigation-button" text="About" textFill="WHITE">
                      <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="HAND_ALT_RIGHT" size="16" />
+                        <FontAwesomeIconView fill="WHITE" glyphName="INFO_CIRCLE" size="16" />
                      </graphic>
-                  </JFXButton>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
                </children>
             </VBox>
             <VBox layoutX="184.0" opacity="0.95" prefHeight="617.0" prefWidth="640.0" style="-fx-background-color: #151515;" styleClass="review-page" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="184.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">

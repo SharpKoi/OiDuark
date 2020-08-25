@@ -1,14 +1,17 @@
-package com.sharpkoi.oiduark.app;
+package com.sharpkoi.oiduark.app.listview;
 
+import com.sharpkoi.oiduark.app.Main;
 import com.sharpkoi.oiduark.app.controller.AudioPageController;
 import com.sharpkoi.oiduark.audio.Audio;
 import com.sharpkoi.oiduark.audio.AudioPlayer;
+import com.sharpkoi.oiduark.utils.SimpleAnimation;
 
 //import animatefx.animation.SlideOutRight;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -33,59 +36,17 @@ public class PlayListCell extends ListCell<Audio> {
 	protected void updateItem(Audio item, boolean empty) {
 		super.updateItem(item, empty);
 		if(item != null && !empty) {
-			container = new  HBox(8);
-			container.setStyle("-fx-background-color: transparent ;");
-			
-			l_title = new Label(item.getTitle());
-			l_title.setFont(Font.font(12));
-			l_title.setTextFill(Paint.valueOf("#fff"));
-			
-			titleContainer = new ScrollPane(l_title);
-			titleContainer.setVbarPolicy(ScrollBarPolicy.NEVER);
-			titleContainer.setHbarPolicy(ScrollBarPolicy.NEVER);
-			titleContainer.getStyleClass().add("title-container");
-			titleContainer.applyCss();
-			titleContainer.setPrefSize(150, USE_COMPUTED_SIZE);
-			
-			AudioPlayer player = Main.getInstance().getAudioPlayer();
-			Audio currentAudio = player.getCurrentAudio();
-			
-			if(currentAudio != null) {
-				if(currentAudio.equals(item)) {
-					container.getChildren().add(titleContainer);
-					setGraphic(container);
-					setStyle("-fx-background-color:  #0090e3 ;");
-					if(getWidth() > getListView().getWidth()) {
-						// should wait for the layout resized.
-						Platform.runLater(() -> {
-							SimpleAnimation.marquee((Label) titleContainer.getContent(), titleContainer, 40);
-						});
-					}
-					
-					AudioPageController.getInstance().refreshAudioList();
-					return;
-				}
-			}
-			
-			SimpleAnimation.stopAnim(this);
-			
-			MaterialDesignIconView minusIcon = new MaterialDesignIconView(MaterialDesignIcon.MINUS);
-			minusIcon.setGlyphSize(24);
-			minusIcon.setFill(Paint.valueOf("#fff"));
-			
-			b_remove = new Button();
-			b_remove.setPadding(Insets.EMPTY);
-			b_remove.setOpacity(0.6);
-			b_remove.setCursor(Cursor.HAND);
-			b_remove.setGraphic(minusIcon);
-			b_remove.getStyleClass().add("op-button");
-			b_remove.setMaxWidth(16);
-			b_remove.setPrefWidth(16);
+			buildTitle(item.getTitle());
+			buildTitleContainer(l_title);
+			buildRemoveButton();
 			
 //			SlideOutRight cellAnim = new SlideOutRight(this);
 //			cellAnim.setOnFinished(e -> {
 //				getListView().getItems().remove(this.getIndex());
 //			});
+			
+			AudioPlayer player = Main.getInstance().getAudioPlayer();
+			Audio currentAudio = player.getCurrentAudio();
 			
 			b_remove.setOnAction(e -> {
 				// TODO: mark the current playing audio cell. So here I will not let users remove the current audio.
@@ -112,15 +73,70 @@ public class PlayListCell extends ListCell<Audio> {
 				AudioPageController.getInstance().refreshAudioList();
 			});
 			
+			container = new  HBox(8);
+			container.setStyle("-fx-background-color: transparent ;");
+			container.setAlignment(Pos.CENTER_LEFT);
 			container.getChildren().add(b_remove);
 			container.getChildren().add(titleContainer);
+			container.setPrefSize(170, 32);
+			container.setFillHeight(false);
 			
 			setGraphic(container);
+			
+			if(currentAudio != null) {
+				if(currentAudio.equals(item)) {
+					setStyle("-fx-background-color:  #0090e3 ;");
+					
+					// should wait for the layout resized.
+					Platform.runLater(() -> {
+						if(l_title.getWidth() > titleContainer.getWidth()) {
+							SimpleAnimation.marquee(titleContainer, 30);
+						}
+					});
+					
+					AudioPageController.getInstance().refreshAudioList();
+					return;
+				}
+			}
+			
 			setStyle("-fx-background-color:  #2B3035 ;");
+			setPrefWidth(getListView().getWidth());
 		}else {
 			setStyle("-fx-background-color:  #2B3035 ;");
 			setGraphic(null);
 			setText("");
 		}
+	}
+	
+	private void buildTitle(String text) {
+		l_title = new Label(text);
+		l_title.setFont(Font.font(12));
+		l_title.setTextFill(Paint.valueOf("#fff"));
+		l_title.setPrefSize(USE_COMPUTED_SIZE, 16);
+	}
+	
+	private void buildTitleContainer(Label title) {
+		titleContainer = new ScrollPane(title);
+		titleContainer.setVbarPolicy(ScrollBarPolicy.NEVER);
+		titleContainer.setHbarPolicy(ScrollBarPolicy.NEVER);
+		titleContainer.getStyleClass().add("title-container");
+		titleContainer.applyCss();
+		titleContainer.setMinViewportHeight(16);
+		titleContainer.setPadding(new Insets(8, 0, 8, 0));
+		titleContainer.setPrefSize(150, 0);
+	}
+	
+	private void buildRemoveButton() {
+		MaterialDesignIconView minusIcon = new MaterialDesignIconView(MaterialDesignIcon.MINUS);
+		minusIcon.setGlyphSize(16);
+		minusIcon.setFill(Paint.valueOf("#fff"));
+		
+		b_remove = new Button();
+		b_remove.setPadding(Insets.EMPTY);
+		b_remove.setCursor(Cursor.HAND);
+		b_remove.setGraphic(minusIcon);
+		b_remove.getStyleClass().add("op-button");
+		b_remove.setMinSize(24, 24);
+		b_remove.setPrefSize(24, 24);
 	}
 }

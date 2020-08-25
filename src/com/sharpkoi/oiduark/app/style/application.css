@@ -6,11 +6,34 @@
 	-fx-background-color: linear-gradient(to right, #8900f2, #e500a4, #8900f2);
 }
 
-.title-bar .window-button:hover {
-	-fx-opacity: 0.5;
+.title-bar .close-button,
+.title-bar .size-button,
+.title-bar .minimize-button {
+	-fx-background-color: transparent ;
+	-fx-background-radius: 0 ;
+}
+
+.title-bar .close-button:hover {
+	-fx-opacity: 1;
+	-fx-background-color: red ;
+}
+
+.title-bar .size-button:hover,
+.title-bar .minimize-button:hover {
+	-fx-opacity: 1;
+	-fx-background-color: rgba(255, 255, 255, 0.2) ;
 }
 
 /* navigation */
+.navigation-button {
+	-fx-background-radius: 0 ;
+	-fx-border-radius: 0 ;
+}
+
+.navigation-button:hover {
+	-fx-background-color: #2B3035 ;
+	-fx-opacity: 1 ;
+}
 
 /* player control panel */
 .control-pane .control-button:hover {
@@ -36,10 +59,11 @@
 /* list view */
 .list-cell {
 	-fx-background-color:  #2B3035 ;
+	-fx-background-radius: 4 ;
 }
 
-.list-cell:selected {
-	-fx-background-color: #343A40 ;
+.list-cell:hover {
+	-fx-background-color:  #343a40 ;
 }
 
 .title-container {
@@ -48,6 +72,21 @@
 	-fx-border-color: transparent ;
 }
 
+.title-container .scroll-bar:horizontal,
+.title-container .scroll-bar:vertical {
+	-fx-background-color: transparent ;
+	-fx-background-radius: 0 ;
+	-fx-border-radius: 0 ;
+	-fx-pref-height: 0.01 ;
+}
+
+.title-container .scroll-bar:horizontal .decrement-arrow,
+.title-container .scroll-bar:horizontal .increment-arrow {
+	-fx-pref-height: 0 ;
+	-fx-max-height: 0 ;
+}
+
+.scroll-bar:horizontal .track,
 .scroll-bar:vertical .track {
 	-fx-background-color: transparent ;
 	-fx-border-color: transparent ;
@@ -72,11 +111,6 @@
 	-fx-padding: -2
 }
 
-.title-container .scroll-bar:horizontal .thumb,
-.title-container .scroll-bar:vertical .thumb {
-	-fx-background-color: transparent ;
-}
-
 .scroll-bar:horizontal .thumb,
 .scroll-bar:vertical .thumb {
 	-fx-background-color: #6C757D
@@ -86,11 +120,45 @@
 .op-button {
 	-fx-background-color: transparent ;
 	-fx-border-radius: 4 ;
-	-fx-border-color: rgba(255, 255, 255, 0.4)
+	-fx-border-color: rgba(255, 255, 255, 0.6) ;
 }
 
 .op-button:hover {
 	-fx-border-color: rgba(255, 255, 255, 1) ;
+}
+
+.add-tag-button {
+	-fx-background-color: transparent ;
+	-fx-font-size: 10 ;
+	-fx-text-fill: #fff ;
+	-fx-border-radius: 16 ;
+	-fx-border-color: #fff ;
+	-fx-opacity: 0.6 ;
+	-fx-padding: 0.5  5  0.5  5 ;
+}
+
+.add-tag-button:hover {
+	-fx-text-fill: #fff ;
+	-fx-border-color: #fff ;
+	-fx-opacity: 1 ;
+}
+
+.context-menu {
+	-fx-background-color: #1C2029 ;
+}
+
+.menu-item .label {
+	-fx-text-fill: #fff ;
+}
+
+.del-tag-button {
+	-fx-background-color: transparent ;
+	-fx-background-radius: 8 ;
+	-fx-padding: -4  -2  -4  -2 ;
+}
+
+.del-tag-button:hover {
+	-fx-background-color: rgba(255, 255, 255, 0.2) ;
 }
 
 .separator *.line {
