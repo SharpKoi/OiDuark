@@ -13,6 +13,7 @@ import java.nio.file.Paths;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -30,6 +31,7 @@ public class Audio {
 	private String title;
 	private String author;
 	private String coverPath;
+	private String lyricsFilePath;
 	private LinkedHashMap<Integer, String> timeLyrics;
 	
 	public Audio(String filepath) {
@@ -42,6 +44,7 @@ public class Audio {
 		this.author = author;
 		this.coverPath = coverPath;
 		this.duration = duration;
+		this.lyricsFilePath = "Unknown";
 		
 		tags = new LinkedList<>();
 		timeLyrics = new LinkedHashMap<>();
@@ -50,6 +53,7 @@ public class Audio {
 	@SuppressWarnings("unchecked")
 	public static Audio loadFor(String audioFilePath) throws FileNotFoundException {
 		Audio audio = null;
+		String defaultTitle = audioFilePath.substring(audioFilePath.lastIndexOf("\\")+1, audioFilePath.lastIndexOf("."));
 		
 		JSONParser parser = new JSONParser();
 		try {
@@ -65,7 +69,7 @@ public class Audio {
 				System.out.printf("[Warning] Audio %s has not been set.\n", audioFilePath);
 				return new Audio(
 							audioFilePath,
-							audioFilePath.substring(audioFilePath.lastIndexOf("\\")+1, audioFilePath.lastIndexOf(".")),
+							defaultTitle,
 							"Unknown",
 							"Unknown",
 							0.0
@@ -75,11 +79,22 @@ public class Audio {
 			
 			audio = new Audio(
 						audioFilePath,
-						audioData.getOrDefault("title", "Unknown").toString(),
+						audioData.getOrDefault("title", defaultTitle).toString(),
 						audioData.getOrDefault("author", "Unknown").toString(),
 						audioData.getOrDefault("cover", "Unknown").toString(),
 						(Double) audioData.getOrDefault("duration", 0.0)
 					);
+			
+			JSONArray tagArray = (JSONArray) audioData.get("tags");
+			for(Object tagid : tagArray) {
+				audio.getTags().add(Integer.valueOf(tagid.toString()));
+			}
+			
+			String lyricsFilePath = audioData.getOrDefault("lyrics_file", "Unknown").toString();
+			if(!lyricsFilePath.equals("Unknown")) {
+				audio.loadLyrics(new File(lyricsFilePath));
+			}
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ParseException e) {
@@ -133,12 +148,17 @@ public class Audio {
 	public void setCoverPath(String path) {
 		this.coverPath = path;
 	}
+	
+	public String getLyricsFilePath() {
+		return lyricsFilePath;
+	}
 
 	public LinkedHashMap<Integer, String> getTimeLyrics() {
 		return timeLyrics;
 	}
 	
 	public void loadLyrics(File txt) throws FileNotFoundException {
+		lyricsFilePath = txt.getAbsolutePath();
 		InputStream in = new FileInputStream(txt);
 		try(BufferedReader reader = new BufferedReader(new InputStreamReader(in, Charset.forName("utf-8")))) {
 			String line = "";

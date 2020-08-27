@@ -87,7 +87,7 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="HOME" size="16" />
                      </graphic>
                      <cursor>
-                        <Cursor fx:constant="HAND" />
+                        <Cursor fx:constant="DEFAULT" />
                      </cursor>
                      <padding>
                         <Insets bottom="20.0" top="20.0" />
@@ -101,7 +101,7 @@
                         <Insets />
                      </VBox.margin>
                      <cursor>
-                        <Cursor fx:constant="HAND" />
+                        <Cursor fx:constant="DEFAULT" />
                      </cursor>
                      <padding>
                         <Insets bottom="20.0" top="20.0" />
@@ -115,7 +115,7 @@
                         <Insets />
                      </VBox.margin>
                      <cursor>
-                        <Cursor fx:constant="HAND" />
+                        <Cursor fx:constant="DEFAULT" />
                      </cursor>
                      <padding>
                         <Insets bottom="20.0" top="20.0" />
@@ -129,7 +129,7 @@
                         <Insets />
                      </VBox.margin>
                      <cursor>
-                        <Cursor fx:constant="HAND" />
+                        <Cursor fx:constant="DEFAULT" />
                      </cursor>
                      <padding>
                         <Insets bottom="20.0" top="20.0" />
@@ -140,7 +140,7 @@
             <AnchorPane opacity="0.95" style="-fx-background-color: #151515;" styleClass="review-page" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="184.0" AnchorPane.rightAnchor="180.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Label fx:id="l_loading" layoutX="20.0" layoutY="433.0" opacity="0.0" text="Loading..." textFill="WHITE" AnchorPane.bottomAnchor="175.0" AnchorPane.leftAnchor="30.0" />
-                  <BorderPane fx:id="coverContainer" AnchorPane.bottomAnchor="160.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <BorderPane fx:id="coverContainer" prefHeight="621.0" prefWidth="660.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <center>
                         <ImageView fx:id="coverView" fitHeight="460.0" fitWidth="660.0" mouseTransparent="true" nodeOrientation="INHERIT" opacity="0.6" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
                      </center>

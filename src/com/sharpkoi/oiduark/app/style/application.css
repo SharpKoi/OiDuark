@@ -86,12 +86,13 @@
 	-fx-max-height: 0 ;
 }
 
-.scroll-bar:horizontal .track,
-.scroll-bar:vertical .track {
+.scroll-bar:horizontal {
+	-fx-opacity: 0 ;
+}
+
+.scroll-bar:vertical {
 	-fx-background-color: transparent ;
 	-fx-border-color: transparent ;
-	-fx-background-radius: 0em ;
-	-fx-border-radius: 0em ;
 }
 
 .scroll-bar:horizontal .increment-button,
@@ -103,20 +104,23 @@
 	-fx-padding: 0 10 0 0
 }
 
-.scroll-bar:horizontal .increment-arrow, 
+.scroll-bar:horizontal .increment-arrow,
 .scroll-bar:horizontal .decrement-arrow,
 .scroll-bar:vertical .increment-arrow,
 .scroll-bar:vertical .decrement-arrow {
 	-fx-background-color: transparent ;
-	-fx-padding: -2
+	-fx-padding: -2 ;
 }
 
-.scroll-bar:horizontal .thumb,
 .scroll-bar:vertical .thumb {
-	-fx-background-color: #6C757D
+	-fx-background-color: #a8b3bd ;
 }
 
 /* audio page */ 
+.menu-button .arrow {
+	-fx-background-color: white ;
+}
+
 .op-button {
 	-fx-background-color: transparent ;
 	-fx-border-radius: 4 ;
@@ -141,6 +145,10 @@
 	-fx-text-fill: #fff ;
 	-fx-border-color: #fff ;
 	-fx-opacity: 1 ;
+}
+
+.new-tag-item:hover {
+	-fx-background-color: rgba(255, 255, 255, 0.2) ;
 }
 
 .context-menu {

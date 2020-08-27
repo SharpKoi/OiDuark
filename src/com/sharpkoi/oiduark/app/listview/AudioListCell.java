@@ -11,19 +11,20 @@ import com.sharpkoi.oiduark.app.Main;
 import com.sharpkoi.oiduark.app.component.AudioTagBox;
 import com.sharpkoi.oiduark.app.controller.AudioPageController;
 import com.sharpkoi.oiduark.app.controller.AudioSetter;
+import com.sharpkoi.oiduark.app.dialog.NewTagDialog;
 import com.sharpkoi.oiduark.audio.Audio;
 import com.sharpkoi.oiduark.audio.AudioPlayer;
+import com.sharpkoi.oiduark.audio.AudioTag;
+import com.sharpkoi.oiduark.audio.AudioTagManager;
 import com.sharpkoi.oiduark.utils.ResourceLoader;
 
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -31,11 +32,10 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.MenuItem;
-import javafx.scene.effect.Glow;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
@@ -49,7 +49,7 @@ public class AudioListCell extends ListCell<Audio> {
 	
 	private Label l_title;
 	
-	private TilePane tagsContainer;
+	private FlowPane tagsContainer;
 	
 	@Override
 	protected void updateItem(Audio item, boolean empty) {
@@ -67,6 +67,7 @@ public class AudioListCell extends ListCell<Audio> {
 				if(e.getButton().equals(MouseButton.PRIMARY)) {
 					if(e.getClickCount() == 2) {
 						if(player.getPlayList().contains(item)) {
+							((MaterialDesignIconView) b_op.getGraphic()).setIcon(MaterialDesignIcon.PLUS);
 							if(player.getCurrentAudio() != null) {
 								if(player.getCurrentAudio().equals(item)) {
 									player.pause();
@@ -79,11 +80,9 @@ public class AudioListCell extends ListCell<Audio> {
 									}
 								}else {
 									AudioPageController.getInstance().removeAudioFromPlaylist(item);
-									((MaterialDesignIconView) b_op.getGraphic()).setIcon(MaterialDesignIcon.PLUS);
 								}
 							}else {
 								AudioPageController.getInstance().removeAudioFromPlaylist(item);
-								((MaterialDesignIconView) b_op.getGraphic()).setIcon(MaterialDesignIcon.PLUS);
 							}
 	 					}else {
 							AudioPageController.getInstance().addAudioToPlaylist(item);
@@ -91,7 +90,7 @@ public class AudioListCell extends ListCell<Audio> {
 						}
 					}
 				}else if(e.getButton().equals(MouseButton.SECONDARY)) {
-					settingDialog(item);
+					showSettingDialog(item);
 					getListView().refresh();
 				}
 			});
@@ -144,9 +143,10 @@ public class AudioListCell extends ListCell<Audio> {
 		
 		b_op.setOnAction(e -> {
 			if(player.getPlayList().contains(item)) {
+				((MaterialDesignIconView) b_op.getGraphic()).setIcon(MaterialDesignIcon.PLUS);
 				if(player.getCurrentAudio() != null) {
 					if(player.getCurrentAudio().equals(item)) {
-						player.pause();
+						 player.pause();
 						if(player.getPlayList().size() <= 1) {
 							player.stop();
 							AudioPageController.getInstance().removeAudioFromPlaylist(item);
@@ -155,11 +155,10 @@ public class AudioListCell extends ListCell<Audio> {
 							player.play();
 						}
 					}else {
-						getListView().getItems().remove(this.getIndex());
+						AudioPageController.getInstance().removeAudioFromPlaylist(item);
 					}
 				}else {
 					AudioPageController.getInstance().removeAudioFromPlaylist(item);
-					((MaterialDesignIconView) b_op.getGraphic()).setIcon(MaterialDesignIcon.PLUS);
 				}
 			}else {
 				AudioPageController.getInstance().addAudioToPlaylist(item);
@@ -177,38 +176,43 @@ public class AudioListCell extends ListCell<Audio> {
 	
 	private void buildTagsContainer(Audio audio) {
 		Button addTagButton = new Button("·s¼W¼ÐÅÒ");
-		
 		addTagButton.getStyleClass().add("add-tag-button");
 		addTagButton.setCursor(Cursor.HAND);
 		addTagButton.setPrefSize(USE_COMPUTED_SIZE, USE_COMPUTED_SIZE);
 		addTagButton.setOnAction(e -> {
-			List<String> allTags = Main.getInstance().getTagList();
-			List<MenuItem> tags = new ArrayList<>();
-			for(int i = 0; i < allTags.size(); i++) {
+			AudioTagManager tagManager = Main.getInstance().getAudioTagManager();
+			List<MenuItem> tagItems = new ArrayList<>();
+			for(int i = 0; i < tagManager.getTagCount(); i++) {
 				if(!audio.getTags().contains(i)) {
 					final int id = i;
-					ObservableList<Node> ol_tagsContainer = tagsContainer.getChildren();
 					
-					AudioTagBox tagBox = new AudioTagBox(i);
-					tagBox.setOnRemove(e1 -> {
-						audio.getTags().remove(Integer.valueOf(id));
-						ol_tagsContainer.remove(tagBox);
-					});
-					
-					Label l = new Label(allTags.get(id));
+					Label l = new Label(tagManager.getAudioTag(id).getName());
 					l.setPrefSize(100, USE_COMPUTED_SIZE);
 					l.setAlignment(Pos.CENTER);
 					
 					MenuItem tagItem = new MenuItem();
 					tagItem.setGraphic(l);
-					tagItem.setOnAction(e2 -> {
+					tagItem.setOnAction(e1 -> {
 						audio.getTags().add(id);
-						ol_tagsContainer.add(ol_tagsContainer.size() - 1, tagBox);
+						getListView().refresh();
 					});
-					tags.add(tagItem);
+					tagItems.add(tagItem);
 				}
 			}
-			ContextMenu menu = new ContextMenu(tags.toArray(new MenuItem[] {}));
+			
+			MenuItem newTagItem = new MenuItem();
+			newTagItem.getStyleClass().add("new-tag-item");
+			Label newTagLabel = new Label("+ new tag");
+			newTagLabel.setPrefSize(100, USE_COMPUTED_SIZE);
+			newTagLabel.setAlignment(Pos.CENTER);
+			newTagItem.setGraphic(newTagLabel);
+			
+			newTagItem.setOnAction(e3 -> {
+				showNewTagDialog(audio);
+			});
+			tagItems.add(newTagItem);
+			
+			ContextMenu menu = new ContextMenu(tagItems.toArray(new MenuItem[] {}));
 			Bounds rect = addTagButton.localToScreen(addTagButton.getLayoutBounds());
 			menu.show(
 					Main.getInstance().getStage(), 
@@ -219,13 +223,23 @@ public class AudioListCell extends ListCell<Audio> {
 		
 		AudioTagBox[] tagBoxes = new AudioTagBox[audio.getTags().size()];
 		for(int i = 0; i < audio.getTags().size(); i++) {
-			tagBoxes[i] = new AudioTagBox(audio.getTags().get(i));
+			final int index = i;
+			Integer tagID = Integer.valueOf(audio.getTags().get(index));
+			AudioTagBox tagBox = new AudioTagBox(tagID.intValue());
+			tagBox.setOnRemove(e -> {
+				audio.getTags();
+				audio.getTags().remove(tagID);
+				tagsContainer.getChildren().remove(tagBox);
+			});
+			
+			tagBoxes[i] = tagBox;
 		}
-		tagsContainer = new TilePane(5, 5, tagBoxes);
+		
+		tagsContainer = new FlowPane(5, 5, tagBoxes);
 		tagsContainer.getChildren().add(addTagButton);
 	}
 	
-	public void settingDialog(Audio audio) {
+	public void showSettingDialog(Audio audio) {
 		Stage dialog = new Stage();
 		dialog.initOwner(Main.getInstance().getStage());
 		dialog.initModality(Modality.APPLICATION_MODAL);
@@ -235,6 +249,7 @@ public class AudioListCell extends ListCell<Audio> {
 		FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/AudioSetting.fxml"));
 		try {
 			Parent dialogPane = loader.load();
+			dialogPane.getStylesheets().add("com/sharpkoi/oiduark/app/style/audio-setting.css");
 			AudioSetter setter = loader.getController();
 			
 			setter.initByAudio(audio);
@@ -242,6 +257,7 @@ public class AudioListCell extends ListCell<Audio> {
 			setter.setOnSettingDone(() -> {
 				HashMap<String, String> setting = setter.getResult();
 				Audio item = getItem();
+				System.out.println(setting.get("title"));
 				item.setTitle(setting.getOrDefault("title", item.getTitle()));
 				item.setAuthor(setting.getOrDefault("author", item.getAuthor()));
 				item.setCoverPath(setting.getOrDefault("cover", item.getCoverPath()));
@@ -253,6 +269,7 @@ public class AudioListCell extends ListCell<Audio> {
 					}
 				}
 				dialog.close();
+				getListView().refresh();
 			});
 			
 			dialog.setScene(new Scene(dialogPane));
@@ -260,5 +277,17 @@ public class AudioListCell extends ListCell<Audio> {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void showNewTagDialog(Audio audio) {
+		NewTagDialog dialog = new NewTagDialog();
+		dialog.show();
+		dialog.setOnConfirm(e -> {
+			HashMap<String, String> result = dialog.getResult();
+			AudioTagManager tm = Main.getInstance().getAudioTagManager();
+			tm.createNewTag(new AudioTag(result.get("name"), result.get("color")));
+			audio.getTags().add(tm.getTagCount() -1);
+			getListView().refresh();
+		});
 	}
 }

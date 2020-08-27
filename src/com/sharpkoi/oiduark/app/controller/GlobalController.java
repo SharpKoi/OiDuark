@@ -10,6 +10,7 @@ import com.sharpkoi.oiduark.utils.ResizeHelper;
 import com.sharpkoi.oiduark.utils.ResizeHelper.ResizeListener;
 import com.sharpkoi.oiduark.utils.ResourceLoader;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -107,11 +108,12 @@ public abstract class GlobalController implements Initializable {
 		});
 		
 		b_close.setOnAction(e -> {
-			//TODO: check there's anything has to be processed
-			
-			//TODO: save the volume value
+			Main.getInstance().getAudioTagManager().saveAllTags();
+			Main.getInstance().saveAllAudioData();
 			Main.getInstance().getUserSetting().save();
-			System.exit(1);
+			
+			stage.close();
+			Platform.runLater(() -> System.exit(1));
 		});
 		
 		b_maximize.setOnAction(e -> {

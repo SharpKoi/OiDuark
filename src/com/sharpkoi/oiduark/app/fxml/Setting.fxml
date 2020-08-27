@@ -84,7 +84,7 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="HOME" size="16" />
                      </graphic>
                      <cursor>
-                        <Cursor fx:constant="HAND" />
+                        <Cursor fx:constant="DEFAULT" />
                      </cursor>
                      <padding>
                         <Insets bottom="20.0" top="20.0" />
@@ -98,7 +98,7 @@
                         <Insets />
                      </VBox.margin>
                      <cursor>
-                        <Cursor fx:constant="HAND" />
+                        <Cursor fx:constant="DEFAULT" />
                      </cursor>
                      <padding>
                         <Insets bottom="20.0" top="20.0" />
@@ -112,7 +112,7 @@
                         <Insets />
                      </VBox.margin>
                      <cursor>
-                        <Cursor fx:constant="HAND" />
+                        <Cursor fx:constant="DEFAULT" />
                      </cursor>
                      <padding>
                         <Insets bottom="20.0" top="20.0" />
@@ -126,7 +126,7 @@
                         <Insets />
                      </VBox.margin>
                      <cursor>
-                        <Cursor fx:constant="HAND" />
+                        <Cursor fx:constant="DEFAULT" />
                      </cursor>
                      <padding>
                         <Insets bottom="20.0" top="20.0" />

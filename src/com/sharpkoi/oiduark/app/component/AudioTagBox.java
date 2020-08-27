@@ -1,6 +1,7 @@
 package com.sharpkoi.oiduark.app.component;
 
 import com.sharpkoi.oiduark.app.Main;
+import com.sharpkoi.oiduark.audio.AudioTag;
 
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
@@ -24,17 +25,14 @@ import javafx.scene.text.Font;
 
 public class AudioTagBox extends HBox {
 	
-	private int id;
-	private String name;
+	private AudioTag tag;
 	private EventHandler<ActionEvent> onRemove;
 	
-	public AudioTagBox(int id) {
-		this(id, Paint.valueOf("#d8bbff"));
-	}
-	
-	public AudioTagBox(int id, Paint color) {
+	public AudioTagBox(AudioTag tag) {
 		super();
-		this.name = Main.getInstance().getTagList().get(id);
+		this.tag = tag;
+		
+		Paint color = Paint.valueOf(tag.getColor());
 		
 		setBackground(new Background(new BackgroundFill(
 				Paint.valueOf("transparent"), 
@@ -50,21 +48,22 @@ public class AudioTagBox extends HBox {
 		getChildren().add(createTagNameLabel(color));
 		
 		setAlignment(Pos.CENTER_LEFT);
-		setPadding(new Insets(0, 2, 0, 2));
+		setPadding(new Insets(0, 4, 0, 4));
 		setSpacing(2);
 		setPrefSize(USE_COMPUTED_SIZE, USE_COMPUTED_SIZE);
+		setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
 	}
 	
-	public int getTagID() {
-		return id;
+	public AudioTagBox(int id) {
+		this(Main.getInstance().getAudioTagManager().getAudioTag(id));
 	}
 	
-	public void setTagName(String name) {
-		this.name = name;
+	public AudioTag getTag() {
+		return tag;
 	}
 	
-	public String getName() {
-		return name;
+	public String getTagName() {
+		return tag.getName();
 	}
 	
 	public void setOnRemove(EventHandler<ActionEvent> task) {
@@ -88,7 +87,7 @@ public class AudioTagBox extends HBox {
 	}
 	
 	private Label createTagNameLabel(Paint color) {
-		Label l = new Label(name);
+		Label l = new Label(tag.getName());
 		l.setFont(Font.font(10));
 		l.setTextFill(color);
 		return l;

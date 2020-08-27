@@ -47,7 +47,6 @@ public class UserSetting {
 			JSONParser parser = new JSONParser();
 			JSONObject settingData = (JSONObject) parser.parse(reader);
 			String mediaDir = settingData.get("media-dir").toString();
-			System.out.println(mediaDir);
 			int volume = ((Long) settingData.get("player-volume")).intValue();
 			return new UserSetting(mediaDir, volume);
 		} catch (ParseException e) {

@@ -1,25 +1,48 @@
 package com.sharpkoi.oiduark.utils;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.Charset;
 
-import org.json.simple.JSONAware;
-import org.json.simple.JSONObject;
+import org.apache.commons.io.output.FileWriterWithEncoding;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.sharpkoi.oiduark.audio.Audio;
 
 public class OiDuarkUtils {
 	
-	public static void saveJson(File store, JSONAware json) {
+	public static JsonObject parseAudioToJson(Audio audio) {
+		JsonObject obj = new JsonObject();
+		
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		JsonArray tagsJsonArray = (JsonArray) gson.toJsonTree(audio.getTags());
+		
+		obj.addProperty("title", audio.getTitle());
+		obj.addProperty("author", audio.getAuthor());
+		obj.addProperty("cover", audio.getCoverPath());
+		obj.addProperty("duration", audio.getDuration());
+		obj.add("tags", tagsJsonArray);
+		obj.addProperty("lyrics_file", audio.getLyricsFilePath());
+		
+		return obj;
+	}
+	
+	public static void saveJson(File store, JsonElement json) {
 		try {
 			if(!store.exists()) {
 				store.getParentFile().mkdirs();
 				store.createNewFile();
 			}
 			
-			FileWriter writer = new FileWriter(store);
-			writer.write(json.toJSONString());
-	        writer.flush();
-	        writer.close();
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			FileWriterWithEncoding writer = new FileWriterWithEncoding(store, Charset.forName("utf-8"));
+			gson.toJson(json, writer);
+			writer.flush();
+			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -30,10 +53,11 @@ public class OiDuarkUtils {
 			jsonFile.getParentFile().mkdirs();
 			jsonFile.createNewFile();
 			
-			FileWriter writer = new FileWriter(jsonFile);
-			writer.write(new JSONObject().toJSONString());
-	        writer.flush();
-	        writer.close();
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			FileWriterWithEncoding writer = new FileWriterWithEncoding(jsonFile, Charset.forName("utf-8"));
+			gson.toJson(new JsonObject(), writer);
+			writer.flush();
+			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -1,25 +1,18 @@
 package com.sharpkoi.oiduark.app;
 	
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import org.apache.commons.io.FilenameUtils;
-import org.json.simple.JSONArray;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.sharpkoi.oiduark.app.controller.*;
 import com.sharpkoi.oiduark.audio.Audio;
 import com.sharpkoi.oiduark.audio.AudioPlayer;
+import com.sharpkoi.oiduark.audio.AudioTagManager;
 import com.sharpkoi.oiduark.utils.OiDuarkUtils;
 import com.sharpkoi.oiduark.utils.ResourceLoader;
 import com.sharpkoi.oiduark.utils.UserSetting;
@@ -47,7 +40,7 @@ public class Main extends Application {
 	private HashMap<String, Parent> pageCache = new HashMap<>();	// store the page roots to activate without loading
 	
 	private ObservableList<Audio> ol_audioList = FXCollections.observableArrayList();
-	private ArrayList<String> tagList = new ArrayList<>();
+	private AudioTagManager tagManager;
 	private UserSetting usrSetting;
 	
 	private ResourceBundle properties = null;
@@ -65,12 +58,12 @@ public class Main extends Application {
 		return ol_audioList;
 	}
 	
-	public List<String> getTagList() {
-		return tagList;
-	}
-	
 	public HashMap<String, Parent> getPageCache() {
 		return pageCache;
+	}
+	
+	public AudioTagManager getAudioTagManager() {
+		return tagManager;
 	}
 	
 	public UserSetting getUserSetting() {
@@ -116,27 +109,20 @@ public class Main extends Application {
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
-	public void loadTags() {
-		try {
-			File tagConfigFile = new File(properties.getString("tag-id-data"));
-			if(!tagConfigFile.exists()) {
-				OiDuarkUtils.saveJson(tagConfigFile, new JSONArray());
-			}
-			JSONParser parser = new JSONParser();
-			InputStream in = new FileInputStream(tagConfigFile);
-			InputStreamReader reader = new InputStreamReader(in, StandardCharsets.UTF_8);
-			JSONArray tagArray = (JSONArray) parser.parse(reader);
-			tagList = new ArrayList<String>(tagArray);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ParseException e) {
-			e.printStackTrace();
+	public void saveAllAudioData() {
+		File store = new File(getMediaDataPath());
+		HashMap<String, JsonObject> audioDataMap = new HashMap<>();
+		for(Audio a : ol_audioList) {
+			audioDataMap.put(a.getFilePath(), OiDuarkUtils.parseAudioToJson(a));
 		}
+		
+		Gson gson = new Gson();
+		OiDuarkUtils.saveJson(store, gson.toJsonTree(audioDataMap));
 	}
 	
 	@Override
 	public void start(Stage primaryStage) {
+		System.out.println("Starting OiDuark...");
 		instance = this;
 		
 		properties = ResourceBundle.getBundle("app");
@@ -153,7 +139,7 @@ public class Main extends Application {
 				usrSetting = new UserSetting(properties.getString("media-dir"), 100);
 			}
 			
-			loadTags();
+			tagManager = new AudioTagManager();
 			
 			File mediaDir = new File(usrSetting.getUserMediaDir());
 			if(!mediaDir.exists()) mediaDir.mkdir();
@@ -172,7 +158,14 @@ public class Main extends Application {
 			primaryStage.getIcons().add(ResourceLoader.loadAppIcon());
 			primaryStage.setTitle("OiDuark");
 			primaryStage.initStyle(StageStyle.TRANSPARENT);
-			primaryStage.setResizable(true);
+			
+			primaryStage.setOnCloseRequest(e -> {
+				System.out.println("close stage");
+				tagManager.saveAllTags();
+				saveAllAudioData();
+				usrSetting.save();
+			});
+			
 			primaryStage.setScene(scene);
 			
 			primaryStage.setMinWidth(900);

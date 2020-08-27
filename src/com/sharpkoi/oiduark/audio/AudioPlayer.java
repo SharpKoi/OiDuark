@@ -108,7 +108,6 @@ public class AudioPlayer {
 		}
 		
 		updateIndicator();
-		System.out.println("Now play id " + indicator);
 		currentAudio = playList.get(indicator);
 		
 		Media media = ResourceLoader.loadMedia(playList.get(indicator));
@@ -152,6 +151,7 @@ public class AudioPlayer {
 	
 	public void stop() {
 		isPlaying = false;
+		currentAudio = null;
 		if(player != null) {
 			if(onPlayerStop != null) {
 				Platform.runLater(onPlayerStop);
@@ -214,7 +214,8 @@ public class AudioPlayer {
 			}
 			break;
 		case RANDOM:
-			int step = selector.nextInt(playList.size() - 1);
+			int stepBound = playList.size() - 1;
+			int step = stepBound <= 0? 0 : selector.nextInt(playList.size() - 1);
 			indicator += step + 1;
 			indicator = indicator % playList.size();
 			break;
