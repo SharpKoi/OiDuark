@@ -11,12 +11,13 @@ import com.sharpkoi.oiduark.app.Main;
 import com.sharpkoi.oiduark.app.component.AudioTagBox;
 import com.sharpkoi.oiduark.app.controller.AudioPageController;
 import com.sharpkoi.oiduark.app.controller.AudioSetter;
-import com.sharpkoi.oiduark.app.dialog.NewTagDialog;
+import com.sharpkoi.oiduark.app.dialog.TagSettingDialog;
 import com.sharpkoi.oiduark.audio.Audio;
 import com.sharpkoi.oiduark.audio.AudioPlayer;
 import com.sharpkoi.oiduark.audio.AudioTag;
 import com.sharpkoi.oiduark.audio.AudioTagManager;
 import com.sharpkoi.oiduark.utils.ResourceLoader;
+import com.sharpkoi.oiduark.utils.SimpleAnimation;
 
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
@@ -36,6 +37,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
@@ -108,18 +110,10 @@ public class AudioListCell extends ListCell<Audio> {
 			container.add(tagsContainer, 1, 1);
 			
 			setGraphic(container);
-			
-//			selectedProperty().addListener((observable, o_select, n_select) -> {
-//				if(n_select) {
-//					this.setEffect(new Glow(0.4));
-//				}else {
-//					this.setEffect(null);
-//				}
-//			});
 		}
 	}
 	
-	private void buildOPButton(Audio item) {
+	protected void buildOPButton(Audio item) {
 		AudioPlayer player = Main.getInstance().getAudioPlayer();
 		MaterialDesignIconView opIcon = new MaterialDesignIconView();
 		
@@ -167,14 +161,14 @@ public class AudioListCell extends ListCell<Audio> {
 		});
 	}
 	
-	private void buildTitleLabel(String title) {
+	protected void buildTitleLabel(String title) {
 		l_title = new Label(title);
 		l_title.setAlignment(Pos.CENTER_LEFT);
 		l_title.setFont(Font.font(16));
 		l_title.setTextFill(Paint.valueOf("white"));
 	}
 	
-	private void buildTagsContainer(Audio audio) {
+	protected void buildTagsContainer(Audio audio) {
 		Button addTagButton = new Button("∑sºWº–≈“");
 		addTagButton.getStyleClass().add("add-tag-button");
 		addTagButton.setCursor(Cursor.HAND);
@@ -226,10 +220,29 @@ public class AudioListCell extends ListCell<Audio> {
 			final int index = i;
 			Integer tagID = Integer.valueOf(audio.getTags().get(index));
 			AudioTagBox tagBox = new AudioTagBox(tagID.intValue());
+			
 			tagBox.setOnRemove(e -> {
-				audio.getTags();
 				audio.getTags().remove(tagID);
 				tagsContainer.getChildren().remove(tagBox);
+			});
+			
+			tagBox.setOnMouseClicked(e -> {
+				if(e.getButton().equals(MouseButton.PRIMARY)) {
+					TagSettingDialog dialog = new TagSettingDialog(tagBox.getTag().getName(), tagBox.getTag().getColor());
+					dialog.show();
+					SimpleAnimation.popup(dialog.getScene().getRoot());
+					dialog.setOnConfirm(confirm -> {
+						AudioTag tagRef = dialog.getResult();
+						
+						String tagName = tagRef.getName();
+						String tagColor = tagRef.getColor().toString();
+						
+						tagBox.getTag().setName(tagName);
+						tagBox.getTag().setColor(tagColor);
+						tagBox.tagNameProperty().set(tagName);
+						tagBox.tagColorProperty().set(Color.valueOf(tagColor));
+					});
+				}
 			});
 			
 			tagBoxes[i] = tagBox;
@@ -257,7 +270,6 @@ public class AudioListCell extends ListCell<Audio> {
 			setter.setOnSettingDone(() -> {
 				HashMap<String, String> setting = setter.getResult();
 				Audio item = getItem();
-				System.out.println(setting.get("title"));
 				item.setTitle(setting.getOrDefault("title", item.getTitle()));
 				item.setAuthor(setting.getOrDefault("author", item.getAuthor()));
 				item.setCoverPath(setting.getOrDefault("cover", item.getCoverPath()));
@@ -280,12 +292,12 @@ public class AudioListCell extends ListCell<Audio> {
 	}
 	
 	public void showNewTagDialog(Audio audio) {
-		NewTagDialog dialog = new NewTagDialog();
+		TagSettingDialog dialog = new TagSettingDialog();
 		dialog.show();
+		SimpleAnimation.popup(dialog.getScene().getRoot());
 		dialog.setOnConfirm(e -> {
-			HashMap<String, String> result = dialog.getResult();
 			AudioTagManager tm = Main.getInstance().getAudioTagManager();
-			tm.createNewTag(new AudioTag(result.get("name"), result.get("color")));
+			tm.createNewTag(dialog.getResult());
 			audio.getTags().add(tm.getTagCount() -1);
 			getListView().refresh();
 		});

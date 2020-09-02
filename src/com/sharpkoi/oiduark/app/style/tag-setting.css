@@ -1,0 +1,46 @@
+.root {
+	-fx-background-color: #313840 ;
+	-fx-background-insets: 5 ; 
+	-fx-background-radius: 8 ;
+}
+
+.del-tag-button {
+	-fx-background-color: transparent ;
+	-fx-background-radius: 8 ;
+	-fx-padding: -4  -2  -4  -2 ;
+}
+
+.del-tag-button:hover {
+	-fx-background-color: rgba(255, 255, 255, 0.2) ;
+}
+
+.jfx-text-field {
+	-fx-text-inner-color: #fff ;
+	-fx-prompt-text-fill: #ff3636 ;
+}
+
+.cancel-button {
+	-fx-background-color: #81888c ;
+	-fx-text-fill: white ;
+}
+
+.cancel-button:hover {
+	-fx-background-color: #989fa3 ;
+}
+
+.cancel-button:pressed {
+	-fx-background-color: #656a6e ;
+}
+
+.confirm-button {
+	-fx-background-color: #008dde ;
+	-fx-text-fill: white ;
+}
+
+.confirm-button:hover {
+	-fx-background-color: #389ed9 ;
+}
+
+.confirm-button:pressed {
+	-fx-background-color: #005c91 ;
+}

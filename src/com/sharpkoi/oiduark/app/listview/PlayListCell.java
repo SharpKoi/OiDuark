@@ -55,20 +55,17 @@ public class PlayListCell extends ListCell<Audio> {
 						player.pause();
 						if(player.getPlayList().size() <= 1) {
 							player.stop();
-							getListView().getItems().remove(this.getIndex());
+							removeFromPlaylist();
 						}else {
-							getListView().getItems().remove(this.getIndex());
+							removeFromPlaylist();
 							player.play();
 						}
 					}else {
-						getListView().getItems().remove(this.getIndex());
+						removeFromPlaylist();
 					}
 				}else {
-					getListView().getItems().remove(this.getIndex());
+					removeFromPlaylist();
 				}
-				
-//				TODO: Slide out with animation
-//				cellAnim.play();
 				
 				AudioPageController.getInstance().refreshAudioList();
 			});
@@ -99,10 +96,10 @@ public class PlayListCell extends ListCell<Audio> {
 				}
 			}
 			
-			setStyle("-fx-background-color:  #2B3035 ;");
+			setStyle("-fx-background-color:  transparent ;");
 			setPrefWidth(getListView().getWidth());
 		}else {
-			setStyle("-fx-background-color:  #2B3035 ;");
+			setStyle("-fx-background-color:  transparent ;");
 			setGraphic(null);
 			setText("");
 		}
@@ -138,5 +135,12 @@ public class PlayListCell extends ListCell<Audio> {
 		b_remove.getStyleClass().add("op-button");
 		b_remove.setMinSize(24, 24);
 		b_remove.setPrefSize(24, 24);
+	}
+	
+	public void removeFromPlaylist() {
+		SimpleAnimation.slideOut(this, getListView(), onFinish -> {
+			getListView().getItems().remove(this.getIndex());
+			this.setTranslateX(0);	//reset the cell's translation
+		});
 	}
 }

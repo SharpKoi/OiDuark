@@ -1,4 +1,4 @@
-package com.sharpkoi.oiduark.app.event;
+package com.sharpkoi.oiduark.event;
 
 import java.util.EventListener;
 

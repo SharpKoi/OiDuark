@@ -7,9 +7,12 @@ import javafx.animation.Animation.Status;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Region;
 import javafx.util.Duration;
 
 public class SimpleAnimation {
@@ -34,6 +37,48 @@ public class SimpleAnimation {
 		
 		timeline.playFromStart();
 		nodeAnim.put(textContainer, timeline);
+	}
+	
+	public static void popup(Node node) {
+		KeyFrame size0Kf = new KeyFrame(Duration.ZERO, 
+				new KeyValue(node.scaleXProperty(), 0.7), 
+				new KeyValue(node.scaleYProperty(), 0.7));
+		
+		KeyFrame size1Kf = new KeyFrame(Duration.millis(100), 
+				new KeyValue(node.scaleXProperty(), 1.1), 
+				new KeyValue(node.scaleYProperty(), 1.1));
+		
+		KeyFrame finalSizeKf = new KeyFrame(Duration.millis(250), 
+				new KeyValue(node.scaleXProperty(), 1), 
+				new KeyValue(node.scaleYProperty(), 1));
+		
+		Timeline timeline = new Timeline(size0Kf, size1Kf, finalSizeKf);
+		timeline.playFromStart();
+		nodeAnim.put(node, timeline);
+		
+		timeline.setOnFinished(e -> {
+			nodeAnim.remove(node);
+		});
+	}
+	
+	public static void slideOut(Node node, Region container, EventHandler<ActionEvent> onFinish) {
+		KeyFrame pos0Kf = new KeyFrame(Duration.ZERO, 
+				new KeyValue(node.translateXProperty(), 0));
+		
+		KeyFrame pos1Kf = new KeyFrame(Duration.millis(200), 
+				new KeyValue(node.translateXProperty(), -10));
+		
+		KeyFrame posOutKf = new KeyFrame(Duration.millis(450),  
+				new KeyValue(node.translateXProperty(), container.getLayoutBounds().getMaxX() + 100));
+		
+		Timeline timeline = new Timeline(pos0Kf, pos1Kf, posOutKf);
+		timeline.playFromStart();
+		nodeAnim.put(node, timeline);
+		
+		timeline.setOnFinished(e -> {
+			onFinish.handle(e);
+			nodeAnim.remove(node);
+		});
 	}
 	
 	public static boolean isNodeAnimating(Node node) {

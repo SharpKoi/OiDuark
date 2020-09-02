@@ -144,7 +144,6 @@ public class HomeController extends GlobalController {
 		}
 		
 		l_playlist.setItems(playList);
-		l_playlist.setFixedCellSize(48);
 		l_playlist.refresh();
 	}
 	

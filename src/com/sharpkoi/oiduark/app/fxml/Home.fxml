@@ -8,8 +8,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.effect.Glow?>
-<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -77,9 +77,9 @@
       </AnchorPane>
       <AnchorPane prefHeight="620.0" prefWidth="1024.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
          <children>
-            <VBox prefHeight="617.0" prefWidth="185.0" spacing="10.0" style="-fx-background-color: #212529;" styleClass="navigation" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <VBox prefHeight="620.0" prefWidth="164.0" spacing="10.0" style="-fx-background-color: #212529;" styleClass="navigation" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Button fx:id="b_home" contentDisplay="TOP" mnemonicParsing="false" opacity="0.8" prefWidth="185.0" style="-fx-background-color: transparent;" styleClass="navigation-button" text="Home" textFill="WHITE">
+                  <Button fx:id="b_home" alignment="BASELINE_LEFT" graphicTextGap="20.0" mnemonicParsing="false" opacity="0.8" prefHeight="48.0" prefWidth="185.0" styleClass="navigation-button" text="Home" textFill="WHITE">
                      <VBox.margin>
                         <Insets top="40.0" />
                      </VBox.margin>
@@ -90,10 +90,10 @@
                         <Cursor fx:constant="DEFAULT" />
                      </cursor>
                      <padding>
-                        <Insets bottom="20.0" top="20.0" />
+                        <Insets left="20.0" />
                      </padding>
                   </Button>
-                  <Button fx:id="b_select" contentDisplay="TOP" mnemonicParsing="false" opacity="0.8" prefWidth="185.0" style="-fx-background-color: transparent;" styleClass="navigation-button" text="My Audio" textFill="WHITE">
+                  <Button fx:id="b_select" alignment="BASELINE_LEFT" graphicTextGap="20.0" mnemonicParsing="false" opacity="0.8" prefHeight="48.0" prefWidth="185.0" styleClass="navigation-button" text="My Audio" textFill="WHITE">
                      <graphic>
                         <FontAwesomeIconView fill="WHITE" glyphName="MUSIC" size="16.0" />
                      </graphic>
@@ -104,10 +104,10 @@
                         <Cursor fx:constant="DEFAULT" />
                      </cursor>
                      <padding>
-                        <Insets bottom="20.0" top="20.0" />
+                        <Insets left="20.0" />
                      </padding>
                   </Button>
-                  <Button fx:id="b_setting" contentDisplay="TOP" mnemonicParsing="false" opacity="0.8" prefWidth="185.0" style="-fx-background-color: transparent;" styleClass="navigation-button" text="Setting" textFill="WHITE">
+                  <Button fx:id="b_setting" alignment="BASELINE_LEFT" graphicTextGap="20.0" mnemonicParsing="false" opacity="0.8" prefHeight="48.0" prefWidth="185.0" styleClass="navigation-button" text="Setting" textFill="WHITE">
                      <graphic>
                         <FontAwesomeIconView fill="WHITE" glyphName="COG" size="16" />
                      </graphic>
@@ -118,10 +118,10 @@
                         <Cursor fx:constant="DEFAULT" />
                      </cursor>
                      <padding>
-                        <Insets bottom="20.0" top="20.0" />
+                        <Insets left="20.0" />
                      </padding>
                   </Button>
-                  <Button fx:id="b_about" contentDisplay="TOP" mnemonicParsing="false" opacity="0.8" prefWidth="185.0" style="-fx-background-color: transparent;" styleClass="navigation-button" text="About" textFill="WHITE">
+                  <Button fx:id="b_about" alignment="BASELINE_LEFT" graphicTextGap="20.0" mnemonicParsing="false" opacity="0.8" prefHeight="48.0" prefWidth="185.0" styleClass="navigation-button" text="About" textFill="WHITE">
                      <graphic>
                         <FontAwesomeIconView fill="WHITE" glyphName="INFO_CIRCLE" size="16" />
                      </graphic>
@@ -132,18 +132,21 @@
                         <Cursor fx:constant="DEFAULT" />
                      </cursor>
                      <padding>
-                        <Insets bottom="20.0" top="20.0" />
+                        <Insets left="20.0" />
                      </padding>
                   </Button>
                </children>
             </VBox>
-            <AnchorPane opacity="0.95" style="-fx-background-color: #151515;" styleClass="review-page" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="184.0" AnchorPane.rightAnchor="180.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane layoutX="153.0" opacity="0.95" prefHeight="620.0" style="-fx-background-color: #151515;" styleClass="review-page" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="164.0" AnchorPane.rightAnchor="180.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Label fx:id="l_loading" layoutX="20.0" layoutY="433.0" opacity="0.0" text="Loading..." textFill="WHITE" AnchorPane.bottomAnchor="175.0" AnchorPane.leftAnchor="30.0" />
-                  <BorderPane fx:id="coverContainer" prefHeight="621.0" prefWidth="660.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <BorderPane fx:id="coverContainer" prefHeight="620.0" prefWidth="660.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <center>
-                        <ImageView fx:id="coverView" fitHeight="460.0" fitWidth="660.0" mouseTransparent="true" nodeOrientation="INHERIT" opacity="0.6" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+                        <ImageView fx:id="coverView" fitHeight="620.0" fitWidth="680.0" mouseTransparent="true" nodeOrientation="INHERIT" opacity="0.6" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
                      </center>
+                     <effect>
+                        <Glow />
+                     </effect>
                   </BorderPane>
                   <AnchorPane layoutY="450.0" prefHeight="160.0" prefWidth="640.0" styleClass="control-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <children>
@@ -162,7 +165,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
-                        <ImageView fx:id="b_play" fitHeight="32.0" fitWidth="32.0" layoutX="82.0" layoutY="45.0" onMouseClicked="#onPlayButtonClicked" pickOnBounds="true" preserveRatio="true" styleClass="control-button" AnchorPane.leftAnchor="92.0">
+                        <ImageView fx:id="b_play" fitHeight="32.0" fitWidth="32.0" layoutY="45.0" onMouseClicked="#onPlayButtonClicked" pickOnBounds="true" preserveRatio="true" styleClass="control-button" translateX="5.0" AnchorPane.leftAnchor="92.0">
                            <image>
                               <Image url="@../resources/images/icons/play_64px.png" />
                            </image>
@@ -190,9 +193,10 @@
                   </AnchorPane>
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="620.0" prefWidth="180.0" style="-fx-background-color: #2B3035;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane prefHeight="620.0" prefWidth="180.0" style="-fx-background-color: #1d2024;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Pane prefHeight="32.0" prefWidth="200.0" style="-fx-border-radius: 8; -fx-border-width: 1.6; -fx-border-color: linear-gradient(from 50% 50% to 100% 100%, #6704c4, #e000c2);" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="8.0">
+                  <Separator orientation="VERTICAL" prefHeight="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Pane prefHeight="32.0" prefWidth="180.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="8.0">
                      <children>
                         <Label layoutX="67.0" layoutY="2.0" prefHeight="32.0" text="播放清單" textAlignment="CENTER" textFill="WHITE">
                            <font>
@@ -205,15 +209,10 @@
                            </image>
                         </ImageView>
                      </children>
-                     <effect>
-                        <Glow level="0.8" />
-                     </effect>
                   </Pane>
-                  <ListView fx:id="l_playlist" editable="true" fixedCellSize="32.0" layoutY="40.0" style="-fx-background-color: #212529; -fx-background-radius: 8;" styleClass="play-list" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="50.0">
-                     <effect>
-                        <InnerShadow />
-                     </effect>
-                  </ListView>
+                  <Separator layoutY="72.0" prefHeight="1.0" prefWidth="180.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="48.0" />
+                  <ListView fx:id="l_playlist" editable="true" fixedCellSize="40.0" layoutY="40.0" styleClass="play-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="49.0" />
+                  <Separator layoutX="10.0" layoutY="10.0" orientation="VERTICAL" prefHeight="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
          </children>

@@ -5,6 +5,11 @@ import com.sharpkoi.oiduark.audio.AudioTag;
 
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -26,26 +31,35 @@ import javafx.scene.text.Font;
 public class AudioTagBox extends HBox {
 	
 	private AudioTag tag;
+	
+	private StringProperty tagNameProperty;
+	private ObjectProperty<Paint> tagColorProperty;
+	
 	private EventHandler<ActionEvent> onRemove;
 	
 	public AudioTagBox(AudioTag tag) {
 		super();
 		this.tag = tag;
 		
-		Paint color = Paint.valueOf(tag.getColor());
+		tagNameProperty = new SimpleStringProperty(tag.getName());
+		tagColorProperty = new SimpleObjectProperty<>(tag.getColor());
 		
 		setBackground(new Background(new BackgroundFill(
 				Paint.valueOf("transparent"), 
 				new CornerRadii(16), 
 				Insets.EMPTY)
 		));
-		setBorder(new Border(new BorderStroke(color, 
-										BorderStrokeStyle.SOLID,
-										new CornerRadii(16), 
-										new BorderWidths(1)))); 
 		
-		getChildren().add(createDeleteButton(color));
-		getChildren().add(createTagNameLabel(color));
+		borderProperty().bind(Bindings.createObjectBinding(
+						() -> new Border(
+								new BorderStroke(tagColorProperty.get(), 
+								BorderStrokeStyle.SOLID,
+								new CornerRadii(16), 
+								new BorderWidths(1))), 
+						tagColorProperty));
+		
+		getChildren().add(createDeleteButton());
+		getChildren().add(createTagNameLabel());
 		
 		setAlignment(Pos.CENTER_LEFT);
 		setPadding(new Insets(0, 4, 0, 4));
@@ -70,26 +84,37 @@ public class AudioTagBox extends HBox {
 		this.onRemove = task;
 	}
 	
-	private Button createDeleteButton(Paint color) {
+	public StringProperty tagNameProperty() {
+		return tagNameProperty;
+	}
+	
+	public ObjectProperty<Paint> tagColorProperty() {
+		return tagColorProperty;
+	}
+	
+	private Button createDeleteButton() {
 		Button b = new Button();
 		b.getStyleClass().add("del-tag-button");
 		b.setCursor(Cursor.HAND);
 		MaterialDesignIconView icon = new MaterialDesignIconView(MaterialDesignIcon.CLOSE);
-		icon.setFill(color);
+		icon.fillProperty().bind(tagColorProperty);
 		icon.setGlyphSize(10);
 		b.setGraphic(icon);
 		b.setPrefSize(10, 10);
 		b.setOnAction(e -> {
-			onRemove.handle(e);
+			if(onRemove != null)
+				onRemove.handle(e);
 		});
 		
 		return b;
 	}
 	
-	private Label createTagNameLabel(Paint color) {
+	private Label createTagNameLabel() {
 		Label l = new Label(tag.getName());
+		l.textProperty().bind(tagNameProperty);
+		l.textFillProperty().bind(tagColorProperty);
 		l.setFont(Font.font(10));
-		l.setTextFill(color);
+		
 		return l;
 	}
 }

@@ -74,9 +74,9 @@
       </AnchorPane>
       <AnchorPane prefHeight="620.0" prefWidth="1024.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
          <children>
-            <VBox prefHeight="617.0" prefWidth="185.0" spacing="10.0" style="-fx-background-color: #212529;" styleClass="navigation" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <VBox prefHeight="620.0" prefWidth="164.0" spacing="10.0" style="-fx-background-color: #212529;" styleClass="navigation" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Button fx:id="b_home" contentDisplay="TOP" mnemonicParsing="false" opacity="0.8" prefWidth="185.0" style="-fx-background-color: transparent;" styleClass="navigation-button" text="Home" textFill="WHITE">
+                  <Button fx:id="b_home" alignment="BASELINE_LEFT" graphicTextGap="20.0" mnemonicParsing="false" opacity="0.8" prefHeight="48.0" prefWidth="185.0" styleClass="navigation-button" text="Home" textFill="WHITE">
                      <VBox.margin>
                         <Insets top="40.0" />
                      </VBox.margin>
@@ -87,10 +87,10 @@
                         <Cursor fx:constant="DEFAULT" />
                      </cursor>
                      <padding>
-                        <Insets bottom="20.0" top="20.0" />
+                        <Insets left="20.0" />
                      </padding>
                   </Button>
-                  <Button fx:id="b_select" contentDisplay="TOP" mnemonicParsing="false" opacity="0.8" prefWidth="185.0" style="-fx-background-color: transparent;" styleClass="navigation-button" text="My Audio" textFill="WHITE">
+                  <Button fx:id="b_select" alignment="BASELINE_LEFT" graphicTextGap="20.0" mnemonicParsing="false" opacity="0.8" prefHeight="48.0" prefWidth="185.0" styleClass="navigation-button" text="My Audio" textFill="WHITE">
                      <graphic>
                         <FontAwesomeIconView fill="WHITE" glyphName="MUSIC" size="16.0" />
                      </graphic>
@@ -101,10 +101,10 @@
                         <Cursor fx:constant="DEFAULT" />
                      </cursor>
                      <padding>
-                        <Insets bottom="20.0" top="20.0" />
+                        <Insets left="20.0" />
                      </padding>
                   </Button>
-                  <Button fx:id="b_setting" contentDisplay="TOP" mnemonicParsing="false" opacity="0.8" prefWidth="185.0" style="-fx-background-color: transparent;" styleClass="navigation-button" text="Setting" textFill="WHITE">
+                  <Button fx:id="b_setting" alignment="BASELINE_LEFT" graphicTextGap="20.0" mnemonicParsing="false" opacity="0.8" prefHeight="48.0" prefWidth="185.0" styleClass="navigation-button" text="Setting" textFill="WHITE">
                      <graphic>
                         <FontAwesomeIconView fill="WHITE" glyphName="COG" size="16" />
                      </graphic>
@@ -115,10 +115,10 @@
                         <Cursor fx:constant="DEFAULT" />
                      </cursor>
                      <padding>
-                        <Insets bottom="20.0" top="20.0" />
+                        <Insets left="20.0" />
                      </padding>
                   </Button>
-                  <Button fx:id="b_about" contentDisplay="TOP" mnemonicParsing="false" opacity="0.8" prefWidth="185.0" style="-fx-background-color: transparent;" styleClass="navigation-button" text="About" textFill="WHITE">
+                  <Button fx:id="b_about" alignment="BASELINE_LEFT" graphicTextGap="20.0" mnemonicParsing="false" opacity="0.8" prefHeight="48.0" prefWidth="185.0" styleClass="navigation-button" text="About" textFill="WHITE">
                      <graphic>
                         <FontAwesomeIconView fill="WHITE" glyphName="INFO_CIRCLE" size="16" />
                      </graphic>
@@ -129,12 +129,12 @@
                         <Cursor fx:constant="DEFAULT" />
                      </cursor>
                      <padding>
-                        <Insets bottom="20.0" top="20.0" />
+                        <Insets left="20.0" />
                      </padding>
                   </Button>
                </children>
             </VBox>
-            <AnchorPane layoutX="185.0" prefHeight="617.0" prefWidth="639.0" style="-fx-background-color: #2B3035;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="184.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane layoutX="185.0" prefHeight="617.0" prefWidth="639.0" style="-fx-background-color: #2B3035;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="164.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Label contentDisplay="RIGHT" graphicTextGap="12.0" layoutX="39.0" layoutY="48.0" text="音檔存放位置:" textFill="WHITE" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="48.0">
                      <font>
@@ -164,6 +164,6 @@
    </children>
    <stylesheets>
       <URL value="@../style/application.css" />
-      <URL value="@../style/setting_page.css" />
+      <URL value="@../style/setting-page.css" />
    </stylesheets>
 </AnchorPane>

@@ -1,6 +1,16 @@
 package com.sharpkoi.oiduark.audio;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import com.sharpkoi.oiduark.utils.Console;
+
+import javafx.scene.paint.Color;
+
 public class AudioTag {
+	
+	public static final Color DEFAULT_COLOR = Color.valueOf("#d8bbff");
+	
 	private String name;
 	private String color;
 	
@@ -21,11 +31,20 @@ public class AudioTag {
 		this.name = name;
 	}
 
-	public String getColor() {
-		return color;
+	public Color getColor() {
+		return Color.valueOf(color);
+	}
+	
+	public void setColor(String colorCode) {
+		this.color = colorCode;
 	}
 
-	public void setColor(String color) {
-		this.color = color;
+	public Map<String, String> getMetaData() {
+		Map<String, String> meta = new LinkedHashMap<>(2);
+		meta.put("name", this.name);
+		Console.debug(color.toString());
+		meta.put("colorCode", this.color.toString());
+		
+		return meta;
 	}
 }

@@ -130,6 +130,7 @@ public class AudioPlayer {
 		});
 		
 		player.setOnEndOfMedia(() -> {
+			player.dispose();
 			play();
 		});
 		

@@ -130,7 +130,6 @@ public class AudioPageController extends GlobalController {
 		
 		ObservableList<Audio> playList = Main.getInstance().getAudioPlayer().getObservablePlayList();
 		l_playlist.setItems(playList);
-		l_playlist.setFixedCellSize(48);
 		l_playlist.refresh();
 	}
 	

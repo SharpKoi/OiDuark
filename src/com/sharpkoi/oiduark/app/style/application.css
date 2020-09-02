@@ -26,12 +26,13 @@
 
 /* navigation */
 .navigation-button {
+	-fx-background-color: transparent ;
 	-fx-background-radius: 0 ;
 	-fx-border-radius: 0 ;
 }
 
 .navigation-button:hover {
-	-fx-background-color: #2B3035 ;
+	-fx-background-color: #3c434a ;
 	-fx-opacity: 1 ;
 }
 
@@ -58,12 +59,26 @@
 
 /* list view */
 .list-cell {
-	-fx-background-color:  #2B3035 ;
-	-fx-background-radius: 4 ;
+	-fx-background-color:  transparent ;
 }
 
 .list-cell:hover {
 	-fx-background-color:  #343a40 ;
+}
+
+.play-list {
+	-fx-background-color: transparent ;
+}
+
+.separator {
+	-fx-background-color: white ;
+}
+
+.separator .line {
+	-fx-border-style: solid ;
+	-fx-background-color: #fff ;
+    -fx-border-color: #fff ;
+    -fx-border-width: 0.1px ;
 }
 
 .title-container {
@@ -113,10 +128,19 @@
 }
 
 .scroll-bar:vertical .thumb {
-	-fx-background-color: #a8b3bd ;
+	-fx-background-color:  #495157 ;
 }
 
 /* audio page */ 
+.search-bar {
+	-fx-background-color: transparent ;
+	-fx-background-radius: 0 ;
+	-fx-border-color: white ;
+	-fx-border-width: 1px ;
+	-fx-border-radius: 0 ;
+	-fx-text-fill: white ;
+}
+
 .menu-button .arrow {
 	-fx-background-color: white ;
 }
@@ -167,10 +191,4 @@
 
 .del-tag-button:hover {
 	-fx-background-color: rgba(255, 255, 255, 0.2) ;
-}
-
-.separator *.line {
-	-fx-border-style: solid ;
-	-fx-border-width: 1px ;
-	-fx-border-color:  #555 ;
 }

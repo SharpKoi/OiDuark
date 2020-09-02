@@ -15,8 +15,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 import com.sharpkoi.oiduark.app.Main;
-import com.sharpkoi.oiduark.app.event.NewTagEvent;
-import com.sharpkoi.oiduark.app.event.NewTagEventListener;
+import com.sharpkoi.oiduark.event.NewTagEvent;
+import com.sharpkoi.oiduark.event.NewTagEventListener;
 import com.sharpkoi.oiduark.utils.OiDuarkUtils;
 
 public class AudioTagManager {
@@ -74,7 +74,6 @@ public class AudioTagManager {
 			InputStreamReader reader = new InputStreamReader(in, StandardCharsets.UTF_8);
 			
 			AudioTag[] tagArray = new Gson().fromJson(reader, AudioTag[].class);
-			
 			allTags = new ArrayList<AudioTag>(Arrays.asList(tagArray));
 		} catch (IOException e) {
 			e.printStackTrace();
