@@ -1,0 +1,15 @@
+/.classpath
+/.project
+/.gradle/
+/.idea/
+/.settings/
+/OiDuark.iml
+/配色紀錄.txt
+/bin/
+/build/
+/log/
+/media/
+/metadata/
+/target/
+/lib/fontawesomefx-glyphsbrowser-1.3.0/
+/**/test/

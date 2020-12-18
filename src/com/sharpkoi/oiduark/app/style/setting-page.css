@@ -1,0 +1,15 @@
+.field-director {
+	-fx-prompt-text-fill: #666 ;
+	-fx-text-inner-color: #fff ;
+}
+
+.button-browse {
+	-fx-background-color: transparent ;
+	-fx-border-color: rgba(225, 225, 225, 0.3) ;
+	-fx-border-radius: 12 ;
+}
+
+.button-browse:hover {
+	-fx-text-fill: #fff ;
+	-fx-border-color: linear-gradient(to right, #8900f2, #0096c7);
+}
