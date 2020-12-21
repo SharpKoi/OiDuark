@@ -20,7 +20,7 @@ import javafx.event.EventHandler;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-
+import javafx.scene.CacheHint;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
@@ -97,6 +97,10 @@ public class NavigationButton extends HBox {
 		});
 		
 		getChildren().addAll(thinRegion(), actionButton);
+		
+		setCache(true);
+		setCacheShape(true);
+		setCacheHint(CacheHint.SPEED);
 	}
 	
 	public Region thinRegion() {

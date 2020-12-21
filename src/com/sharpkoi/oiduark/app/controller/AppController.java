@@ -12,9 +12,11 @@ import com.sharpkoi.oiduark.app.component.TitleBar;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.CacheHint;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Region;
 
 /****** The global handler ******/
 /* @Description: Handle with the actions on title bar and navigation box.
@@ -48,6 +50,10 @@ public abstract class AppController implements Initializable {
 		playerControlPanel = 
 				(PlayerControlPanel) cm.getComponent(PlayerControlPanel.class.getSimpleName());
 		playlistPanel = (PlaylistPanel) cm.getComponent(PlaylistPanel.class.getSimpleName());
+
+		getRoot().setCache(true);
+		getRoot().setCacheHint(CacheHint.SCALE);
+		((Region) getRoot()).setCacheShape(true);
 		
 		loadPageInfo();
 		

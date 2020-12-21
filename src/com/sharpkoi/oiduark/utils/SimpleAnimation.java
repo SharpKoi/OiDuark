@@ -1,6 +1,5 @@
 package com.sharpkoi.oiduark.utils;
 
-import java.security.Key;
 import java.util.HashMap;
 
 import javafx.animation.Animation;
@@ -25,10 +24,10 @@ public class SimpleAnimation {
 				new KeyValue(windowRoot.scaleXProperty(), windowRoot.getScaleX()),
 				new KeyValue(windowRoot.scaleYProperty(), windowRoot.getScaleY()), 
 				new KeyValue(windowRoot.opacityProperty(), 1));
-		KeyFrame finalKF = new KeyFrame(Duration.millis(200),
+		KeyFrame finalKF = new KeyFrame(Duration.millis(300),
 				new KeyValue(windowRoot.scaleXProperty(), 0.4),
 				new KeyValue(windowRoot.scaleYProperty(), 0.4),
-				new KeyValue(windowRoot.opacityProperty(), 0.2));
+				new KeyValue(windowRoot.opacityProperty(), 0));
 		
 		Timeline tl = new Timeline(originKF, finalKF);
 		tl.setOnFinished(onFinish);

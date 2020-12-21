@@ -33,7 +33,7 @@ public class Navigation extends VBox {
 		logo.setFitHeight(40); logo.setFitWidth(40);
 		
 		Label title = new Label("OiDuark");
-		title.setFont(ResourceLoader.loadFont("Bauhaus 93 Regular", 24));
+		title.setFont(ResourceLoader.loadFont("Bauhaus 93 Regular", 24, ".ttf"));
 		title.setTextFill(Paint.valueOf("#f05"));
 		
 		banner.setAlignment(Pos.CENTER);

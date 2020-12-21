@@ -110,8 +110,8 @@ public class ResourceLoader {
 		return new Image(Main.class.getResourceAsStream(ICON_PATH + "end_64px.png"));
 	}
 	
-	public static Font loadFont(String fontName, double size) {
-		return Font.loadFont(Main.class.getResourceAsStream(FONT_PATH + fontName + ".ttf"), size);
+	public static Font loadFont(String fontName, double size, String fontSuffix) {
+		return Font.loadFont(Main.class.getResourceAsStream(FONT_PATH + fontName + fontSuffix), size);
 	}
 	
 	public static Media loadMedia(Audio audio) {

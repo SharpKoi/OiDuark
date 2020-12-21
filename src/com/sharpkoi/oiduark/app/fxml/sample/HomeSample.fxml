@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" minHeight="80.0" minWidth="888.0" prefHeight="640.0" prefWidth="1024.0" style="-fx-background-radius: 4; -fx-background-color: #151515;" styleClass="root" stylesheets="@../style/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sharpkoi.oiduark.app.controller.HomeController">
+<AnchorPane fx:id="root" minHeight="80.0" minWidth="888.0" prefHeight="640.0" prefWidth="1024.0" style="-fx-background-radius: 4; -fx-background-color: #151515;" styleClass="root" stylesheets="@../../style/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sharpkoi.oiduark.app.controller.HomeController">
    <children>
       <BorderPane fx:id="coverContainer" layoutX="1.0" layoutY="19.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="164.0" AnchorPane.rightAnchor="180.0" AnchorPane.topAnchor="20.0">
          <center>
@@ -34,7 +34,7 @@
       </BorderPane>
       <BorderPane style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <bottom>
-            <AnchorPane prefHeight="100.0" prefWidth="1024.0" style="-fx-background-color: #1d2024;" styleClass="control-pane" stylesheets="@../style/player-control-panel.css" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="100.0" prefWidth="1024.0" style="-fx-background-color: #1d2024;" styleClass="control-pane" stylesheets="@../../style/player-control-panel.css" BorderPane.alignment="CENTER">
                <children>
                   <Label fx:id="t_timeTick" alignment="CENTER_RIGHT" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" layoutX="20.0" layoutY="7.0" prefWidth="50.0" text="0:00" textAlignment="RIGHT" textFill="WHITE" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="7.0">
                      <opaqueInsets>
@@ -43,25 +43,25 @@
                   </Label>
                   <JFXSlider fx:id="progressBar" indicatorPosition="RIGHT" layoutX="35.0" prefHeight="20.0" prefWidth="500.0" styleClass="progress-bar" value="-1.0" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="65.0" AnchorPane.topAnchor="4.0" />
                   <Label fx:id="t_endTimeTick" contentDisplay="CENTER" layoutX="603.0" layoutY="6.0" prefWidth="50.0" text="0:00" textFill="WHITE" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="7.0" />
-                  <ImageView fx:id="b_last" fitHeight="32.0" fitWidth="32.0" layoutX="12.0" layoutY="45.0" onMouseClicked="#onLastButtonClicked" pickOnBounds="true" preserveRatio="true" styleClass="control-button" AnchorPane.leftAnchor="30.0">
+                  <ImageView fx:id="b_last" fitHeight="32.0" fitWidth="32.0" layoutX="12.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" styleClass="control-button" AnchorPane.leftAnchor="30.0">
                      <image>
-                        <Image url="@../resources/images/icons/skip_to_start_64px.png" />
+                        <Image url="@../../resources/images/icons/skip_to_start_64px.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <ImageView fx:id="b_play" fitHeight="32.0" fitWidth="32.0" layoutY="45.0" onMouseClicked="#onPlayButtonClicked" pickOnBounds="true" preserveRatio="true" styleClass="control-button" translateX="5.0" AnchorPane.leftAnchor="92.0">
+                  <ImageView fx:id="b_play" fitHeight="32.0" fitWidth="32.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" styleClass="control-button" translateX="5.0" AnchorPane.leftAnchor="92.0">
                      <image>
-                        <Image url="@../resources/images/icons/play_64px.png" />
+                        <Image url="@../../resources/images/icons/play_64px.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <ImageView fx:id="b_next" fitHeight="32.0" fitWidth="32.0" layoutY="45.0" onMouseClicked="#onEndButtonClicked" pickOnBounds="true" preserveRatio="true" styleClass="control-button" AnchorPane.leftAnchor="154.0">
+                  <ImageView fx:id="b_next" fitHeight="32.0" fitWidth="32.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" styleClass="control-button" AnchorPane.leftAnchor="154.0">
                      <image>
-                        <Image url="@../resources/images/icons/end_64px.png" />
+                        <Image url="@../../resources/images/icons/end_64px.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -78,13 +78,13 @@
             </AnchorPane>
          </bottom>
          <left>
-            <VBox prefWidth="164.0" style="-fx-background-color: #212529;" styleClass="navigation" stylesheets="@../style/navigation.css" BorderPane.alignment="CENTER">
+            <VBox prefWidth="164.0" style="-fx-background-color: #212529;" styleClass="navigation" stylesheets="@../../style/navigation.css" BorderPane.alignment="CENTER">
                <children>
                   <HBox alignment="CENTER" prefHeight="90.0" prefWidth="164.0" spacing="10.0">
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../resources/images/icons/oiduark-icon.png" />
+                              <Image url="@../../resources/images/icons/oiduark-icon.png" />
                            </image>
                            <HBox.margin>
                               <Insets />
@@ -173,36 +173,6 @@
                </children>
             </VBox>
          </left>
-         <right>
-            <AnchorPane prefHeight="620.0" prefWidth="180.0" style="-fx-background-color: #1e2426;" styleClass="play-list-pane" BorderPane.alignment="CENTER">
-               <children>
-                  <Label layoutX="10.0" layoutY="6.0" text="播放清單" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <Separator layoutX="10.0" layoutY="40.0" prefHeight="1.0" prefWidth="180.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="40.0" />
-                  <ListView fx:id="l_playlist" editable="true" fixedCellSize="40.0" layoutY="40.0" styleClass="play-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="49.0" />
-               </children>
-            </AnchorPane>
-         </right>
-         <center>
-            <VBox fx:id="lyricsBox" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Label style="-fx-background-color: transparent;" text="歌詞" textFill="WHITE">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets top="20.0" />
-                     </VBox.margin>
-                  </Label>
-               </children>
-               <BorderPane.margin>
-                  <Insets />
-               </BorderPane.margin>
-            </VBox>
-         </center>
          <top>
             <AnchorPane fx:id="titleBar" opacity="0.95" prefHeight="20.0" prefWidth="1024.0" styleClass="title-bar" BorderPane.alignment="CENTER">
                <children>
@@ -210,7 +180,7 @@
                      <children>
                         <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../resources/images/icons/oiduark-icon.png" />
+                              <Image url="@../../resources/images/icons/oiduark-icon.png" />
                            </image>
                         </ImageView>
                         <Label text="OiDuark   v1.0" textFill="WHITE">
@@ -229,7 +199,7 @@
                            <graphic>
                               <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../resources/images/icons/minimize_button_100px.png" />
+                                    <Image url="@../../resources/images/icons/minimize_button_100px.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -241,7 +211,7 @@
                            <graphic>
                               <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../resources/images/icons/maximize_button_64px.png" />
+                                    <Image url="@../../resources/images/icons/maximize_button_64px.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -253,7 +223,7 @@
                            <graphic>
                               <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../resources/images/icons/close_window_100px.png" />
+                                    <Image url="@../../resources/images/icons/close_window_100px.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -263,6 +233,30 @@
                </children>
             </AnchorPane>
          </top>
+         <right>
+            <AnchorPane prefHeight="620.0" prefWidth="180.0" style="-fx-background-color: #1e2426;" styleClass="play-list-pane" stylesheets="@../../style/playlist.css" BorderPane.alignment="CENTER">
+               <children>
+                  <Label cache="true" cacheHint="QUALITY" layoutX="10.0" layoutY="6.0" text="播放清單" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Separator layoutX="10.0" layoutY="40.0" prefHeight="1.0" prefWidth="180.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="40.0" />
+                  <ListView fx:id="l_playlist" editable="true" fixedCellSize="40.0" layoutY="40.0" styleClass="play-list" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="49.0" />
+                  <Button layoutX="-12.0" layoutY="237.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="48.0" style="-fx-background-color: black; -fx-border-color: white; -fx-border-radius: 48; -fx-background-radius: 48;" textFill="WHITE" AnchorPane.bottomAnchor="236.0" AnchorPane.leftAnchor="-24.0" AnchorPane.topAnchor="236.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <graphic>
+                        <MaterialDesignIconView fill="WHITE" glyphName="CHEVRON_RIGHT" size="30" />
+                     </graphic>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </right>
+         <center>
+            <VBox fx:id="lyricsBox" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" BorderPane.alignment="CENTER" />
+         </center>
       </BorderPane>
    </children>
 </AnchorPane>

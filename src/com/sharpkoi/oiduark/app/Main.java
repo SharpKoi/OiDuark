@@ -12,6 +12,7 @@ import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
 import com.sharpkoi.oiduark.utils.*;
+import javafx.scene.CacheHint;
 import org.apache.commons.io.FilenameUtils;
 
 import com.google.gson.Gson;
@@ -172,6 +173,8 @@ public class Main extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
+		System.setProperty("prism.lcdtext", "false");
+		System.setProperty("prism.text", "t2k");
 		Console.INFO("Launch OiDuark...");
 		instance = this;
 		
