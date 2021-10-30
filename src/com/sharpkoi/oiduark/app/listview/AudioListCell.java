@@ -185,7 +185,7 @@ public class AudioListCell extends ListCell<Audio> {
 		b_star.setCursor(Cursor.HAND);
 		b_star.getStyleClass().add("star");
 		b_star.setPrefSize(24, 24);
-		b_star.setAccessibleHelp("§Úªº³Ì·R");
+		b_star.setAccessibleHelp("æˆ‘çš„æœ€æ„›");
 		b_star.setOnAction(e -> {
 			item.setFavorite(!item.isFavorite());
 			getListView().refresh();
@@ -197,7 +197,7 @@ public class AudioListCell extends ListCell<Audio> {
 	}
 	
 	protected void buildTagsContainer(Audio audio) {
-		Button addTagButton = new Button("·s¼W¼ÐÅÒ");
+		Button addTagButton = new Button("æ–°å¢žæ¨™ç±¤");
 		addTagButton.getStyleClass().add("add-tag-button");
 		addTagButton.setCursor(Cursor.HAND);
 		addTagButton.setPrefSize(USE_COMPUTED_SIZE, USE_COMPUTED_SIZE);

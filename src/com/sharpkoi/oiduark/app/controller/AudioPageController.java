@@ -95,7 +95,7 @@ public class AudioPageController extends AppController {
 		
 		tagFilter.getItems().addAll(tagItems);
 		
-		Tooltip starTip = new Tooltip("§Úªº³Ì·R");
+		Tooltip starTip = new Tooltip("æˆ‘çš„æœ€æ„›");
 		starTip.setFont(Font.font(10));
 		starTip.setStyle("-fx-background-color: rgba(255, 0, 85, 0.8);");
 		b_starFilter.setTooltip(starTip);
@@ -106,7 +106,7 @@ public class AudioPageController extends AppController {
 			audioFilter.search(itemsForSearch);
 		});
 		
-		Tooltip clearTip = new Tooltip("²M°£·j´Mµ²ªG");
+		Tooltip clearTip = new Tooltip("æ¸…é™¤æœå°‹çµæœ");
 		clearTip.setFont(Font.font(10));
 		clearTip.setStyle("-fx-background-color: rgba(255, 0, 85, 0.8);");
 		b_clear.setTooltip(clearTip);
@@ -120,7 +120,7 @@ public class AudioPageController extends AppController {
 			audioFilter.search(itemsForSearch);
 		});
 		
-		Tooltip reloadTip = new Tooltip("­«·s¸ü¤J");
+		Tooltip reloadTip = new Tooltip("é‡æ–°è¼‰å…¥");
 		reloadTip.setFont(Font.font(10));
 		reloadTip.setStyle("-fx-background-color: rgba(255, 0, 85, 0.8);");
 		b_reload.setTooltip(reloadTip);
@@ -135,7 +135,7 @@ public class AudioPageController extends AppController {
 			}
 		});
 		
-		Tooltip addAllTip = new Tooltip("¤@Áä¥[¤J");
+		Tooltip addAllTip = new Tooltip("ä¸€éµåŠ å…¥");
 		addAllTip.setFont(Font.font(10));
 		addAllTip.setStyle("-fx-background-color: rgba(255, 0, 85, 0.8);");
 		b_addAll.setTooltip(addAllTip);

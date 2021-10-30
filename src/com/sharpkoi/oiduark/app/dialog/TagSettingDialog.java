@@ -81,7 +81,7 @@ public class TagSettingDialog extends Stage {
 		ColumnConstraints col1 = new ColumnConstraints(150);
 		grid.getColumnConstraints().addAll(col0, col1);
 		
-		Label l_tagName = new Label("¼ĞÅÒ¦WºÙ");
+		Label l_tagName = new Label("æ¨™ç±¤åç¨±");
 		l_tagName.setTextFill(Paint.valueOf("white"));
 		
 		f_tagNameInput = new JFXTextField(tag.getName());
@@ -91,7 +91,7 @@ public class TagSettingDialog extends Stage {
 			tag.setName(newText);
 		});
 		
-		Label l_tagColor = new Label("¼ĞÅÒÃC¦â");
+		Label l_tagColor = new Label("æ¨™ç±¤é¡è‰²");
 		l_tagColor.setTextFill(Paint.valueOf("white"));
 		
 		c_tagColorPicker = new JFXColorPicker();
@@ -111,17 +111,17 @@ public class TagSettingDialog extends Stage {
 		
 		HBox buttonBox = new HBox(10);
 		
-		Button b_cancel = new Button("¨ú®ø");
+		Button b_cancel = new Button("å–æ¶ˆ");
 		b_cancel.getStyleClass().add("cancel-button");
 		b_cancel.setOnAction(e -> {
 			this.close();
 		});
 		
-		Button b_confirm = new Button("½T»{");
+		Button b_confirm = new Button("ç¢ºèª");
 		b_confirm.getStyleClass().add("confirm-button");
 		b_confirm.setOnAction(e -> {
 			if(f_tagNameInput.getText().equals("")) {
-				f_tagNameInput.setPromptText("*¸ÓÄæ¦ì¤£¥i¬°ªÅ");
+				f_tagNameInput.setPromptText("*è©²æ¬„ä½ä¸å¯ç‚ºç©º");
 				return;
 			}
 			this.close();

@@ -37,7 +37,7 @@ public class PlaylistPanel extends AnchorPane {
 		navIcon.setFill(Color.WHITE);
 		navIcon.setSize("20px");
 		
-		Label l_title = new Label("¼½©ñ²M³æ");
+		Label l_title = new Label("æ’­æ”¾æ¸…å–®");
 //		Font font = ResourceLoader.loadFont("Uni Sans Thin", 16, ".otf");
 		l_title.setFont(Font.font(16));
 		l_title.setTextFill(Paint.valueOf("white"));

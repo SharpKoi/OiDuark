@@ -15,6 +15,8 @@ import de.jensd.fx.glyphs.octicons.OctIconView;
 import de.jensd.fx.glyphs.weathericons.WeatherIcon;
 import de.jensd.fx.glyphs.weathericons.WeatherIconView;
 
+import javafx.animation.Interpolator;
+import javafx.animation.Transition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
@@ -33,10 +35,10 @@ import javafx.scene.paint.Paint;
 import javafx.util.Duration;
 
 public class NavigationButton extends HBox {
-	
-	public final static Color DEFAULT_COLOR = new Color(60/255.0, 67/255.0, 74/255.0, 0);
-	public final static Color SELECTED_COLOR = new Color(60/255.0, 67/255.0, 74/255.0, 1);
-	
+
+	public final static String DEFAULT_COLOR_RGBA = "rgba(60,67,74,0)";
+	public final static String SELECTED_COLOR_RGBA = "rgba(60,67,74,1)";
+
 	private double height = 48;
 	private double width = USE_COMPUTED_SIZE;
 	
@@ -45,6 +47,9 @@ public class NavigationButton extends HBox {
 	private Region thinRegion;
 	private Button actionButton;
 	private EventHandler<ActionEvent> onAction;
+
+	// cache
+	private Transition colorTransCache;
 	
 	public NavigationButton(GlyphIcons icon, String text, double width, double height) {
 		this.width = width;
@@ -85,22 +90,24 @@ public class NavigationButton extends HBox {
 		setOpacity(0.8);
 		getStyleClass().add("navigation-item");
 		addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
-			NavigationButton nb = this;
-			ColorTransition trans = new ColorTransition(nb, SELECTED_COLOR, Duration.millis(400));
-			if(!this.selected) trans.play();
+			if(colorTransCache != null) {
+				colorTransCache.play();
+				return;
+			}
+			ColorTransition trans = new ColorTransition(this, Color.web(SELECTED_COLOR_RGBA), Duration.millis(400));
+			trans.setInterpolator(Interpolator.EASE_OUT);
+			if(!selected) trans.play();
+			colorTransCache = trans;
 		});
 		
 		addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
-			NavigationButton nb = this;
-			ColorTransition trans = new ColorTransition(nb, DEFAULT_COLOR, Duration.millis(400));
-			if(!this.selected) trans.play();
+			if(!selected) {
+				if(colorTransCache != null) colorTransCache.stop();
+				setStyle(String.format("-fx-background-color: %s;", DEFAULT_COLOR_RGBA));
+			}
 		});
 		
 		getChildren().addAll(thinRegion(), actionButton);
-		
-		setCache(true);
-		setCacheShape(true);
-		setCacheHint(CacheHint.SPEED);
 	}
 	
 	public Region thinRegion() {
@@ -127,15 +134,17 @@ public class NavigationButton extends HBox {
 	
 	public void onSelect() {
 		selected = true;
-		thinRegion.setBackground(new Background(new BackgroundFill(Paint.valueOf("#ff0055"), null, null)));
-		setBackground(new Background(new BackgroundFill(SELECTED_COLOR, null, null)));
+		if(colorTransCache != null) colorTransCache.stop();
+		thinRegion.setStyle("-fx-background-color: #ff0055");
+		setStyle(String.format("-fx-background-color: %s;", SELECTED_COLOR_RGBA));
 		setOpacity(1);
 	}
 	
 	public void onUnselect() {
 		selected = false;
-		thinRegion.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, null, null)));
-		setBackground(new Background(new BackgroundFill(DEFAULT_COLOR, null, null)));
+		if(colorTransCache != null) colorTransCache.stop();
+		thinRegion.setStyle("-fx-background-color: #00000000");
+		setStyle(String.format("-fx-background-color: %s;", DEFAULT_COLOR_RGBA));
 		setOpacity(0.8);
 	}
 }

@@ -12,7 +12,6 @@ import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
 import com.sharpkoi.oiduark.utils.*;
-import javafx.scene.CacheHint;
 import org.apache.commons.io.FilenameUtils;
 
 import com.google.gson.Gson;

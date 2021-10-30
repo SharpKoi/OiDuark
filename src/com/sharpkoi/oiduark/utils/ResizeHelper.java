@@ -57,7 +57,7 @@ public class ResizeHelper {
         public void handle(MouseEvent mouseEvent) {
             EventType<? extends MouseEvent> mouseEventType = mouseEvent.getEventType();
 
-            double mouseEventX = mouseEvent.getSceneX(),
+            double  mouseEventX = mouseEvent.getSceneX(),
                     mouseEventY = mouseEvent.getSceneY(),
                     viewWidth = stage.getWidth() - padLeft - padRight,
                     viewHeight = stage.getHeight() - padTop - padBottom;

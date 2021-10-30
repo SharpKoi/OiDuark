@@ -20,6 +20,10 @@ public class SimpleAnimation {
 	public static HashMap<Node, Animation> nodeAnim = new HashMap<>();
 	
 	public static void windowIconify(Node windowRoot, EventHandler<ActionEvent> onFinish) {
+		if(nodeAnim.containsKey(windowRoot)) {
+			nodeAnim.get(windowRoot).playFromStart();
+			return;
+		}
 		KeyFrame originKF = new KeyFrame(Duration.ZERO, 
 				new KeyValue(windowRoot.scaleXProperty(), windowRoot.getScaleX()),
 				new KeyValue(windowRoot.scaleYProperty(), windowRoot.getScaleY()), 
@@ -36,6 +40,10 @@ public class SimpleAnimation {
 	}
 	
 	public static void marquee(ScrollPane textContainer, double speed) {
+		if(nodeAnim.containsKey(textContainer)) {
+			nodeAnim.get(textContainer).playFromStart();
+			return;
+		}
 		Label label = (Label) textContainer.getContent();
 		
 		double time = (label.getWidth() - textContainer.getWidth()) / speed;
@@ -57,6 +65,10 @@ public class SimpleAnimation {
 	}
 	
 	public static void popup(Node node) {
+		if(nodeAnim.containsKey(node)) {
+			nodeAnim.get(node).playFromStart();
+			return;
+		}
 		KeyFrame size0Kf = new KeyFrame(Duration.ZERO, 
 				new KeyValue(node.scaleXProperty(), 0.7), 
 				new KeyValue(node.scaleYProperty(), 0.7));
@@ -79,6 +91,10 @@ public class SimpleAnimation {
 	}
 	
 	public static void slideOut(Node node, Region container, EventHandler<ActionEvent> onFinish) {
+		if(nodeAnim.containsKey(node)) {
+			nodeAnim.get(node).playFromStart();
+			return;
+		}
 		KeyFrame pos0Kf = new KeyFrame(Duration.ZERO, 
 				new KeyValue(node.translateXProperty(), 0));
 		

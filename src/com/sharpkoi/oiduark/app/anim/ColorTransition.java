@@ -1,5 +1,6 @@
 package com.sharpkoi.oiduark.app.anim;
 
+import com.sharpkoi.oiduark.utils.ColorUtils;
 import javafx.animation.Transition;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -23,7 +24,8 @@ public class ColorTransition extends Transition {
 		BackgroundFill bg = reg.getBackground().getFills().get(0);
 		Color fromColor = (Color) bg.getFill();
 		Color toColor = fromColor.interpolate(to, frac);
-		reg.setBackground(new Background(new BackgroundFill(toColor, bg.getRadii(), bg.getInsets())));
+		reg.setStyle(String.format("-fx-background-color: %s;", ColorUtils.toHexString(toColor)));
+//		reg.setBackground(new Background(new BackgroundFill(toColor, bg.getRadii(), bg.getInsets())));
 	}
 	
 	public Region getTargetNode() {

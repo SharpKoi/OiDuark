@@ -179,7 +179,7 @@ public class AudioSettingDialog extends Stage implements OiDialog<Audio> {
 		f_title.setPrefWidth(500);
 		HBox titleBox = new HBox(r, f_title);
 		
-		Label l_author = new Label("§@ªÌ");
+		Label l_author = new Label("ä½œè€…");
 		l_author.setFont(Font.font(16));
 		l_author.setTextFill(Paint.valueOf("white"));
 		l_author.setPrefWidth(40);
@@ -190,7 +190,7 @@ public class AudioSettingDialog extends Stage implements OiDialog<Audio> {
 		f_author.setPrefWidth(450);
 		HBox authorBox = new HBox(20, l_author, f_author);
 		
-		Label l_tag = new Label("¼ÐÅÒ");
+		Label l_tag = new Label("æ¨™ç±¤");
 		l_tag.setFont(Font.font(16));
 		l_tag.setTextFill(Paint.valueOf("white"));
 		l_tag.setPrefWidth(40);
@@ -254,14 +254,14 @@ public class AudioSettingDialog extends Stage implements OiDialog<Audio> {
 	}
 	
 	protected HBox buildButtonBox() {
-		Button b_cancel = new Button("¨ú®ø");
+		Button b_cancel = new Button("å–æ¶ˆ");
 		b_cancel.setFont(Font.font(14));
 		b_cancel.getStyleClass().add("cancel-button");
 		b_cancel.setPrefWidth(160);
 		b_cancel.setOnAction(e -> {
 			if(onCancel != null) onCancel.handle(e);
 		});
-		Button b_confirm = new Button("®M¥Î");
+		Button b_confirm = new Button("å¥—ç”¨");
 		b_confirm.setFont(Font.font(14));
 		b_confirm.getStyleClass().add("confirm-button");
 		b_confirm.setPrefWidth(160);
@@ -276,7 +276,7 @@ public class AudioSettingDialog extends Stage implements OiDialog<Audio> {
 	}
 	
 	protected AnchorPane buildDialogBody() {
-		Label l_allTags = new Label("©Ò¦³¼ÐÅÒ");
+		Label l_allTags = new Label("æ‰€æœ‰æ¨™ç±¤");
 		l_allTags.setTextFill(Paint.valueOf("white"));
 		
 		ScrollPane tagsContainer = buildTagsContainer();

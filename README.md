@@ -1,7 +1,5 @@
 # OiDuark V2
 
----
-
 ![Screenshot](static/screenshot_v2.png)
 
 > 🎉
