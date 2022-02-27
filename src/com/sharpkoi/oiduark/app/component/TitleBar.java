@@ -35,22 +35,22 @@ public class TitleBar extends AnchorPane {
 		getStyleClass().add("title-bar");
 		
 		ImageView logoView = new ImageView(logo);
-		logoView.setFitHeight(16);
-		logoView.setFitWidth(16);
+		logoView.setFitHeight(20);
+		logoView.setFitWidth(20);
 		
 		Label l_title = new Label(appName);
 		l_title.setTextFill(Paint.valueOf("white"));
 		
 		HBox titleContainer = new HBox(5, logoView, l_title);
 		titleContainer.setAlignment(Pos.CENTER);
-		titleContainer.setPrefSize(120, 20);
+		titleContainer.setPrefSize(120, 32);
 		
 		HBox buttonContainer = new HBox(minimizeButton(), resizeButton(), closeButton());
 		buttonContainer.setAlignment(Pos.CENTER_RIGHT);
-		buttonContainer.setPrefHeight(20);
+		buttonContainer.setPrefHeight(32);
 		
 		getChildren().addAll(titleContainer, buttonContainer);
-		setPrefHeight(20);
+		setPrefHeight(32);
 		
 		AnchorPane.setTopAnchor(titleContainer, 0d);
 		AnchorPane.setLeftAnchor(titleContainer, 0d);
@@ -72,7 +72,7 @@ public class TitleBar extends AnchorPane {
 			i.setFitWidth(18);
 			b_minimize.setGraphic(i);
 			b_minimize.setFont(Font.font(1));
-			b_minimize.setPrefSize(40, 20);
+			b_minimize.setPrefSize(40, 32);
 			b_minimize.getStyleClass().add("minimize-button");
 			
 			b_minimize.setOnAction(e -> {
@@ -92,7 +92,7 @@ public class TitleBar extends AnchorPane {
 			i.setFitWidth(18);
 			b_resize.setGraphic(i);
 			b_resize.setFont(Font.font(1));
-			b_resize.setPrefSize(40, 20);
+			b_resize.setPrefSize(40, 32);
 			b_resize.getStyleClass().add("size-button");
 			
 			b_resize.setOnAction(e -> {
@@ -112,7 +112,7 @@ public class TitleBar extends AnchorPane {
 			i.setFitWidth(18);
 			b_close.setGraphic(i);
 			b_close.setFont(Font.font(1));
-			b_close.setPrefSize(40, 20);
+			b_close.setPrefSize(40, 32);
 			b_close.getStyleClass().add("close-button");
 			
 			b_close.setOnAction(e -> {
