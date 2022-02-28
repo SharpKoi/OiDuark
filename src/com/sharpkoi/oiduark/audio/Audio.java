@@ -60,8 +60,9 @@ public class Audio {
 	public static Audio loadFor(File audioFile) throws FileNotFoundException {
 		Audio audio = null;
 		String audioFilePath = audioFile.getPath();
-		String defaultTitle = audioFilePath.substring(audioFilePath.lastIndexOf("\\")+1, audioFilePath.lastIndexOf("."));
-		
+		String defaultTitle = audioFile.getName().substring(0, audioFile.getName().lastIndexOf("."));
+
+		// TODO: Use gson instead of simple json
 		JSONParser parser = new JSONParser();
 		try {
 			File mediaDataFile = new File(Main.getInstance().getMediaDataPath());
@@ -90,7 +91,7 @@ public class Audio {
 						audioData.getOrDefault("title", defaultTitle).toString(),
 						audioData.getOrDefault("author", "Unknown").toString(),
 						audioData.getOrDefault("cover", "Unknown").toString(),
-						(Double) audioData.getOrDefault("duration", 0.0), 
+						(Double) audioData.getOrDefault("duration", 0.0),
 						new Date(audioFile.lastModified()),
 						(Boolean) audioData.getOrDefault("favorite", false)
 					);
