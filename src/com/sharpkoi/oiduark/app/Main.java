@@ -16,12 +16,7 @@ import org.apache.commons.io.FilenameUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.sharpkoi.oiduark.app.component.ComponentManager;
-import com.sharpkoi.oiduark.app.component.Navigation;
-import com.sharpkoi.oiduark.app.component.NavigationButton;
-import com.sharpkoi.oiduark.app.component.PlayerControlPanel;
-import com.sharpkoi.oiduark.app.component.PlaylistPanel;
-import com.sharpkoi.oiduark.app.component.TitleBar;
+import com.sharpkoi.oiduark.app.component.*;
 import com.sharpkoi.oiduark.app.controller.AppController;
 import com.sharpkoi.oiduark.app.controller.ControllerManager;
 import com.sharpkoi.oiduark.audio.Audio;
@@ -109,7 +104,11 @@ public class Main extends Application {
 	public ResourceLoader getResourceLoader() {
 		return resLoader;
 	}
-	
+
+	/**
+	 * Load the audio inside the mediaDir.
+	 * @param mediaDir the directory contains audio files to load.
+	 */
 	public void loadAudioList(File mediaDir) {
 		if(mediaDir.isDirectory()) {
 			File[] audioFiles = mediaDir.listFiles();
@@ -121,7 +120,7 @@ public class Main extends Application {
 					}else {
 						String filepath = f.getPath();
 						String ex = FilenameUtils.getExtension(filepath);
-						if(ex.equals("mp3") || ex.equals("m4a") || ex.equals("wav") || 
+						if(ex.equals("mp3") || ex.equals("m4a") || ex.equals("wav") ||
 								ex.equals("ogg") || ex.equals("webm")) {
 							Audio audio = Audio.loadFor(f);
 							if(audio != null) {

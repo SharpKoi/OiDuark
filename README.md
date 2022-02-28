@@ -22,3 +22,4 @@
 ## TO-DO
 - [ ] create userdata inside user's local appdata
 - [ ] more customizable appearance
+- [ ] upgrade to java 17
