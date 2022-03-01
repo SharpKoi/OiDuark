@@ -8,7 +8,7 @@
 
 ## Architecture
 
-![](/run/media/sharpkoi/Development/Projects/OiDuark_v2/static/Architecture.jpg)
+![](./static/Architecture.jpg)
 
 ## Description
 *With this audio manager, you can manage your audio by attaching tags on them. Then you would be able to act with the specified tags.*
