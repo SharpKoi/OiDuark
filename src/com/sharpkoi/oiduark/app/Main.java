@@ -1,33 +1,28 @@
 package com.sharpkoi.oiduark.app;
 	
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
-import java.util.Comparator;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
+import com.sharpkoi.oiduark.audio.AudioManager;
+import com.sharpkoi.oiduark.user.UserData;
+import com.sharpkoi.oiduark.user.UserSetting;
 import com.sharpkoi.oiduark.utils.*;
-import org.apache.commons.io.FilenameUtils;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.sharpkoi.oiduark.app.component.*;
 import com.sharpkoi.oiduark.app.controller.AppController;
 import com.sharpkoi.oiduark.app.controller.ControllerManager;
-import com.sharpkoi.oiduark.audio.Audio;
 import com.sharpkoi.oiduark.audio.AudioPlayer;
 import com.sharpkoi.oiduark.audio.AudioTagManager;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -47,10 +42,10 @@ public class Main extends Application {
 	private Stage stage;
 	private Logger logger;
 	private AudioPlayer player;
-	
-	private ObservableList<Audio> ol_audioList = FXCollections.observableArrayList();
+
 	private ControllerManager controllerManager;
 	private ComponentManager componentManager;
+	private AudioManager audioManager;
 	private AudioTagManager tagManager;
 	private UserSetting usrSetting;
 	
@@ -69,16 +64,16 @@ public class Main extends Application {
 		return player;
 	}
 	
-	public ObservableList<Audio> getAllAudio() {
-		return ol_audioList;
-	}
-	
 	public ControllerManager getControllerManager() {
 		return controllerManager;
 	}
 	
 	public ComponentManager getComponentManager() {
 		return componentManager;
+	}
+
+	public AudioManager getAudioManager() {
+		return audioManager;
 	}
 	
 	public AudioTagManager getAudioTagManager() {
@@ -103,50 +98,6 @@ public class Main extends Application {
 	
 	public ResourceLoader getResourceLoader() {
 		return resLoader;
-	}
-
-	/**
-	 * Load the audio inside the mediaDir.
-	 * @param mediaDir the directory contains audio files to load.
-	 */
-	public void loadAudioList(File mediaDir) {
-		if(mediaDir.isDirectory()) {
-			File[] audioFiles = mediaDir.listFiles();
-			try {
-				assert audioFiles != null;
-				for(File f : audioFiles) {
-					if(f.isDirectory()) {
-						loadAudioList(f);
-					}else {
-						String filepath = f.getPath();
-						String ex = FilenameUtils.getExtension(filepath);
-						if(ex.equals("mp3") || ex.equals("m4a") || ex.equals("wav") ||
-								ex.equals("ogg") || ex.equals("webm")) {
-							Audio audio = Audio.loadFor(f);
-							if(audio != null) {
-								if(!ol_audioList.contains(audio)) {
-									ol_audioList.add(audio);
-								}
-							}
-						}
-					}
-				}
-				FXCollections.sort(ol_audioList, Comparator.comparing(Audio::lastModified));
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	
-	public void saveAllAudioData() {
-		File store = new File(getMediaDataPath());
-		HashMap<String, JsonObject> audioDataMap = new HashMap<>();
-		for(Audio a : ol_audioList) {
-			audioDataMap.put(a.getFilePath(), OiDuarkUtils.parseAudioToJson(a));
-		}
-		
-		Gson gson = new Gson();
-		OiDuarkUtils.saveJson(store, gson.toJsonTree(audioDataMap));
 	}
 	
 	public void activateScene(String pageName) {
@@ -175,13 +126,19 @@ public class Main extends Application {
 		System.setProperty("prism.text", "t2k");
 		Console.INFO("Launch OiDuark...");
 		instance = this;
-		
+
+		// init properties and resource loader
 		properties = ResourceBundle.getBundle("app");
 		resLoader = new ResourceLoader("resources/");
 		
 		stage = primaryStage;
 		try {
-			File logDir = new File(properties.getString("log-dir"));
+			// init userdata dir
+			File userdata = UserData.getUserdataDir();
+			if(!userdata.exists()) userdata.mkdirs();
+
+			// init logger
+			File logDir = new File(userdata, properties.getString("log-dir"));
 			if(!logDir.exists()) logDir.mkdirs();
 			
 			FileHandler logHandler = 
@@ -191,25 +148,29 @@ public class Main extends Application {
 			logger.addHandler(logHandler);
 			Console.setLogger(logger);
 			Console.getLogger().info("main logger initialized");
-			
-			player = new AudioPlayer();
-			
-			initComponents();
-			
-			File userSettingFile = new File(properties.getString("user-setting"));
+
+			// init user setting
+			File userSettingFile = new File(userdata, properties.getString("user-setting"));
 			if(userSettingFile.exists()) {
 				usrSetting = UserSetting.load(userSettingFile);
 			}else {
-				usrSetting = new UserSetting(properties.getString("media-dir"), 100);
+				usrSetting = new UserSetting(
+						UserData.getDefaultMediaDir().getAbsolutePath(),
+						100);
 			}
 			
+			player = new AudioPlayer();
+			audioManager = new AudioManager();
 			tagManager = new AudioTagManager();
-			
+
+			// player shall be initialized before components initialization.
+			initComponents();
+
 			File mediaDir = new File(usrSetting.getUserMediaDir());
 			if(mediaDir.isDirectory() && !mediaDir.exists()) mediaDir.mkdir();
 
 			if(mediaDir.isDirectory()) {
-				loadAudioList(mediaDir);
+				audioManager.loadAudioList(mediaDir);
 				logger.info("All audio loaded done!");
 			}
 			
@@ -230,7 +191,7 @@ public class Main extends Application {
 			primaryStage.setOnCloseRequest(e -> {
 				Console.getLogger().info("Saving all the data...");
 				tagManager.saveAllTags();
-				saveAllAudioData();
+				audioManager.saveAllAudioData();
 				usrSetting.save();
 				Console.getLogger().info("Closing APP...");
 			});
@@ -259,14 +220,13 @@ public class Main extends Application {
 				stage, ResourceLoader.loadAppIcon(), 
 				properties.getString("app-name") + " " + properties.getString("app-version"));
 		
-		titleBar.setOnMinimizeButtonClicked(e -> {
+		titleBar.setOnMinimizeButtonClicked(e ->
 			SimpleAnimation.windowIconify(stage.getScene().getRoot(), onFinish -> {
 				stage.setIconified(true);
 				stage.getScene().getRoot().setOpacity(1);
 				stage.getScene().getRoot().setScaleX(1);
 				stage.getScene().getRoot().setScaleY(1);
-			});
-		});
+			}));
 		titleBar.setOnResizeButtonClicked(e -> {
 			if(stage.isMaximized()) {
 				Console.getLogger().info("Restore stage size");
@@ -287,7 +247,7 @@ public class Main extends Application {
 		titleBar.setOnCloseButtonClicked(e -> {
 			Console.getLogger().info("Saving all the data...");
 			tagManager.saveAllTags();
-			saveAllAudioData();
+			audioManager.saveAllAudioData();
 			usrSetting.save();
 			
 			Console.getLogger().info("Closing APP...");

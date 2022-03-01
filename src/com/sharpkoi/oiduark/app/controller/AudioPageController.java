@@ -70,7 +70,7 @@ public class AudioPageController extends AppController {
 		instance = this;
 		super.initialize(location, resources);
 		
-		ObservableList<Audio> allAudio = Main.getInstance().getAllAudio();
+		ObservableList<Audio> allAudio = Main.getInstance().getAudioManager().getAllAudio();
 		itemsForSearch = new FilteredList<>(allAudio);
 		l_audioList.setItems(itemsForSearch);
 		l_audioList.setCellFactory(cellList -> {
@@ -130,7 +130,7 @@ public class AudioPageController extends AppController {
 			
 			if(mediaDir.isDirectory()) {
 				allAudio.clear();
-				Main.getInstance().loadAudioList(mediaDir);
+				Main.getInstance().getAudioManager().loadAudioList(mediaDir);
 				Console.getLogger().info("Reload all audio.");
 			}
 		});

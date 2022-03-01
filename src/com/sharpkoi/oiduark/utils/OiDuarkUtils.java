@@ -13,6 +13,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.sharpkoi.oiduark.audio.Audio;
 
+/**
+ * Utilities for json parsing and writing.
+ */
 public class OiDuarkUtils {
 	
 	public static JsonObject parseAudioToJson(Audio audio) {

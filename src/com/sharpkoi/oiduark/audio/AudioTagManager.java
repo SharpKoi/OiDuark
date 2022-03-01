@@ -17,8 +17,14 @@ import com.google.gson.reflect.TypeToken;
 import com.sharpkoi.oiduark.app.Main;
 import com.sharpkoi.oiduark.event.NewTagEvent;
 import com.sharpkoi.oiduark.event.NewTagEventListener;
+import com.sharpkoi.oiduark.user.UserData;
 import com.sharpkoi.oiduark.utils.OiDuarkUtils;
 
+
+/**
+ * The audio tags manager.
+ * Provides tag data and methods to modify tag data.
+ */
 public class AudioTagManager {
 	
 	private List<AudioTag> allTags = new ArrayList<>();
@@ -65,28 +71,23 @@ public class AudioTagManager {
 	
 	public void loadTags() {
 		try {
-			File tagConfigFile = getTagDataFile();
-			if(!tagConfigFile.exists()) {
-				OiDuarkUtils.saveJson(tagConfigFile, new JsonArray());
+			File tagDataFile = UserData.getTagDataFile();
+			if(!tagDataFile.exists()) {
+				OiDuarkUtils.saveJson(tagDataFile, new JsonArray());
 			}
 			
-			InputStream in = new FileInputStream(tagConfigFile);
+			InputStream in = new FileInputStream(tagDataFile);
 			InputStreamReader reader = new InputStreamReader(in, StandardCharsets.UTF_8);
 			
 			AudioTag[] tagArray = new Gson().fromJson(reader, AudioTag[].class);
-			allTags = new ArrayList<AudioTag>(Arrays.asList(tagArray));
+			allTags = new ArrayList<>(Arrays.asList(tagArray));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	public void saveAllTags() {
-		File store = getTagDataFile();
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		OiDuarkUtils.saveJson(store, gson.toJsonTree(allTags, new TypeToken<List<AudioTag>>() {}.getType()));
-	}
-	
-	public File getTagDataFile() {
-		return new File(Main.getInstance().getProperties().getString("tag-data"));
+		OiDuarkUtils.saveJson(UserData.getTagDataFile(), gson.toJsonTree(allTags, new TypeToken<List<AudioTag>>() {}.getType()));
 	}
 }

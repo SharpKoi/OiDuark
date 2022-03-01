@@ -34,9 +34,9 @@ public class SettingController extends AppController {
 				String path = dir.getAbsolutePath();
 				f_dirPath.setText(path);
 				Main main = Main.getInstance();
-				main.getUserSetting().setUserMediaDir(path);
-				main.getAllAudio().clear();
-				main.loadAudioList(dir);
+				main.getUserSetting().setUserMediaDirPath(path);
+				main.getAudioManager().getAllAudio().clear();
+				main.getAudioManager().loadAudioList(dir);
 			}
 		});
 	}
