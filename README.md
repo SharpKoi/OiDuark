@@ -1,10 +1,6 @@
-# OiDuark V2
+# OiDuark
 
 ![Screenshot](static/screenshot_v2.png)
-
-> 🎉
->
-> Here we come to a new generation for OiDuark V2
 
 ## Architecture
 
