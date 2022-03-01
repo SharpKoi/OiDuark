@@ -16,8 +16,14 @@
 * Putting the audio with the specified tags into play list
 
 ## Environment
-* Windows 10
-* Java 8 runtime environment
+* Windows 10 / Windows 11 / Linux
+* Java 8 runtime environment with JavaFX
+
+## Usage
+
+Download the latest released JAR at the right side.  
+
+Check if your environment satisfies. And then just double click the JAR file to execute this app.
 
 ## TO-DO
 - [x] create userdata inside user's local appdata
