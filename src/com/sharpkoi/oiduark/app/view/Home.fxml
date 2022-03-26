@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" minHeight="80.0" minWidth="888.0" prefHeight="640.0" prefWidth="1024.0" style="-fx-background-radius: 4; -fx-background-color: #151515;" styleClass="root" stylesheets="@../style/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sharpkoi.oiduark.app.controller.HomeController">
+<AnchorPane fx:id="root" minHeight="80.0" minWidth="888.0" prefHeight="640.0" prefWidth="1024.0" style="-fx-background-radius: 4; -fx-background-color: #151515;" styleClass="root" stylesheets="@../style/application.css" xmlns="http://javafx.com/javafx/8.0.321" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sharpkoi.oiduark.app.controller.HomeController">
    <children>
       <BorderPane fx:id="coverContainer" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="164.0" AnchorPane.rightAnchor="180.0" AnchorPane.topAnchor="20.0">
          <center>
@@ -24,9 +24,9 @@
          <center>
             <VBox fx:id="lyricsBox" alignment="TOP_CENTER" spacing="20.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label style="-fx-background-color: transparent;" text="歌詞" textFill="WHITE">
+                  <Label style="-fx-background-color: transparent;" text="Lyrics shall be displayed here" textFill="WHITE">
                      <font>
-                        <Font size="18.0" />
+                        <Font size="12.0" />
                      </font>
                      <VBox.margin>
                         <Insets top="20.0" />
