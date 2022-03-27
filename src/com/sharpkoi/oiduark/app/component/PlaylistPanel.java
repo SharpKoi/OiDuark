@@ -52,22 +52,23 @@ public class PlaylistPanel extends AnchorPane {
 		Separator s = new Separator(Orientation.HORIZONTAL);
 		s.setFocusTraversable(false);
 
-		MaterialDesignIconView right_arrow =
-				new MaterialDesignIconView(
-					MaterialDesignIcon.CHEVRON_RIGHT);
-		right_arrow.setSize("30px");
-		right_arrow.setFill(Color.WHITE);
-		Button b_store = new Button();
-		b_store.setGraphic(right_arrow);
-		b_store.getStyleClass().add("storage-button");
-		b_store.setPrefSize(48, 48);
-		b_store.setCursor(Cursor.HAND);
+//		MaterialDesignIconView right_arrow =
+//				new MaterialDesignIconView(
+//					MaterialDesignIcon.CHEVRON_RIGHT);
+//		right_arrow.setSize("30px");
+//		right_arrow.setFill(Color.WHITE);
+//		Button b_store = new Button();
+//		b_store.setGraphic(right_arrow);
+//		b_store.getStyleClass().add("storage-button");
+//		b_store.setPrefSize(48, 48);
+//		b_store.setCursor(Cursor.HAND);
 		
 		setBackground(new Background(new BackgroundFill(Paint.valueOf("#1e2426"), null, null)));
 		getStylesheets().add("com/sharpkoi/oiduark/app/style/playlist.css");
 		getStyleClass().add("play-list-pane");
 		
-		getChildren().addAll(listTitleContainer, s, playlistView(), b_store);
+//		getChildren().addAll(listTitleContainer, s, playlistView(), b_store);
+		getChildren().addAll(listTitleContainer, s, playlistView());
 		setPrefSize(180, 520);
 		
 		AnchorPane.setTopAnchor(listTitleContainer, 10d);
@@ -83,9 +84,9 @@ public class PlaylistPanel extends AnchorPane {
 		AnchorPane.setRightAnchor(li_playlist, 1d);
 		AnchorPane.setBottomAnchor(li_playlist, 0d);
 
-		AnchorPane.setLeftAnchor(b_store, -24d);
-		AnchorPane.setTopAnchor(b_store, (getPrefHeight() - b_store.getPrefHeight())/2.0);
-		AnchorPane.setBottomAnchor(b_store, (getPrefHeight() - b_store.getPrefHeight())/2.0);
+//		AnchorPane.setLeftAnchor(b_store, -24d);
+//		AnchorPane.setTopAnchor(b_store, (getPrefHeight() - b_store.getPrefHeight())/2.0);
+//		AnchorPane.setBottomAnchor(b_store, (getPrefHeight() - b_store.getPrefHeight())/2.0);
 	}
 	
 	public ListView<Audio> playlistView() {
