@@ -3,6 +3,7 @@ package com.sharpkoi.oiduark.app.listview;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jfoenix.controls.JFXButton;
 import com.sharpkoi.oiduark.app.Main;
 import com.sharpkoi.oiduark.app.component.AudioTagBox;
 import com.sharpkoi.oiduark.app.dialog.AudioSettingDialog;
@@ -13,24 +14,17 @@ import com.sharpkoi.oiduark.audio.AudioTag;
 import com.sharpkoi.oiduark.audio.AudioTagManager;
 import com.sharpkoi.oiduark.utils.SimpleAnimation;
 
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
-import javafx.scene.control.Button;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.SVGPath;
@@ -56,8 +50,8 @@ public class AudioListCell extends ListCell<Audio> {
 		}else {
 			AudioPlayer player = Main.getInstance().getAudioPlayer();
 			
-			// Actually writing so much if-else is really not my will, 
-			// but after checking, I found that it cannot be simplified :'(
+			// Writing so much if-else is really not my will,
+			// but after checking, I found that it's hard to be simplified :'(
 			setOnMouseClicked(e -> {
 				if(e.getButton().equals(MouseButton.PRIMARY)) {
 					if(e.getClickCount() == 2) {
@@ -97,7 +91,8 @@ public class AudioListCell extends ListCell<Audio> {
 						item.setCoverPath(modified.getCoverPath());
 						item.getTagIDList().clear();
 						item.getTagIDList().addAll(modified.getTagIDList());
-						
+						// save changes
+						Main.getInstance().getAudioManager().saveAllAudioData();
 						dialog.close();
 						getListView().refresh();
 					});
@@ -115,7 +110,7 @@ public class AudioListCell extends ListCell<Audio> {
 			container.add(b_add, 0, 0);
 			container.add(titleContainer, 1, 0);
 			container.add(tagsContainer, 1, 1);
-			
+
 			setGraphic(container);
 		}
 	}
@@ -173,6 +168,7 @@ public class AudioListCell extends ListCell<Audio> {
 		l_title.setAlignment(Pos.CENTER_LEFT);
 		l_title.setFont(Font.font(16));
 		l_title.setTextFill(Paint.valueOf("white"));
+		l_title.setTextOverrun(OverrunStyle.ELLIPSIS);
 		
 		SVGPath star = new SVGPath();
 		star.setContent("M3.09,0 8.09,-2 13.09,0 12.735,-5.373 16.18,-9.51 10.959,-10.832 8.09,-15.39 5.221,-10.832 0,-9.51 3.445,-5.373");
@@ -191,7 +187,17 @@ public class AudioListCell extends ListCell<Audio> {
 			getListView().refresh();
 			Main.getInstance().getStage().getScene().getRoot().requestFocus();
 		});
-		
+
+//		JFXButton b_menu = new JFXButton();
+//		b_menu.getStyleClass().add("audio-more-button");
+//		FontAwesomeIconView b_menu_icon = new FontAwesomeIconView(FontAwesomeIcon.ELLIPSIS_V);
+//		b_menu_icon.setFill(Paint.valueOf("white"));
+//		b_menu.setGraphic(b_menu_icon);
+//		b_menu.setTextFill(Paint.valueOf("white"));
+//		b_menu.setText("");
+//		b_menu.setMinWidth(28);
+
+//		titleContainer = new HBox(b_star, l_title, b_menu);
 		titleContainer = new HBox(b_star, l_title);
 		titleContainer.setAlignment(Pos.CENTER_LEFT);
 	}
