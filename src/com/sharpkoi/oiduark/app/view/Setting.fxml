@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import java.net.URL?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" minHeight="80.0" minWidth="888.0" prefHeight="640.0" prefWidth="1024.0" style="-fx-background-radius: 4; -fx-background-color: #151515;" styleClass="root" xmlns="http://javafx.com/javafx/8.0.321" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sharpkoi.oiduark.app.controller.SettingController">
+   <children>
+      <BorderPane fx:id="layout" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <center>
+         	<AnchorPane layoutX="185.0" style="-fx-background-color: #2B3035;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="164.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Label contentDisplay="RIGHT" graphicTextGap="12.0" layoutX="39.0" layoutY="48.0" text="Media storage: " textFill="WHITE" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="48.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <JFXTextField fx:id="f_dirPath_media" focusColor="#ff0055" layoutX="168.0" layoutY="43.0" prefHeight="28.0" prefWidth="719.0" promptText="~/Music" styleClass="field-director" unFocusColor="#cccccc" AnchorPane.leftAnchor="168.0" AnchorPane.rightAnchor="140.0" AnchorPane.topAnchor="43.0">
+                  </JFXTextField>
+                  <Button fx:id="b_browse_media" layoutX="691.0" layoutY="46.0" mnemonicParsing="false" styleClass="button-browse" text="browse" textFill="#cccccc" AnchorPane.rightAnchor="64.0" AnchorPane.topAnchor="48.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Label contentDisplay="RIGHT" graphicTextGap="12.0" layoutX="34.0" layoutY="97.0" text="Userdata storage: " textFill="WHITE" AnchorPane.leftAnchor="32.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <JFXTextField fx:id="f_dirPath_userdata" focusColor="#ff0055" layoutX="156.0" layoutY="93.0" prefHeight="27.0" prefWidth="562.0" promptText="~/.local/share" styleClass="field-director" unFocusColor="#cccccc" AnchorPane.leftAnchor="168.0" AnchorPane.rightAnchor="144.0" />
+                  <Button fx:id="b_browse_userdata" layoutX="888.0" layoutY="102.0" mnemonicParsing="false" styleClass="button-browse" text="browse" textFill="#cccccc" AnchorPane.rightAnchor="64.0" AnchorPane.topAnchor="100.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <JFXToggleButton alignment="CENTER_LEFT" layoutX="40.0" layoutY="146.0" selected="true" styleClass="mode-toggle" text="Dark Mode" textFill="WHITE" toggleColor="#ff0051" toggleLineColor="#fc7fe5" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="144.0" />
+                  <JFXToggleButton alignment="CENTER_LEFT" layoutX="30.0" layoutY="154.0" selected="true" styleClass="mode-toggle" text="Lyrics Display" textFill="WHITE" toggleColor="#ff0051" toggleLineColor="#fc7fe5" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="200.0" />
+               </children>
+            </AnchorPane>
+         </center>
+         <bottom>
+            <AnchorPane prefHeight="64.0" prefWidth="1024.0" style="-fx-background-color: #2B3035;" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXButton fx:id="b_apply" disable="true" layoutX="883.0" layoutY="18.0" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #404047;" text="APPLY" textFill="WHITE" AnchorPane.bottomAnchor="12.0" AnchorPane.rightAnchor="12.0" />
+                  <JFXButton fx:id="b_reset" disable="true" layoutX="902.0" layoutY="22.0" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #404047;" text="Reset" textFill="WHITE" AnchorPane.bottomAnchor="12.0" AnchorPane.rightAnchor="144.0" />
+               </children>
+            </AnchorPane>
+         </bottom>
+      </BorderPane>
+   </children>
+   <stylesheets>
+      <URL value="@../style/application.css" />
+      <URL value="@../style/setting-page.css" />
+   </stylesheets>
+</AnchorPane>

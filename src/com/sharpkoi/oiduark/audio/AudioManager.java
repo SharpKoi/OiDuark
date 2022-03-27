@@ -2,7 +2,7 @@ package com.sharpkoi.oiduark.audio;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.sharpkoi.oiduark.user.UserData;
+import com.sharpkoi.oiduark.app.Main;
 import com.sharpkoi.oiduark.utils.OiDuarkUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -64,6 +64,6 @@ public class AudioManager {
         }
 
         Gson gson = new Gson();
-        OiDuarkUtils.saveJson(UserData.getMediaDataFile(), gson.toJsonTree(audioDataMap));
+        OiDuarkUtils.saveJson(Main.getInstance().getUserData().getMediaDataFile(), gson.toJsonTree(audioDataMap));
     }
 }

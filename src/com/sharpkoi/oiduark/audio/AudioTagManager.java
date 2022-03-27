@@ -17,7 +17,6 @@ import com.google.gson.reflect.TypeToken;
 import com.sharpkoi.oiduark.app.Main;
 import com.sharpkoi.oiduark.event.NewTagEvent;
 import com.sharpkoi.oiduark.event.NewTagEventListener;
-import com.sharpkoi.oiduark.user.UserData;
 import com.sharpkoi.oiduark.utils.OiDuarkUtils;
 
 
@@ -71,7 +70,7 @@ public class AudioTagManager {
 	
 	public void loadTags() {
 		try {
-			File tagDataFile = UserData.getTagDataFile();
+			File tagDataFile = Main.getInstance().getUserData().getTagDataFile();
 			if(!tagDataFile.exists()) {
 				OiDuarkUtils.saveJson(tagDataFile, new JsonArray());
 			}
@@ -88,6 +87,7 @@ public class AudioTagManager {
 	
 	public void saveAllTags() {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		OiDuarkUtils.saveJson(UserData.getTagDataFile(), gson.toJsonTree(allTags, new TypeToken<List<AudioTag>>() {}.getType()));
+		OiDuarkUtils.saveJson(Main.getInstance().getUserData().getTagDataFile(),
+				gson.toJsonTree(allTags, new TypeToken<List<AudioTag>>() {}.getType()));
 	}
 }

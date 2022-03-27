@@ -15,7 +15,7 @@ public class AboutController extends AppController {
 	}
 	
 	@Override
-	public void loadPageInfo() {
+	public void onPageLoad() {
 		layout.setTop(titleBar);
 		layout.setLeft(nav);
 		File f = new File("static/about.html");

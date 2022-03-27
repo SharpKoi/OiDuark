@@ -55,9 +55,9 @@ public abstract class AppController implements Initializable {
 		getRoot().setCacheHint(CacheHint.SCALE);
 		((Region) getRoot()).setCacheShape(true);
 		
-		loadPageInfo();
+		onPageLoad();
 		
-		Main.getInstance().getControllerManager().registController(pageName, this);
+		Main.getInstance().getControllerManager().registerController(pageName, this);
 	}
 	
 	public Parent getRoot() {
@@ -65,5 +65,5 @@ public abstract class AppController implements Initializable {
 	}
 	
 	// called when activate the corresponding page
-	public abstract void loadPageInfo();
+	public abstract void onPageLoad();
 }

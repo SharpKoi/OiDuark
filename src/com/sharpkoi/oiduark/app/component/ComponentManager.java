@@ -6,21 +6,21 @@ import javafx.scene.Node;
 
 public class ComponentManager {
 
-	private HashMap<String, Node> registedComponentPool;
+	private HashMap<String, Node> registeredComponentPool;
 	
 	public ComponentManager() {
-		this.registedComponentPool = new HashMap<>();
+		this.registeredComponentPool = new HashMap<>();
 	}
 	
-	public void registComponent(String name, Node component) {
-		registedComponentPool.put(name, component);
+	public void registerComponent(String name, Node component) {
+		registeredComponentPool.put(name, component);
 	}
 	
-	public void unregistComponent(String name) {
-		registedComponentPool.remove(name);
+	public void unregisterComponent(String name) {
+		registeredComponentPool.remove(name);
 	}
 	
 	public Node getComponent(String name) {
-		return registedComponentPool.get(name);
+		return registeredComponentPool.get(name);
 	}
 }

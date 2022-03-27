@@ -2,7 +2,6 @@ package com.sharpkoi.oiduark.app;
 	
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -10,8 +9,8 @@ import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
 import com.sharpkoi.oiduark.audio.AudioManager;
+import com.sharpkoi.oiduark.user.UserConfig;
 import com.sharpkoi.oiduark.user.UserData;
-import com.sharpkoi.oiduark.user.UserSetting;
 import com.sharpkoi.oiduark.utils.*;
 
 import com.sharpkoi.oiduark.app.component.*;
@@ -30,6 +29,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import lombok.Getter;
 
 public class Main extends Application {
 	
@@ -38,77 +38,31 @@ public class Main extends Application {
 	public static Main getInstance() {
 		return instance;
 	}
-	
-	private Stage stage;
-	private Logger logger;
-	private AudioPlayer player;
 
-	private ControllerManager controllerManager;
-	private ComponentManager componentManager;
-	private AudioManager audioManager;
-	private AudioTagManager tagManager;
-	private UserSetting usrSetting;
-	
-	private ResourceBundle properties = null;
-	private ResourceLoader resLoader = null;
-	
-	public Stage getStage() {
-		return stage;
-	}
-	
-	public Logger getLogger() {
-		return logger;
-	}
-	
-	public AudioPlayer getAudioPlayer() {
-		return player;
-	}
-	
-	public ControllerManager getControllerManager() {
-		return controllerManager;
-	}
-	
-	public ComponentManager getComponentManager() {
-		return componentManager;
-	}
+	@Getter	private ResourceBundle properties = null;
+	@Getter	private ResourceLoader resLoader = null;
 
-	public AudioManager getAudioManager() {
-		return audioManager;
-	}
-	
-	public AudioTagManager getAudioTagManager() {
-		return tagManager;
-	}
-	
-	public UserSetting getUserSetting() {
-		return usrSetting;
-	}
-	
-	public ResourceBundle getProperties() {
-		return properties;
-	}
-	
-	public String getMediaDir() {
-		return usrSetting.getUserMediaDir();
-	}
-	
-	public String getMediaDataPath() {
-		return properties.getString("media-data");
-	}
-	
-	public ResourceLoader getResourceLoader() {
-		return resLoader;
-	}
+	@Getter	private UserConfig userConfig;
+	@Getter	private UserData userData;
+
+	@Getter private ControllerManager controllerManager;
+	@Getter private ComponentManager componentManager;
+	@Getter private AudioManager audioManager;
+	@Getter private AudioTagManager audioTagManager;
+
+	@Getter private Stage stage;
+	@Getter private Logger logger;
+	@Getter	private AudioPlayer audioPlayer;
 	
 	public void activateScene(String pageName) {
 		if(controllerManager.containsKey(pageName)) {
 			AppController controller = controllerManager.getController(pageName);
 			stage.getScene().setRoot(controller.getRoot());
-			controller.loadPageInfo();
+			controller.onPageLoad();
 		}else {
 			try {
 				String fxml = pageName + ".fxml";
-				FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/"+fxml));
+				FXMLLoader loader = new FXMLLoader(Main.class.getResource("view/"+fxml));
 				Parent root = loader.load();
 				stage.getScene().setRoot(root);
 			} catch (IOException e) {
@@ -133,12 +87,21 @@ public class Main extends Application {
 		
 		stage = primaryStage;
 		try {
+			// init/load user config and user data
+			File userConfigFile = new File(Environment.getUserConfigHome(), properties.getString("user-config-file"));
+			if (!userConfigFile.exists()) {
+				userConfig = UserConfig.defaultConfig();
+			}else {
+				userConfig = UserConfig.load(userConfigFile);
+			}
+			userData = new UserData(userConfig, properties);
+
 			// init userdata dir
-			File userdata = UserData.getUserdataDir();
-			if(!userdata.exists()) userdata.mkdirs();
+			File userdataDir = userConfig.getUserdataDir();
+			if(!userdataDir.exists()) userdataDir.mkdirs();
 
 			// init logger
-			File logDir = new File(userdata, properties.getString("log-dir"));
+			File logDir = new File(userdataDir, properties.getString("log-dir"));
 			if(!logDir.exists()) logDir.mkdirs();
 			
 			FileHandler logHandler = 
@@ -148,25 +111,15 @@ public class Main extends Application {
 			logger.addHandler(logHandler);
 			Console.setLogger(logger);
 			Console.getLogger().info("main logger initialized");
-
-			// init user setting
-			File userSettingFile = new File(userdata, properties.getString("user-setting"));
-			if(userSettingFile.exists()) {
-				usrSetting = UserSetting.load(userSettingFile);
-			}else {
-				usrSetting = new UserSetting(
-						UserData.getDefaultMediaDir().getAbsolutePath(),
-						100);
-			}
 			
-			player = new AudioPlayer();
+			audioPlayer = new AudioPlayer();
 			audioManager = new AudioManager();
-			tagManager = new AudioTagManager();
+			audioTagManager = new AudioTagManager();
 
 			// player shall be initialized before components initialization.
 			initComponents();
 
-			File mediaDir = new File(usrSetting.getUserMediaDir());
+			File mediaDir = new File(userConfig.getMediaDirPath());
 			if(mediaDir.isDirectory() && !mediaDir.exists()) mediaDir.mkdir();
 
 			if(mediaDir.isDirectory()) {
@@ -175,7 +128,7 @@ public class Main extends Application {
 			}
 			
 			controllerManager = new ControllerManager();
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Home.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("view/Home.fxml"));
 			Parent root = loader.load();
 			
 			Scene scene = new Scene(root);
@@ -190,9 +143,9 @@ public class Main extends Application {
 			
 			primaryStage.setOnCloseRequest(e -> {
 				Console.getLogger().info("Saving all the data...");
-				tagManager.saveAllTags();
+				audioTagManager.saveAllTags();
 				audioManager.saveAllAudioData();
-				usrSetting.save();
+				userConfig.save();
 				Console.getLogger().info("Closing APP...");
 			});
 			
@@ -246,9 +199,9 @@ public class Main extends Application {
 		});
 		titleBar.setOnCloseButtonClicked(e -> {
 			Console.getLogger().info("Saving all the data...");
-			tagManager.saveAllTags();
+			audioTagManager.saveAllTags();
 			audioManager.saveAllAudioData();
-			usrSetting.save();
+			userConfig.save();
 			
 			Console.getLogger().info("Closing APP...");
 			stage.close();
@@ -282,16 +235,16 @@ public class Main extends Application {
 			activateScene("About");
 		});
 		
-		PlayerControlPanel pcp = new PlayerControlPanel(player);
+		PlayerControlPanel pcp = new PlayerControlPanel(audioPlayer);
 		PlaylistPanel plp = new PlaylistPanel();
 		
-		player.addPlaylistChangeListener(change -> {
+		audioPlayer.addPlaylistChangeListener(change -> {
 			while (change.next()) {
 				if(change.wasAdded()) {
 					pcp.enable();
 				}
 				if(change.wasRemoved()) {
-					if(player.getPlayList().isEmpty()) {
+					if(audioPlayer.getPlayList().isEmpty()) {
 						Console.getLogger().info("No audio in playlist, disable the player control panel.");
 						pcp.disable();
 					}
@@ -300,12 +253,12 @@ public class Main extends Application {
 			}
 		});
 		
-		plp.setListItems(player.getPlayList());
+		plp.setListItems(audioPlayer.getPlayList());
 		
 		componentManager = new ComponentManager();
-		componentManager.registComponent(TitleBar.class.getSimpleName(), titleBar);
-		componentManager.registComponent(Navigation.class.getSimpleName(), nav);
-		componentManager.registComponent(PlayerControlPanel.class.getSimpleName(), pcp);
-		componentManager.registComponent(PlaylistPanel.class.getSimpleName(), plp);
+		componentManager.registerComponent(TitleBar.class.getSimpleName(), titleBar);
+		componentManager.registerComponent(Navigation.class.getSimpleName(), nav);
+		componentManager.registerComponent(PlayerControlPanel.class.getSimpleName(), pcp);
+		componentManager.registerComponent(PlaylistPanel.class.getSimpleName(), plp);
 	}
 }

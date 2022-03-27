@@ -14,7 +14,7 @@ public class ControllerManager {
 		return controllerMap.get(key);
 	}
 	
-	public void registController(String key, AppController controller) {
+	public void registerController(String key, AppController controller) {
 		controllerMap.put(key, controller);
 	}
 	

@@ -21,20 +21,13 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.CustomMenuItem;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Font;
 
 public class AudioPageController extends AppController {
 	
-	public static AudioPageController instance;
+	private static AudioPageController instance;
 	
 	public static AudioPageController getInstance() {
 		return instance;
@@ -86,14 +79,16 @@ public class AudioPageController extends AppController {
 		AudioTagManager tagManager = Main.getInstance().getAudioTagManager();
 		CustomMenuItem[] tagItems = new CustomMenuItem[tagManager.getTagCount()];
 		for(int i = 0; i < tagManager.getTagCount(); i++) {
-			tagItems[i] = createNewTagFilterItem(i);
+			tagItems[i] = generateTagFilterItem(i);
 		}
 		
 		tagManager.addListener(e -> {
-			tagFilter.getContextMenu().getItems().add(createNewTagFilterItem(tagManager.getTagCount() - 1));
+			ObservableList<MenuItem> tagFilterItems = tagFilter.getItems();
+			tagFilterItems.add(tagFilterItems.size()-1, generateTagFilterItem(tagManager.getTagCount() - 1));
 		});
-		
+
 		tagFilter.getItems().addAll(tagItems);
+		tagFilter.getItems().add(generateTagFilterItem(-1)); // preserve "No tags" item
 		
 		Tooltip starTip = new Tooltip("我的最愛");
 		starTip.setFont(Font.font(10));
@@ -125,7 +120,11 @@ public class AudioPageController extends AppController {
 		reloadTip.setStyle("-fx-background-color: rgba(255, 0, 85, 0.8);");
 		b_reload.setTooltip(reloadTip);
 		b_reload.setOnAction(e -> {
-			File mediaDir = new File(Main.getInstance().getUserSetting().getUserMediaDir());
+			// save the current changes before reloading
+			Main.getInstance().getAudioTagManager().saveAllTags();
+			Main.getInstance().getAudioManager().saveAllAudioData();
+
+			File mediaDir = new File(Main.getInstance().getUserConfig().getMediaDirPath());
 			if(!mediaDir.exists()) mediaDir.mkdir();
 			
 			if(mediaDir.isDirectory()) {
@@ -149,18 +148,43 @@ public class AudioPageController extends AppController {
 			l_audioList.refresh();
 		});
 	}
-	
-	private CustomMenuItem createNewTagFilterItem(int tagID) {
-		Label l = new Label(Main.getInstance().getAudioTagManager().getAudioTag(tagID).getName());
+
+	/**
+	 * Generate a menu item with tag name and checkbox on tag filter.
+	 * @param tagID the id of the tag to generate. If the value is negative, it generates a menu item for `No tags`.
+	 * @return the menu item with tag name and checkbox.
+	 */
+	private CustomMenuItem generateTagFilterItem(int tagID) {
+		Label l = new Label();
+		if(tagID >= 0)
+			l.setText(Main.getInstance().getAudioTagManager().getAudioTag(tagID).getName());
+		else
+			l.setText("No tags");
 		l.setPrefSize(100, Region.USE_COMPUTED_SIZE);
 		l.setAlignment(Pos.CENTER);
+
 		CheckBox cb = new CheckBox();
 		cb.setGraphic(l);
 		cb.selectedProperty().addListener((o, oldVal, newVal) -> {
-			if(newVal.booleanValue()) {
-				audioFilter.selectTag(Integer.valueOf(tagID));
+			// TODO: exclusive checkbox behaviour
+			ObservableList<MenuItem> tagItems = tagFilter.getItems();
+			if(newVal) {
+				if(tagID == -1) {
+					// If "No tags" item is selected, unselect other items.
+					for (int i = 0; i < tagItems.size()-1; i++) {
+						CheckBox ocb = (CheckBox) ((CustomMenuItem) tagItems.get(i)).getContent();
+						ocb.setSelected(false);
+						audioFilter.unselectTag(i);
+					}
+				}else {
+					// unselect the "No tags" item
+					CheckBox ocb = (CheckBox) ((CustomMenuItem) tagItems.get(tagItems.size()-1)).getContent();
+					ocb.setSelected(false);
+					audioFilter.unselectTag(-1);
+				}
+				audioFilter.selectTag(tagID);
 			}else {
-				audioFilter.unselectTag(Integer.valueOf(tagID));
+				audioFilter.unselectTag(tagID);
 			}
 			audioFilter.search(itemsForSearch);
 		});
@@ -172,7 +196,7 @@ public class AudioPageController extends AppController {
 	}
 	
 	@Override
-	public void loadPageInfo() {
+	public void onPageLoad() {
 		layout.setTop(titleBar);
 		layout.setLeft(nav);
 		layout.setRight(playlistPanel);

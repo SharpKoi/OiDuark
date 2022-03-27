@@ -1,7 +1,10 @@
 package com.sharpkoi.oiduark.utils;
 
+import java.io.File;
+import java.nio.file.Paths;
+
 /**
- * Check the runtime OS.
+ * runtime OS checker and the default storage provider.
  */
 public class Environment {
     public static final String OS = System.getProperty("os.name").toLowerCase();
@@ -24,5 +27,39 @@ public class Environment {
 
     public static boolean isMac() {
         return OS.contains("mac");
+    }
+
+    public static String getUserHomePath() {
+        return System.getProperty("user.home");
+    }
+
+    public static File getUserHome() {
+        return new File(getUserHomePath());
+    }
+
+    public static String getUserDataHomePath() {
+        if(isWindowsXP())
+            return System.getenv("APPDATA");
+        if(isWindows())
+            return System.getenv("LOCALAPPDATA");
+        if(isLinux())
+            return Paths.get(getUserHomePath(), ".local/share").toString();
+
+        return getUserHomePath();
+    }
+
+    public static File getUserDataHome() {
+        return Paths.get(getUserDataHomePath()).toFile();
+    }
+
+    public static String getUserConfigHomePath() {
+        if(isLinux())
+            return Paths.get(getUserHomePath(), ".config").toString();
+
+        return getUserHomePath();
+    }
+
+    public static File getUserConfigHome() {
+        return Paths.get(getUserConfigHomePath()).toFile();
     }
 }

@@ -14,7 +14,6 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
-import com.sharpkoi.oiduark.user.UserData;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -66,7 +65,7 @@ public class Audio {
 		// TODO: Use gson instead of simple json
 		JSONParser parser = new JSONParser();
 		try {
-			File mediaDataFile = UserData.getMediaDataFile();
+			File mediaDataFile = Main.getInstance().getUserData().getMediaDataFile();
 			if(!mediaDataFile.exists()) {
 				OiDuarkUtils.createEmptyJsonFile(mediaDataFile);
 			}
@@ -117,7 +116,7 @@ public class Audio {
 	}
 	
 	public String getGlobalPath() {
-		Path gpath = Paths.get(Main.getInstance().getMediaDir(), filepath);
+		Path gpath = Paths.get(Main.getInstance().getUserConfig().getMediaDirPath(), filepath);
 		return gpath.toFile().getAbsolutePath();
 	}
 

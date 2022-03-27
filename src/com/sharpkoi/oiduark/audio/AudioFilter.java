@@ -49,7 +49,12 @@ public class AudioFilter {
 	public Predicate<Audio> getPredicate() {
 		Predicate<Audio> starFilter = audio -> audio.isFavorite();
 		Predicate<Audio> titleFilter = audio -> audio.getTitle().contains(searchedTitle);
-		Predicate<Audio> tagFilter = audio -> audio.getTagIDList().containsAll(selectedTags);
+		Predicate<Audio> tagFilter = audio -> {
+			if(selectedTags.contains(-1))
+				return audio.getTagIDList().size() == 0;
+			else
+				return audio.getTagIDList().containsAll(selectedTags);
+		};
 		
 		Predicate<Audio> filter = titleFilter.and(tagFilter);
 		return onlyStared? filter.and(starFilter) : filter;
