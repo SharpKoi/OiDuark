@@ -1,7 +1,9 @@
 package com.sharpkoi.oiduark.app.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
@@ -80,6 +82,12 @@ public class SettingController extends AppController {
 			String mediaPath = f_dirPath_media.getText();
 			String userdataPath = f_dirPath_userdata.getText();
 			Main main = Main.getInstance();
+			try {
+				// move the original userdata to target dir.
+				Files.move(Paths.get(main.getUserConfig().getUserdataDirPath(), "oiduark"), Paths.get(userdataPath));
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
 			main.getUserConfig().setMediaDirPath(mediaPath);
 			main.getUserConfig().setUserdataDirPath(userdataPath);
 			main.getAudioManager().getAllAudio().clear();
