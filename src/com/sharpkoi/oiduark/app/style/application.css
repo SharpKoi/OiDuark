@@ -147,3 +147,9 @@
 .del-tag-button:hover {
 	-fx-background-color: rgba(255, 255, 255, 0.2) ;
 }
+
+.audio-more-button {
+    -fx-text-fill: white ;
+    -fx-border-radius: 16 ;
+    -fx-background-radius: 16 ;
+}

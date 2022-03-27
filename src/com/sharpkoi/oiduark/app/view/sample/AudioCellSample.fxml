@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -8,12 +10,11 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #283235;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #283235;" xmlns="http://javafx.com/javafx/8.0.321" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane layoutX="140.0" layoutY="160.0" prefHeight="100.0" prefWidth="320.0">
         <columnConstraints>
@@ -36,12 +37,17 @@
                   <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
                </padding>
             </Button>
-            <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1">
+            <AnchorPane GridPane.columnIndex="1">
                <children>
-                  <SVGPath content="M3.09,0 8.09,-2 13.09,0 12.735,-5.373 16.18,-9.51 10.959,-10.832 8.09,-15.39 5.221,-10.832 0,-9.51 3.445,-5.373" fill="#ffd900" opacity="0.34" />
-                  <Label text="【武娘賦】-重金打造史詩級神曲，武娘世界觀新篇章" textFill="WHITE" />
+                  <SVGPath content="M3.09,0 8.09,-2 13.09,0 12.735,-5.373 16.18,-9.51 10.959,-10.832 8.09,-15.39 5.221,-10.832 0,-9.51 3.445,-5.373" fill="#ffd900" opacity="0.34" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="7.0" />
+                  <Label layoutX="17.0" layoutY="5.0" text="【武娘賦】-重金打造史詩級神曲，武娘世界觀新篇章" textFill="WHITE" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="7.0" />
+                  <JFXButton graphicTextGap="0.0" layoutX="262.0" maxWidth="28.0" prefHeight="28.0" prefWidth="28.0" style="-fx-border-radius: 16; -fx-background-radius: 16;" text=" " textFill="WHITE" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0">
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="ELLIPSIS_V" />
+                     </graphic>
+                  </JFXButton>
                </children>
-            </HBox>
+            </AnchorPane>
             <FlowPane hgap="5.0" prefHeight="200.0" prefWidth="200.0" vgap="5.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="1" GridPane.rowSpan="2147483647">
                <children>
                   <Button mnemonicParsing="false" text="BBBBBBBBBB">
