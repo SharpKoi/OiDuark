@@ -88,12 +88,7 @@ public class Main extends Application {
 		stage = primaryStage;
 		try {
 			// init/load user config and user data
-			File userConfigFile = new File(Environment.getUserConfigHome(), properties.getString("user-config-file"));
-			if (!userConfigFile.exists()) {
-				userConfig = UserConfig.defaultConfig();
-			}else {
-				userConfig = UserConfig.load(userConfigFile);
-			}
+			userConfig = UserConfig.load();
 			userData = new UserData(userConfig, properties);
 
 			// init userdata dir

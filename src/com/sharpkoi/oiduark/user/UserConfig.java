@@ -47,6 +47,18 @@ public class UserConfig {
 		return Paths.get(userdataDirPath).toFile();
 	}
 
+	public static UserConfig load() {
+		ResourceBundle props = Main.getInstance().getProperties();
+		File configFile =
+				Paths.get(Environment.getUserConfigHomePath(),
+						props.getString("app-name").toLowerCase(),
+						props.getString("user-config-file")).toFile();
+		if(configFile.exists())
+			return load(configFile);
+		else
+			return defaultConfig();
+	}
+
 	public static UserConfig load(File jsonConfig) {
 		try {
 			assert jsonConfig.exists(): "Could not find the user config file.";
@@ -62,7 +74,12 @@ public class UserConfig {
 	}
 	
 	public void save() {
-		save(new File(Environment.getUserConfigHome(), Main.getInstance().getProperties().getString("user-config-file")));
+		ResourceBundle props = Main.getInstance().getProperties();
+		File configFile =
+				Paths.get(Environment.getUserConfigHomePath(),
+						props.getString("app-name").toLowerCase(),
+						props.getString("user-config-file")).toFile();
+		save(configFile);
 	}
 	
 	public void save(File jsonConfig) {

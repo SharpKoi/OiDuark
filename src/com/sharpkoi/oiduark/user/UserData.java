@@ -1,9 +1,9 @@
 package com.sharpkoi.oiduark.user;
 
-import com.sharpkoi.oiduark.app.Main;
 import lombok.AllArgsConstructor;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
 @AllArgsConstructor
@@ -12,10 +12,16 @@ public class UserData {
     private ResourceBundle props;
 
     public File getTagDataFile() {
-        return new File(userConfig.getUserdataDir(), props.getString("tag-data-file"));
+        return Paths.get(
+                userConfig.getUserdataDirPath(),
+                props.getString("app-name").toLowerCase(),
+                props.getString("tag-data-file")).toFile();
     }
 
     public File getMediaDataFile() {
-        return new File(userConfig.getUserdataDir(), props.getString("media-data-file"));
+        return Paths.get(
+                userConfig.getUserdataDirPath(),
+                props.getString("app-name").toLowerCase(),
+                props.getString("media-data-file")).toFile();
     }
 }
