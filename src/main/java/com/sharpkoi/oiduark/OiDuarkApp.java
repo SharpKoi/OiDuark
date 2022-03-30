@@ -25,13 +25,11 @@ import com.sharpkoi.oiduark.manager.AudioTagManager;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import lombok.Getter;
 
@@ -86,45 +84,6 @@ public class OiDuarkApp extends Application {
 	 * @since 2020.09.16
 	 */
 	private void initComponents() {
-		TitleBar titleBar = new TitleBar(
-				stage, resourceLoader.loadAppIcon(),
-				properties.getProperty("app.name"));
-
-		titleBar.setOnMinimizeButtonClicked(e ->
-				SimpleAnimation.windowIconify(stage.getScene().getRoot(), onFinish -> {
-					stage.setIconified(true);
-					stage.getScene().getRoot().setOpacity(1);
-					stage.getScene().getRoot().setScaleX(1);
-					stage.getScene().getRoot().setScaleY(1);
-				}));
-		titleBar.setOnResizeButtonClicked(e -> {
-			if(stage.isMaximized()) {
-				Console.getLogger().info("Restore stage size");
-				stage.setMaximized(false);
-				ImageView icon = new ImageView(resourceLoader.loadIcon("maximize_button_64px.png"));
-				icon.setFitWidth(16);
-				icon.setFitHeight(16);
-				titleBar.resizeButton().setGraphic(icon);
-			}else {
-				Console.getLogger().info("Maximize stage size");
-				stage.setMaximized(true);
-				ImageView icon = new ImageView(resourceLoader.loadIcon("restore_down_64px.png"));
-				icon.setFitWidth(16);
-				icon.setFitHeight(16);
-				titleBar.resizeButton().setGraphic(icon);
-			}
-		});
-		titleBar.setOnCloseButtonClicked(e -> {
-			Console.getLogger().info("Saving all the data...");
-			audioTagManager.saveAllTags();
-			audioManager.saveAllAudioData();
-			userConfig.save();
-
-			Console.getLogger().info("Closing APP...");
-			stage.close();
-			Platform.runLater(() -> System.exit(1));
-		});
-
 		Navigation nav = new Navigation(
 				new NavigationButton(FontAwesomeIcon.HOME, "Home", 164, 48),
 				new NavigationButton(FontAwesomeIcon.MUSIC, "My Audio", 164, 48),
@@ -173,7 +132,6 @@ public class OiDuarkApp extends Application {
 		plp.setListItems(audioPlayer.getPlayList());
 
 		componentManager = new ComponentManager();
-		componentManager.registerComponent(TitleBar.class.getSimpleName(), titleBar);
 		componentManager.registerComponent(Navigation.class.getSimpleName(), nav);
 		componentManager.registerComponent(PlayerControlPanel.class.getSimpleName(), pcp);
 		componentManager.registerComponent(PlaylistPanel.class.getSimpleName(), plp);
@@ -252,7 +210,7 @@ public class OiDuarkApp extends Application {
 
 			primaryStage.getIcons().add(resourceLoader.loadAppIcon());
 			primaryStage.setTitle("OiDuark");
-			primaryStage.initStyle(StageStyle.TRANSPARENT);
+			primaryStage.initStyle(StageStyle.DECORATED);
 
 			primaryStage.setOnCloseRequest(e -> {
 				Console.getLogger().info("Saving all the data...");
@@ -260,7 +218,7 @@ public class OiDuarkApp extends Application {
 				Console.getLogger().info("Closing APP...");
 			});
 
-			ResizeHelper.addResizeListener(stage);
+//			ResizeHelper.addResizeListener(stage);
 			primaryStage.setMinWidth(900);
 			primaryStage.setMinHeight(600);
 			primaryStage.show();

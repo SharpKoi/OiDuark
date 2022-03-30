@@ -56,7 +56,6 @@ public class HomeController extends AppController {
 	
 	@Override
 	public void onPageLoad() {
-		layout.setTop(super.titleBar);
 		layout.setLeft(super.nav);
 		layout.setBottom(super.playerControlPanel);
 		layout.setRight(super.playlistPanel);

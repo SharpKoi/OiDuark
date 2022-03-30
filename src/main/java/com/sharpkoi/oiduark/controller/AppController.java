@@ -34,7 +34,6 @@ public abstract class AppController implements Initializable {
 	protected BorderPane layout;
 	
 	/***** components *****/
-	protected TitleBar titleBar;
 	protected Navigation nav;
 	protected PlayerControlPanel playerControlPanel;
 	protected PlaylistPanel playlistPanel;
@@ -45,7 +44,6 @@ public abstract class AppController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		//initialize the components
 		ComponentManager cm = OiDuarkApp.getInstance().getComponentManager();
-		titleBar = (TitleBar) cm.getComponent(TitleBar.class.getSimpleName());
 		nav = (Navigation) cm.getComponent(Navigation.class.getSimpleName());
 		playerControlPanel = 
 				(PlayerControlPanel) cm.getComponent(PlayerControlPanel.class.getSimpleName());

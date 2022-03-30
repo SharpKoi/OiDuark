@@ -17,7 +17,6 @@ public class AboutController extends AppController {
 	
 	@Override
 	public void onPageLoad() {
-		layout.setTop(titleBar);
 		layout.setLeft(nav);
 		webView.getEngine().load(OiDuarkApp.getInstance().getResourceLoader().getResourceURL("/webview/about.html").toString());
 	}

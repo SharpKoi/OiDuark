@@ -198,7 +198,6 @@ public class AudioPageController extends AppController {
 	
 	@Override
 	public void onPageLoad() {
-		layout.setTop(titleBar);
 		layout.setLeft(nav);
 		layout.setRight(playlistPanel);
 		layout.setBottom(playerControlPanel);

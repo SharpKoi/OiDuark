@@ -137,7 +137,6 @@ public class SettingController extends AppController {
 
 	@Override
 	public void onPageLoad() {
-		layout.setTop(titleBar);
 		layout.setLeft(nav);
 	}
 }
