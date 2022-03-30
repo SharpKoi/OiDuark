@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.web.WebView?>
+<?import java.net.URL?>
+<AnchorPane fx:id="root" minHeight="80.0" minWidth="888.0" prefHeight="640.0" prefWidth="1024.0"
+            style="-fx-background-radius: 4; -fx-background-color: #151515;" styleClass="root"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.sharpkoi.oiduark.controller.AboutController">
+   <stylesheets>
+      <URL value="@../styles/application.css"/>
+      <URL value="@../styles/setting-page.css"/>
+   </stylesheets>
+   <BorderPane fx:id="layout" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0"
+               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <center>
+         <WebView fx:id="webView" prefHeight="-1.0" prefWidth="-1.0" BorderPane.alignment="CENTER"/>
+      </center>
+   </BorderPane>
+</AnchorPane>

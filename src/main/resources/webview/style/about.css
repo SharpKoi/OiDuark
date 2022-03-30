@@ -1,0 +1,57 @@
+body {
+  margin: 0px;
+  background-color: #363b42;
+  color: white;
+}
+
+header {
+  background-color: #2b3135;
+}
+
+header h1 {
+  margin: 0px;
+  padding: 10px 10px 10px 10px;
+}
+
+nav {
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+nav a {
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+nav a:hover {
+  background-color: #f05;
+}
+
+section {
+  margin: 20px;
+  line-height: 200%;
+}
+
+hr {
+  opacity: 0.6;
+  height:1px;
+  border-width:0;
+  color:gray;
+  background-color: #9da1a8;
+}
+
+table {
+  border-collapse: collapse;
+  border: 1px solid gray;
+}
+
+td {
+  border: 1px solid gray;
+  padding: 10px;
+}

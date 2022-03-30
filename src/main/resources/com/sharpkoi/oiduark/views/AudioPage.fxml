@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<AnchorPane fx:id="root" minHeight="80.0" minWidth="888.0" prefHeight="640.0" prefWidth="1024.0"
+            style="-fx-background-radius: 4; -fx-background-color: #151515;" styleClass="root"
+            stylesheets="@../styles/application.css" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.sharpkoi.oiduark.controller.AudioPageController">
+    <BorderPane fx:id="layout" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0"
+                AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <center>
+            <AnchorPane layoutX="185.0" prefHeight="620.0" prefWidth="660.0" style="-fx-background-color: #282d33;"
+                        AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="164.0" AnchorPane.rightAnchor="180.0"
+                        AnchorPane.topAnchor="0.0">
+                <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" layoutX="24.0" layoutY="34.0" size="16"
+                                     text="" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0"/>
+                <TextField fx:id="searchBar" layoutX="72.0" layoutY="25.0" prefHeight="23.0" prefWidth="587.0"
+                           promptText="Type keywords here..." styleClass="search-bar" AnchorPane.leftAnchor="46.0"
+                           AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="16.0"/>
+                <ListView fx:id="l_audioList" style="-fx-background-color: #2B3035; -fx-background-radius: 8;"
+                          AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0"
+                          AnchorPane.topAnchor="70.0">
+                    <effect>
+                        <InnerShadow/>
+                    </effect>
+                </ListView>
+                <MenuButton fx:id="tagFilter" layoutX="6.0" layoutY="45.0" maxHeight="20.0" mnemonicParsing="false"
+                            prefHeight="20.0" style="-fx-background-color: transparent;" text="Tags Filter"
+                            textFill="WHITE" AnchorPane.leftAnchor="10.0">
+                    <padding>
+                        <Insets left="-5.0" right="-5.0"/>
+                    </padding>
+                    <cursor>
+                        <Cursor fx:constant="HAND"/>
+                    </cursor>
+                </MenuButton>
+                <HBox layoutX="449.0" layoutY="46.0" prefHeight="20.0" prefWidth="30.0" spacing="10.0"
+                      AnchorPane.rightAnchor="10.0" xmlns="http://javafx.com/javafx/8.0.171"
+                      xmlns:fx="http://javafx.com/fxml/1">
+                    <Button fx:id="b_starFilter" alignment="CENTER" mnemonicParsing="false"
+                            style="-fx-background-color: transparent;" styleClass="op-button">
+                        <font>
+                            <Font size="1.0"/>
+                        </font>
+                        <cursor>
+                            <Cursor fx:constant="HAND"/>
+                        </cursor>
+                        <graphic>
+                            <FontAwesomeIconView fill="WHITE" glyphName="STAR_ALT" size="16"/>
+                        </graphic>
+                        <HBox.margin>
+                            <Insets/>
+                        </HBox.margin>
+                    </Button>
+                    <Button fx:id="b_clear" mnemonicParsing="false" style="-fx-background-color: transparent;"
+                            styleClass="op-button">
+                        <font>
+                            <Font size="1.0"/>
+                        </font>
+                        <graphic>
+                            <MaterialDesignIconView fill="WHITE" glyphName="CLOSE" size="16"/>
+                        </graphic>
+                        <cursor>
+                            <Cursor fx:constant="HAND"/>
+                        </cursor>
+                    </Button>
+                    <Button fx:id="b_reload" mnemonicParsing="false" style="-fx-background-color: transparent;"
+                            styleClass="op-button">
+                        <font>
+                            <Font size="1.0"/>
+                        </font>
+                        <graphic>
+                            <MaterialDesignIconView fill="WHITE" glyphName="REFRESH" size="16"/>
+                        </graphic>
+                        <cursor>
+                            <Cursor fx:constant="HAND"/>
+                        </cursor>
+                    </Button>
+                    <Button fx:id="b_addAll" mnemonicParsing="false" style="-fx-background-color: transparent;"
+                            styleClass="op-button">
+                        <font>
+                            <Font size="1.0"/>
+                        </font>
+                        <graphic>
+                            <MaterialDesignIconView fill="WHITE" glyphName="ARROW_RIGHT" size="16"/>
+                        </graphic>
+                        <cursor>
+                            <Cursor fx:constant="HAND"/>
+                        </cursor>
+                    </Button>
+                </HBox>
+            </AnchorPane>
+        </center>
+    </BorderPane>
+</AnchorPane>

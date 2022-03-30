@@ -1,0 +1,41 @@
+.play-list {
+	-fx-background-color: transparent ;
+}
+
+.separator {
+	-fx-background-color: white ;
+}
+
+.separator .line {
+	-fx-border-style: solid ;
+	-fx-background-color: #fff ;
+    -fx-border-color: #fff ;
+    -fx-border-width: 0.1px ;
+}
+
+.title-container {
+	-fx-background-color: transparent ;
+	-fx-background: transparent ;
+	-fx-border-color: transparent ;
+}
+
+.title-container .scroll-bar:horizontal,
+.title-container .scroll-bar:vertical {
+	-fx-background-color: transparent ;
+	-fx-background-radius: 0 ;
+	-fx-border-radius: 0 ;
+	-fx-pref-height: 0.01 ;
+}
+
+.title-container .scroll-bar:horizontal .decrement-arrow,
+.title-container .scroll-bar:horizontal .increment-arrow {
+	-fx-pref-height: 0 ;
+	-fx-max-height: 0 ;
+}
+
+.storage-button {
+    -fx-background-color: black;
+	-fx-background-radius: 48px;
+	-fx-border-color: white;
+	-fx-border-radius: 48px;
+}

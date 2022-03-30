@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.BoxBlur?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<AnchorPane fx:id="root" minHeight="80.0" minWidth="888.0" prefHeight="640.0" prefWidth="1024.0"
+            style="-fx-background-radius: 4; -fx-background-color: #151515;" styleClass="root"
+            stylesheets="@../styles/application.css" xmlns="http://javafx.com/javafx/8.0.321"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sharpkoi.oiduark.controller.HomeController">
+   <BorderPane fx:id="coverContainer" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="164.0"
+               AnchorPane.rightAnchor="180.0" AnchorPane.topAnchor="20.0">
+      <center>
+         <ImageView fx:id="coverView" mouseTransparent="true" nodeOrientation="INHERIT" opacity="0.8"
+                    pickOnBounds="true" preserveRatio="true">
+            <effect>
+               <BoxBlur height="20.0" iterations="3" width="20.0"/>
+            </effect>
+         </ImageView>
+      </center>
+   </BorderPane>
+   <BorderPane fx:id="layout" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0"
+               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <center>
+         <VBox fx:id="lyricsBox" alignment="TOP_CENTER" spacing="20.0" BorderPane.alignment="CENTER">
+            <Label style="-fx-background-color: transparent;" text="Lyrics shall be displayed here" textFill="WHITE">
+               <font>
+                  <Font size="14.0"/>
+               </font>
+               <VBox.margin>
+                  <Insets top="20.0"/>
+               </VBox.margin>
+            </Label>
+         </VBox>
+      </center>
+   </BorderPane>
+   <Label fx:id="l_loading" opacity="0.0" text="Loading..." textFill="WHITE"/>
+</AnchorPane>

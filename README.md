@@ -1,6 +1,6 @@
 # OiDuark
 
-![Screenshot](static/screenshot_v2.png)
+![Screenshot](static/screenshot.png)
 
 ## Architecture
 

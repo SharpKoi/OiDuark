@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_X">
+    <output url="file://$MODULE_DIR$/target/classes" />
+    <output-test url="file://$MODULE_DIR$/target/test-classes" />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/target/generated-sources/annotations" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/resources" type="java-test-resource" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:18-ea+6" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:linux:18-ea+6" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:18-ea+6" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:linux:18-ea+6" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:18-ea+6" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:linux:18-ea+6" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:18-ea+6" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:linux:18-ea+6" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-media:18-ea+6" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-media:linux:18-ea+6" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-web:18-ea+6" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-web:linux:18-ea+6" level="project" />
+    <orderEntry type="library" name="Maven: com.jfoenix:jfoenix:9.0.10" level="project" />
+    <orderEntry type="library" name="Maven: de.jensd:fontawesomefx-fontawesome:4.7.0-9.1.2" level="project" />
+    <orderEntry type="library" name="Maven: de.jensd:fontawesomefx-commons:9.1.2" level="project" />
+    <orderEntry type="library" name="Maven: de.jensd:fontawesomefx-materialicons:2.2.0-9.1.2" level="project" />
+    <orderEntry type="library" name="Maven: de.jensd:fontawesomefx-materialdesignfont:2.0.26-9.1.2" level="project" />
+    <orderEntry type="library" name="Maven: de.jensd:fontawesomefx-octicons:4.3.0-9.1.2" level="project" />
+    <orderEntry type="library" name="Maven: de.jensd:fontawesomefx-weathericons:2.0.10-9.1.2" level="project" />
+    <orderEntry type="library" name="Maven: org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0" level="project" />
+    <orderEntry type="library" name="Maven: org.burningwave:core:12.47.0" level="project" />
+    <orderEntry type="library" name="Maven: io.github.toolfactory:jvm-driver:8.9.6" level="project" />
+    <orderEntry type="library" name="Maven: org.burningwave:jvm-driver:7.0.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.projectlombok:lombok:1.18.22" level="project" />
+    <orderEntry type="library" name="Maven: commons-io:commons-io:2.11.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.9.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-api:5.8.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.opentest4j:opentest4j:1.2.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-commons:1.8.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.apiguardian:apiguardian-api:1.1.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-engine:5.8.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-engine:1.8.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-params:5.8.2" level="project" />
+  </component>
+</module>
