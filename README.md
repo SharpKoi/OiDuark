@@ -1,31 +1,71 @@
 # OiDuark
 
+> Whenever you want to enjoy musics or songs with specific styles, you won't need to add them into a new play list anymore. Just use **Tag Filter** 😍.
+
 ![Screenshot](static/screenshot.png)
 
-## Architecture
+## Architecture 🔧
 
-![](./static/Architecture.jpg)
+![](./static/Architecture.png)
 
-## Description
-*With this audio manager, you can manage your audio by attaching tags on them. Then you would be able to act with the specified tags.*
+## Description 📋
+This is a music player desktop application developed by JavaFX.  
 
-## Features
-* Playing the audio list
-* Attaching tags on your audio
-* Add/Rename/Delete your audio
-* Putting the audio with the specified tags into play list
+With this application, you can enjoy the downloaded musics or songs anytime. You won't need to manually add them into a new play list anymore. Just use the tag filter.
 
-## Environment
+## Features 🤩
+* Editing musics/songs title, author, tags, ...etc
+* Customizing tags name and color
+* Adding your favorite musics/songs
+* Searching audio by keywords and tags
+* Playing a queue of musics/songs
+* Will not litter your user home, either `~` in linux or `C:/Users/${your username}` in windows.
+* Choose your own media storage and userdata storage path.
+
+## Requirements 💻
 * Windows 10 / Windows 11 / Linux
-* Java 8 runtime environment with JavaFX
+* Java 11+
 
-## Usage
+## Usage 🧭
 
-Download the latest released JAR at the right side.  
+Please check if your environment satisfies the requirements.
 
-Check if your environment satisfies. And then just double click the JAR file to execute this app.
+### Linux
 
-## TO-DO
+Download the latest released `tar.gz` file. And then extract them by executing the command: 
+
+```sh
+tar -xvf oiduark-0.0.1-SNAPSHOT.tar.gz
+```
+
+Note that the binary file is stored in `bin/` . Launch OiDuark by this command:
+
+```sh
+cd oiduark-0.0.1-SNAPSHOT/bin/
+chmod u+x oiduark-launcher
+./oiduark-launcher
+```
+
+Or you can just double-click the `oiduark-launcher` under `bin/`.
+
+### Windows
+
+Download the latest released `zip` file and then extract them.
+
+Note that the binary file is stored in `bin/` . Launch OiDuark by this command:
+
+```sh
+cd oiduark-0.0.1-SNAPSHOT/bin/
+./oiduark-launcher
+```
+
+Or you can just double-click the `oiduark-launcher.bat` under `bin/`.
+
+## TO-DO 🎯
+
 - [x] create userdata inside user's local appdata
+- [x] upgrade to java 18
+- [ ] lyrics display
+- [ ] AI auto tagging
+- [ ] browsing musics and songs & downloading
 - [ ] more customizable appearance
-- [ ] upgrade to java 17
