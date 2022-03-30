@@ -194,10 +194,13 @@ public class AudioListCell extends ListCell<Audio> {
 	}
 	
 	protected void buildTagsContainer(Audio audio) {
-		Button addTagButton = new Button("新增標籤");
+		Button addTagButton = new Button();
 		addTagButton.getStyleClass().add("add-tag-button");
 		addTagButton.setCursor(Cursor.HAND);
-		addTagButton.setPrefSize(USE_COMPUTED_SIZE, USE_COMPUTED_SIZE);
+		Label l_addTag = new Label("+ tag");
+		l_addTag.setTextFill(Paint.valueOf("white"));
+		l_addTag.setFont(Font.font(12));
+		addTagButton.setGraphic(l_addTag);
 		addTagButton.setOnAction(e -> {
 			AudioTagManager tagManager = OiDuarkApp.getInstance().getAudioTagManager();
 			List<MenuItem> tagItems = new ArrayList<>();
