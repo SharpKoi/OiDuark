@@ -24,11 +24,13 @@ With this application, you can enjoy the downloaded musics or songs anytime. You
 
 ## Requirements 💻
 * Windows 10 / Windows 11 / Linux
-* Java 11+
+* Java 11+ (Optional)
 
 ## Usage 🧭
 
-Please check if your environment satisfies the requirements.
+Please check if your environment satisfies the requirements.  
+
+Note that if you download the binary release from [the github releases page](https://github.com/SharpKoi/OiDuark/releases), it includes the java runtime, which is the supported version. So you won't need to install java runtime on your environment.
 
 ### Linux
 

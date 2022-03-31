@@ -203,21 +203,6 @@
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
-                <executions>
-                    <execution>
-                        <!-- Default configuration for running with: mvn clean javafx:run -->
-                        <id>default-cli</id>
-                        <configuration>
-                            <mainClass>com.sharpkoi.oiduark.OiDuarkApp</mainClass>
-                            <launcher>${app.name}-launcher</launcher>
-                            <jlinkZipName>${app.name}</jlinkZipName>
-                            <jlinkImageName>${app.name}</jlinkImageName>
-                            <noManPages>true</noManPages>
-                            <stripDebug>true</stripDebug>
-                            <noHeaderFiles>true</noHeaderFiles>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.moditect</groupId>
@@ -261,10 +246,8 @@
                             </modulePath>
                             <modules>
                                 <module>java.logging</module>
-                                <module>javafx.base</module>
                                 <module>javafx.controls</module>
                                 <module>javafx.fxml</module>
-                                <module>javafx.graphics</module>
                                 <module>javafx.media</module>
                                 <module>javafx.web</module>
                                 <module>com.jfoenix</module>
@@ -280,10 +263,10 @@
                                 <module>com.google.gson</module>
                             </modules>
                             <jarInclusionPolicy>APP_WITH_DEPENDENCIES</jarInclusionPolicy>
-<!--                            <baseJdk>version=18,vendor=openjdk,platform=Linux</baseJdk>-->
+<!--                            <baseJdk>version=18,vendor=openjdk,platform=linux-x64</baseJdk>-->
                             <launcher>
                                 <name>${app.name}</name>
-                                <mainClass>com.sharpkoi.oiduark.OiDuarkApp</mainClass>
+                                <mainClass>com.sharpkoi.oiduark/com.sharpkoi.oiduark.OiDuarkApp</mainClass>
                             </launcher>
                             <outputDirectory>
                                 ${project.build.directory}/jlink-image

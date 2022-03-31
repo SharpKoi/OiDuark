@@ -1,11 +1,9 @@
 module com.sharpkoi.oiduark {
     requires java.logging;
 
-    requires javafx.base;
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.media;
-    requires javafx.graphics;
     requires javafx.web;
 
     requires com.jfoenix;
