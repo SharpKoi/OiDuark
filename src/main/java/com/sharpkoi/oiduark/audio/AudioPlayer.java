@@ -1,13 +1,10 @@
 package com.sharpkoi.oiduark.audio;
 
-import java.net.MalformedURLException;
 import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.Random;
 
-import com.sharpkoi.oiduark.OiDuarkApp;
 import com.sharpkoi.oiduark.utils.Console;
-import com.sharpkoi.oiduark.utils.ResourceLoader;
 
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import com.sharpkoi.oiduark.OiDuarkApp;
 import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 

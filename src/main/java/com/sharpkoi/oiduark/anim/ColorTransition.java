@@ -2,7 +2,6 @@ package com.sharpkoi.oiduark.anim;
 
 import com.sharpkoi.oiduark.utils.ColorUtils;
 import javafx.animation.Transition;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;

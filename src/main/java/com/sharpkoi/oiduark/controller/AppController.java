@@ -8,7 +8,6 @@ import com.sharpkoi.oiduark.manager.ComponentManager;
 import com.sharpkoi.oiduark.component.Navigation;
 import com.sharpkoi.oiduark.component.PlayerControlPanel;
 import com.sharpkoi.oiduark.component.PlaylistPanel;
-import com.sharpkoi.oiduark.component.TitleBar;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

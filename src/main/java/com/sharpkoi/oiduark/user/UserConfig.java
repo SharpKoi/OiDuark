@@ -3,7 +3,6 @@ package com.sharpkoi.oiduark.user;
 import java.io.*;
 import java.nio.file.Paths;
 import java.util.Properties;
-import java.util.ResourceBundle;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

@@ -6,7 +6,6 @@ import java.util.*;
 import com.sharpkoi.oiduark.OiDuarkApp;
 import com.sharpkoi.oiduark.audio.*;
 import com.sharpkoi.oiduark.utils.Console;
-import com.sharpkoi.oiduark.utils.ResourceLoader;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

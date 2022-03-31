@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import java.io.File;
 import java.nio.file.Paths;
 import java.util.Properties;
-import java.util.ResourceBundle;
 
 @AllArgsConstructor
 public class UserData {

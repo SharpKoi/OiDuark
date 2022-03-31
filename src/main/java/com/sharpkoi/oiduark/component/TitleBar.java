@@ -1,7 +1,6 @@
 package com.sharpkoi.oiduark.component;
 
 import com.sharpkoi.oiduark.OiDuarkApp;
-import com.sharpkoi.oiduark.utils.ResourceLoader;
 import com.sharpkoi.oiduark.utils.StageMovementHelper;
 
 import javafx.event.ActionEvent;

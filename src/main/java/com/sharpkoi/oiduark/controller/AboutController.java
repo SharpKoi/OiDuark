@@ -1,7 +1,5 @@
 package com.sharpkoi.oiduark.controller;
 
-import java.io.File;
-
 import com.sharpkoi.oiduark.OiDuarkApp;
 import javafx.fxml.FXML;
 import javafx.scene.web.WebView;

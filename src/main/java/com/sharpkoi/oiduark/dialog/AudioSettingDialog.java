@@ -8,7 +8,6 @@ import java.util.List;
 import com.sharpkoi.oiduark.OiDuarkApp;
 import com.sharpkoi.oiduark.audio.Audio;
 import com.sharpkoi.oiduark.audio.AudioTag;
-import com.sharpkoi.oiduark.utils.ResourceLoader;
 
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;

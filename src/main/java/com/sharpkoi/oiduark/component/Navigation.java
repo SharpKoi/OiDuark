@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.sharpkoi.oiduark.OiDuarkApp;
-import com.sharpkoi.oiduark.utils.ResourceLoader;
 
+import com.sharpkoi.oiduark.utils.ResourceLoader;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -28,13 +28,14 @@ public class Navigation extends VBox {
 	private List<NavigationButton> navigationButtons;
 	
 	public Navigation(NavigationButton... buttons) {
+		ResourceLoader loader = OiDuarkApp.getInstance().getResourceLoader();
 		HBox banner = new HBox(10);
 		
-		ImageView logo = new ImageView(OiDuarkApp.getInstance().getResourceLoader().loadAppIcon());
+		ImageView logo = new ImageView(loader.loadAppIcon());
 		logo.setFitHeight(40); logo.setFitWidth(40);
 		
 		Label title = new Label("OiDuark");
-		title.setFont(OiDuarkApp.getInstance().getResourceLoader().loadFont("Bauhaus 93 Regular", 24, ".ttf"));
+		title.setFont(loader.loadFont("Bauhaus 93 Regular", 24, ".ttf"));
 		title.setTextFill(Paint.valueOf("#f05"));
 		
 		banner.setAlignment(Pos.CENTER);
@@ -43,7 +44,7 @@ public class Navigation extends VBox {
 		
 		setAlignment(Pos.TOP_LEFT);
 		setBackground(new Background(new BackgroundFill(Paint.valueOf("#212529"), null, null)));
-		getStylesheets().add(OiDuarkApp.class.getResource("styles/navigation.css").toString());
+		getStylesheets().add(loader.getResourceURL("styles/navigation.css").toString());
 		getStyleClass().add("navigation");
 		setPrefWidth(164);
 		getChildren().add(banner);
