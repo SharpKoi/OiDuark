@@ -19,7 +19,7 @@ With this application, you can enjoy the downloaded musics or songs anytime. You
 * Adding your favorite musics/songs
 * Searching audio by keywords and tags
 * Playing a queue of musics/songs
-* Will not litter your user home, either `~` in linux or `C:/Users/${your username}` in windows.
+* Will not litter your user home(either `~` in linux or `C:/Users/${your username}` in windows).
 * Choose your own media storage and userdata storage path.
 
 ## Requirements 💻
@@ -38,7 +38,7 @@ Download the latest released `tar.gz` file. And then extract them by executing t
 tar -xvf oiduark-0.0.1-SNAPSHOT.tar.gz
 ```
 
-Note that the binary file is stored in `bin/` . Launch OiDuark by this command:
+Note that the binary file is stored in `bin/`. Launch OiDuark by this command:
 
 ```sh
 cd oiduark-0.0.1-SNAPSHOT/bin/
@@ -50,16 +50,14 @@ Or you can just double-click the `oiduark-launcher` under `bin/`.
 
 ### Windows
 
-Download the latest released `zip` file and then extract them.
+Download the latest released `zip` file and extract them.  
+Then Launch OiDuark by this command:
 
-Note that the binary file is stored in `bin/` . Launch OiDuark by this command:
-
-```sh
-cd oiduark-0.0.1-SNAPSHOT/bin/
-./oiduark-launcher
+```bat
+cd oiduark-0.0.1-SNAPSHOT/
+.\oiduark-launcher
 ```
-
-Or you can just double-click the `oiduark-launcher.bat` under `bin/`.
+Or you can just double-click the `oiduark-launcher.bat`.
 
 ## TO-DO 🎯
 
