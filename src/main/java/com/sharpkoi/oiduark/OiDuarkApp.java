@@ -2,6 +2,7 @@ package com.sharpkoi.oiduark;
 	
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -164,13 +165,11 @@ public class OiDuarkApp extends Application {
 			userData = new UserData(userConfig, properties);
 
 			// init userdata dir
-			File userdataDir = userConfig.getUserdataDir();
-			if(!userdataDir.exists()) userdataDir.mkdirs();
+			Path userdataDirPath = Paths.get(userConfig.getUserdataDirPath(), properties.getProperty("app.name").toLowerCase());
+			if(!userdataDirPath.toFile().exists()) userdataDirPath.toFile().mkdirs();
 
 			// init logger
-			File logDir = Paths.get(userConfig.getUserdataDirPath(),
-									properties.getProperty("app.name").toLowerCase(),
-									properties.getProperty("log.storage")).toFile();
+			File logDir = Paths.get(userdataDirPath.toString(), properties.getProperty("log.storage")).toFile();
 			if(!logDir.exists()) logDir.mkdirs();
 
 			FileHandler logHandler =
