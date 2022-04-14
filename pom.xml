@@ -6,13 +6,13 @@
 
     <groupId>com.sharpkoi</groupId>
     <artifactId>oiduark</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>OiDuark</name>
     <packaging>jar</packaging>
 
     <properties>
         <app.name>OiDuark</app.name>
-        <app.version>0.0.1-SNAPSHOT</app.version>
+        <app.version>0.0.2-SNAPSHOT</app.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.8.2</junit.version>
         <lombok.version>1.18.22</lombok.version>
@@ -24,22 +24,22 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>18-ea+6</version>
+            <version>18</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>18-ea+6</version>
+            <version>18</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-media</artifactId>
-            <version>18-ea+6</version>
+            <version>18</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-web</artifactId>
-            <version>18-ea+6</version>
+            <version>18</version>
         </dependency>
 
         <!-- JavaFX Third-party Extensions -->
@@ -130,12 +130,10 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>18</source>
-                    <target>18</target>
+                    <source>17</source>
+                    <target>17</target>
                     <release>18</release>
-                    <compilerArgs>
-                        <compilerArg>--module-path</compilerArg>
-                        <compilerArg>${modulePath}</compilerArg>
+                    <compilerArgs>--enable-preview
                     </compilerArgs>
                     <annotationProcessorPaths>
                         <annotationProcessorPath>
