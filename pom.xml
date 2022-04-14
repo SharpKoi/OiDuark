@@ -203,6 +203,9 @@
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
+                <configuration>
+                    <mainClass>com.sharpkoi.oiduark/com.sharpkoi.oiduark.OiDuarkApp</mainClass>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.moditect</groupId>
