@@ -1,6 +1,7 @@
 # OiDuark
 
-> Whenever you want to enjoy musics or songs with specific styles, you won't need to add them into a new play list anymore. Just use **Tag Filter** 😍.
+> Whenever you want to enjoy musics or songs with specific styles, you won't need to add them into a new play list anymore. Just use **Tag Filter** 😍.  
+> 👉 Demo Video: https://youtu.be/1FyDzLzMXuo
 
 ![Screenshot](static/screenshot.png)
 
