@@ -90,32 +90,24 @@ public class SettingController extends AppController {
 
 		b_apply.setOnAction(e -> {
 			OiDuarkApp app = OiDuarkApp.getInstance();
+			String appName = app.getProperties().getProperty("app.name").toLowerCase();
 
 			String mediaPath = f_dirPath_media.getText();
 			String userdataPath = f_dirPath_userdata.getText();
-
-			// clear the old userdata storage
-			try {
-				File oldUserdataDir =
-						Paths.get(config.getUserdataDirPath(),
-								  app.getProperties().getProperty("app.name").toLowerCase())
-						.toFile();
-				// Note that `MoreFiles.deleteRecursively()` in guava is still unstable(marked as @Beta by google).
-				// Therefore we use `org.apache.commons.io.FileUtils` instead.
-				// TODO: replace with `MoreFiles.deleteRecursively()` in guava
-				FileUtils.deleteDirectory(oldUserdataDir);
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
 
 			// apply the new setting on user config
 			config.setMediaDirPath(mediaPath);
 			config.setUserdataDirPath(userdataPath);
 
-			// save all the current data into the new set userdata path
-			app.saveAll();
+			// Will not overwrite if there's data in the new userdata directory.
+			// Instead, read the data in the new directory.
+			if(!Paths.get(userdataPath, appName).toFile().exists()) {
+				// write all the current data into the new userdata path
+				app.saveAll();
+			}
 
-			// reload all media from the new media directory
+			// reload all media and userdata
+			app.getAudioTagManager().loadTags();
 			app.getAudioManager().getAllAudio().clear();
 			app.getAudioManager().loadAudioList(Paths.get(mediaPath).toFile());
 
