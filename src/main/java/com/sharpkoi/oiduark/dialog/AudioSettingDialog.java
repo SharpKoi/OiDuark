@@ -148,6 +148,7 @@ public class AudioSettingDialog extends Stage implements OiDialog<Audio.Metadata
 		f_title.setFont(Font.font("System", FontWeight.BOLD, 20));
 		f_title.setAlignment(Pos.CENTER_LEFT);
 		f_title.setPrefWidth(500);
+		f_title.textProperty().addListener((o, oldVal, newVal) -> metadataCache.setTitle(newVal));
 		HBox titleBox = new HBox(r, f_title);
 		
 		Label l_author = new Label("作者");
@@ -159,6 +160,7 @@ public class AudioSettingDialog extends Stage implements OiDialog<Audio.Metadata
 		f_author.setAlignment(Pos.CENTER_LEFT);
 		f_author.setPadding(new Insets(-1));
 		f_author.setPrefWidth(450);
+		f_author.textProperty().addListener((o, oldVal, newVal) -> metadataCache.setAuthor(newVal));
 		HBox authorBox = new HBox(20, l_author, f_author);
 		
 		Label l_tag = new Label("標籤");
