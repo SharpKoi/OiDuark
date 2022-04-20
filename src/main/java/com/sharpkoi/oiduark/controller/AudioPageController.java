@@ -67,7 +67,14 @@ public class AudioPageController extends AppController {
 		ObservableList<Audio> allAudio = OiDuarkApp.getInstance().getAudioManager().getAllAudio();
 		itemsForSearch = new FilteredList<>(allAudio);
 		l_audioList.setItems(itemsForSearch);
-		l_audioList.setCellFactory(cellList -> new AudioListCell());
+		l_audioList.setCellFactory(cellList -> {
+			AudioListCell cell = new AudioListCell();
+			cell.itemProperty().addListener((o, oldVal, newVal) -> {
+				cell.onItemUpdated(newVal);
+			});
+
+			return cell;
+		});
 			
 		audioFilter = new AudioFilter();
 		searchBar.textProperty().addListener((observable, oldText, newText) -> {

@@ -133,8 +133,7 @@
                     <source>17</source>
                     <target>17</target>
                     <release>18</release>
-                    <compilerArgs>--enable-preview
-                    </compilerArgs>
+                    <compilerArgs>--enable-preview</compilerArgs>
                     <annotationProcessorPaths>
                         <annotationProcessorPath>
                             <groupId>org.projectlombok</groupId>

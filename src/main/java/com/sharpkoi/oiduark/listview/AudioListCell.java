@@ -40,70 +40,70 @@ public class AudioListCell extends ListCell<Audio> {
 	@Override
 	protected void updateItem(Audio item, boolean empty) {
 		super.updateItem(item, empty);
-		
+	}
+
+	public void onItemUpdated(Audio item) {
 		if(item == null) {
 			setGraphic(null);
 			setText("");
-		}else {
-			AudioPlayer player = OiDuarkApp.getInstance().getAudioPlayer();
-			
-			// Writing so much if-else is really not my will,
-			// but after checking, I found that it's hard to be simplified :'(
-			setOnMouseClicked(e -> {
-				if(e.getButton().equals(MouseButton.PRIMARY)) {
-					if(e.getClickCount() == 2) {
-						if(player.getPlayList().contains(item)) {
-							((MaterialDesignIconView) b_add.getGraphic()).setIcon(MaterialDesignIcon.PLUS);
-							if(player.getCurrentAudio() != null) {
-								if(player.getCurrentAudio().equals(item)) {
-									player.pause();
-									if(player.getPlayList().size() <= 1) {
-										player.stop();
-										player.getPlayList().remove(item);
-									}else {
-										player.getPlayList().remove(item);
-										player.play();
-									}
-								}else {
-									player.getPlayList().remove(item);
-								}
+		}
+
+		AudioPlayer player = OiDuarkApp.getInstance().getAudioPlayer();
+
+		// Writing so much if-else is really not my will,
+		// but after checking, I found that it's hard to be simplified :'(
+		setOnMouseClicked(e -> {
+			if(e.getButton().equals(MouseButton.PRIMARY) && e.getClickCount() == 2) {
+				if(player.getPlayList().contains(item)) {
+					((MaterialDesignIconView) b_add.getGraphic()).setIcon(MaterialDesignIcon.PLUS);
+					if(player.getCurrentAudio() != null) {
+						if(player.getCurrentAudio().equals(item)) {
+							player.pause();
+							if(player.getPlayList().size() <= 1) {
+								player.stop();
+								player.getPlayList().remove(item);
 							}else {
 								player.getPlayList().remove(item);
+								player.play();
 							}
-	 					}else {
-							player.addAudio(item);
-							((MaterialDesignIconView) b_add.getGraphic()).setIcon(MaterialDesignIcon.MINUS);
+						}else {
+							player.getPlayList().remove(item);
 						}
+					}else {
+						player.getPlayList().remove(item);
 					}
-				}else if(e.getButton().equals(MouseButton.SECONDARY)) {
-					AudioSettingDialog dialog = new AudioSettingDialog(item);
-					dialog.show();
-					dialog.setOnCancel(onCancel -> dialog.close());
-					dialog.setOnConfirm(onConfirm -> {
-						Audio.Metadata modified = dialog.getResult();
-						item.updateMetadata(modified);
-						// save changes
-						OiDuarkApp.getInstance().getAudioManager().saveAllAudioData();
-						dialog.close();
-						getListView().refresh();
-					});
+				}else {
+					player.addAudio(item);
+					((MaterialDesignIconView) b_add.getGraphic()).setIcon(MaterialDesignIcon.MINUS);
 				}
-			});
-			
-			buildOPButton(item);
-			buildTitleContainer(item);
-			buildTagsContainer(item);
+			}else if(e.getButton().equals(MouseButton.SECONDARY)) {
+				AudioSettingDialog dialog = new AudioSettingDialog(item);
+				dialog.show();
+				dialog.setOnCancel(onCancel -> dialog.close());
+				dialog.setOnConfirm(onConfirm -> {
+					Audio.Metadata modified = dialog.getResult();
+					item.updateMetadata(modified);
+					// save changes
+					OiDuarkApp.getInstance().getAudioManager().saveAllAudioData();
+					dialog.close();
+					getListView().refresh();
+				});
+			}
+		});
 
-			container = new GridPane();
-			container.setAlignment(Pos.TOP_LEFT);
-			container.getColumnConstraints().add(new ColumnConstraints(30));
-			container.setVgap(5);
-			container.add(b_add, 0, 0);
-			container.add(titleContainer, 1, 0);
-			container.add(tagsContainer, 1, 1);
+		buildOPButton(item);
+		buildTitleContainer(item);
+		buildTagsContainer(item);
 
-			setGraphic(container);
-		}
+		container = new GridPane();
+		container.setAlignment(Pos.TOP_LEFT);
+		container.getColumnConstraints().add(new ColumnConstraints(30));
+		container.setVgap(5);
+		container.add(b_add, 0, 0);
+		container.add(titleContainer, 1, 0);
+		container.add(tagsContainer, 1, 1);
+
+		setGraphic(container);
 	}
 	
 	protected void buildOPButton(Audio item) {
