@@ -29,6 +29,8 @@ import javafx.scene.text.Font;
 
 public class AudioListCell extends ListCell<Audio> {
 
+	public static final int DEFAULT_HEIGHT = 56;
+
 	private GridPane container;
 
 	private Button b_add;
@@ -36,16 +38,15 @@ public class AudioListCell extends ListCell<Audio> {
 	private HBox titleContainer;
 	
 	private FlowPane tagsContainer;
-	
-	@Override
-	protected void updateItem(Audio item, boolean empty) {
-		super.updateItem(item, empty);
-	}
 
+	// updateItem is called frequently even if it does not update item.
+	// thus we use itemProperty listener to update item
 	public void onItemUpdated(Audio item) {
 		if(item == null) {
 			setGraphic(null);
 			setText("");
+			setPrefHeight(DEFAULT_HEIGHT);
+			return;
 		}
 
 		AudioPlayer player = OiDuarkApp.getInstance().getAudioPlayer();
