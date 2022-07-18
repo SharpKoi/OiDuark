@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <properties>
-        <app.name>OiDuark</app.name>
-        <app.version>0.0.2-SNAPSHOT</app.version>
+        <app.name>oiduark</app.name>
+        <app.version>0.0.3-SNAPSHOT</app.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.8.2</junit.version>
-        <lombok.version>1.18.22</lombok.version>
+        <lombok.version>1.18.24</lombok.version>
         <modulePath>${project.build.directory}/modules</modulePath>
     </properties>
 
@@ -24,22 +24,22 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>18</version>
+            <version>18.0.1</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>18</version>
+            <version>18.0.1</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-media</artifactId>
-            <version>18</version>
+            <version>18.0.1</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-web</artifactId>
-            <version>18</version>
+            <version>18.0.1</version>
         </dependency>
 
         <!-- JavaFX Third-party Extensions -->
@@ -83,7 +83,7 @@
         <dependency>
             <groupId>org.burningwave</groupId>
             <artifactId>core</artifactId>
-            <version>12.47.0</version>
+            <version>12.52.0</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -124,15 +124,16 @@
     </dependencies>
 
     <build>
+        <finalName>${app.name}-${app.version}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>3.10.1</version>
                 <configuration>
                     <source>17</source>
                     <target>17</target>
-                    <release>18</release>
+                    <release>17</release>
                     <compilerArgs>--enable-preview</compilerArgs>
                     <annotationProcessorPaths>
                         <annotationProcessorPath>
@@ -157,7 +158,7 @@
                 <configuration>
                     <toolchains>
                         <jdk>
-                            <version>18</version>
+                            <version>17</version>
                             <vendor>openjdk</vendor>
                         </jdk>
                     </toolchains>
@@ -263,7 +264,7 @@
                                 <module>com.google.gson</module>
                             </modules>
                             <jarInclusionPolicy>APP_WITH_DEPENDENCIES</jarInclusionPolicy>
-<!--                            <baseJdk>version=18,vendor=openjdk,platform=linux-x64</baseJdk>-->
+<!--                            <baseJdk>version=17,vendor=openjdk,platform=linux-x64</baseJdk>-->
                             <launcher>
                                 <name>${app.name}</name>
                                 <mainClass>com.sharpkoi.oiduark/com.sharpkoi.oiduark.OiDuarkApp</mainClass>
