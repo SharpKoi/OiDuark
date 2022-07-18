@@ -38,8 +38,14 @@ public class AudioManager {
             try {
                 assert audioFiles != null;
 
+                // create an empty media data file. Default is audios.json which is pre-defined in app.properties
+                File mediaDataFile = OiDuarkApp.getInstance().getUserData().getMediaDataFile();
+                if(!mediaDataFile.exists()) {
+                    OiDuarkUtils.createEmptyJsonFile(mediaDataFile);
+                }
+
                 Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-                JsonReader reader = new JsonReader(new FileReader(OiDuarkApp.getInstance().getUserData().getMediaDataFile(), StandardCharsets.UTF_8));
+                JsonReader reader = new JsonReader(new FileReader(mediaDataFile, StandardCharsets.UTF_8));
                 Map<String, Audio.Metadata> audioDataset = gson.fromJson(reader, new TypeToken<Map<String, Audio.Metadata>>() {}.getType());
 
                 for(File f : audioFiles) {
