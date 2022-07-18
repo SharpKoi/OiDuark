@@ -1,7 +1,6 @@
 # OiDuark
 
 > Whenever you want to enjoy musics or songs with specific styles, you won't need to add them into a new play list anymore. Just use **Tag Filter** 😍.  
-> 👉 Demo Video: https://youtu.be/1FyDzLzMXuo
 
 ![Screenshot](static/screenshot.png)
 
@@ -42,7 +41,7 @@ cd oiduark-0.0.3-SNAPSHOT/bin
 ./java -jar oiduark.jar
 ```
 
-**Note: **You may need to specify the GTK version to support input methods other than English if you're using Linux with GTK2+ installed. Here's an example:
+**Note:** You may need to specify the GTK version to support input methods other than English if you're using Linux with GTK2+ installed. Here's an example:
 
 ```bash
 ./java -Djdk.gtk.version=2 -jar oiduark.jar
