@@ -1,6 +1,8 @@
 /fontawesomefx-glyphsbrowser-1.3.0/
 /.idea/
 /*.iml
+/resources/
 /target/
-*.drawio
 /release/
+*.drawio
+release.sh
