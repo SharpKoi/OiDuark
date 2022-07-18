@@ -33,40 +33,45 @@ Please check if your environment satisfies the requirements.
 
 Note that if you download the binary release from [the github releases page](https://github.com/SharpKoi/OiDuark/releases), it includes the java runtime, which is the supported version. So you won't need to install java runtime on your environment.
 
+### Generic
+
+Download the latest released `tar.gz`(for Linux) /`zip`(for Windows) file. Extract the files and use the commands below to launch OiDuark:
+
+```bash
+cd oiduark-0.0.3-SNAPSHOT/bin
+./java -jar oiduark.jar
+```
+
+**Note: **You may need to specify the GTK version to support input methods other than English if you're using Linux with GTK2+ installed. Here's an example:
+
+```bash
+./java -Djdk.gtk.version=2 -jar oiduark.jar
+```
+
 ### Linux
 
 Download the latest released `tar.gz` file. And then extract them by executing the command: 
 
 ```sh
-tar -xvf oiduark-0.0.1-SNAPSHOT.tar.gz
+tar -xvf oiduark-0.0.3-SNAPSHOT.tar.gz
 ```
 
-Note that the binary file is stored in `bin/`. Launch OiDuark by this command:
+And use the command below to install OiDuark:
 
 ```sh
-cd oiduark-0.0.1-SNAPSHOT/bin/
-chmod u+x oiduark-launcher
-./oiduark-launcher
+sh oiduark-0.0.3-SNAPSHOT/install.sh
 ```
 
-Or you can just double-click the `oiduark-launcher` under `bin/`.
+It will create a desktop application so you can find it in the application menu.
 
 ### Windows
 
-Download the latest released `zip` file and extract them.  
-Then Launch OiDuark by this command:
-
-```bat
-cd oiduark-0.0.1-SNAPSHOT/
-.\oiduark-launcher
-```
-Or you can just double-click the `oiduark-launcher.bat`.
+The instruction is waiting for update. Use [Generic](#Generic) instruction instead.
 
 ## TO-DO 🎯
 
 - [x] create userdata inside user's local appdata
-- [x] upgrade to java 18
+- [x] upgrade to java 17
 - [ ] lyrics display
-- [ ] AI auto tagging
 - [ ] browsing musics and songs & downloading
 - [ ] more customizable appearance
