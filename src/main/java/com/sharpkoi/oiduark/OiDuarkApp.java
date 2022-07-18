@@ -166,11 +166,15 @@ public class OiDuarkApp extends Application {
 
 			// init userdata dir
 			Path userdataDirPath = Paths.get(userConfig.getUserdataDirPath(), properties.getProperty("app.name").toLowerCase());
-			if(!userdataDirPath.toFile().exists()) userdataDirPath.toFile().mkdirs();
+			if(!userdataDirPath.toFile().exists()) {
+				userdataDirPath.toFile().mkdirs();
+			}
 
 			// init logger
 			File logDir = Paths.get(userdataDirPath.toString(), properties.getProperty("log.storage")).toFile();
-			if(!logDir.exists()) logDir.mkdirs();
+			if(!logDir.exists()) {
+				logDir.mkdirs();
+			}
 
 			FileHandler logHandler =
 					new FileHandler(logDir.getAbsolutePath() + "/" +

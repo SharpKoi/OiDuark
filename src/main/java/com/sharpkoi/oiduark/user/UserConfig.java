@@ -26,10 +26,6 @@ public class UserConfig {
 		this.userdataDirPath = Environment.getUserDataHomePath();
 	}
 
-	public static UserConfig defaultConfig() {
-		return new UserConfig();
-	}
-
 	/**
 	 * Get the default directory where musics are stored.
 	 * OiDuark will load musics from the directory by default.
@@ -56,7 +52,7 @@ public class UserConfig {
 		if(configFile.exists())
 			return load(configFile);
 		else
-			return defaultConfig();
+			return new UserConfig();
 	}
 
 	public static UserConfig load(File jsonConfig) {
