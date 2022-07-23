@@ -51,31 +51,30 @@ public class AudioListCell extends ListCell<Audio> {
 
 		AudioPlayer player = OiDuarkApp.getInstance().getAudioPlayer();
 
-		// Writing so much if-else is really not my will,
-		// but after checking, I found that it's hard to be simplified :'(
 		setOnMouseClicked(e -> {
+			// Double-click primary
 			if(e.getButton().equals(MouseButton.PRIMARY) && e.getClickCount() == 2) {
-				if(player.getPlayList().contains(item)) {
-					((MaterialDesignIconView) b_add.getGraphic()).setIcon(MaterialDesignIcon.PLUS);
-					if(player.getCurrentAudio() != null) {
-						if(player.getCurrentAudio().equals(item)) {
-							player.pause();
-							if(player.getPlayList().size() <= 1) {
-								player.stop();
-								player.getPlayList().remove(item);
-							}else {
-								player.getPlayList().remove(item);
-								player.play();
-							}
-						}else {
-							player.getPlayList().remove(item);
-						}
-					}else {
-						player.getPlayList().remove(item);
-					}
-				}else {
+				// add the clicked item to the playlist
+				if(!player.getPlayList().contains(item)) {
 					player.addAudio(item);
 					((MaterialDesignIconView) b_add.getGraphic()).setIcon(MaterialDesignIcon.MINUS);
+					return;
+				}
+
+				((MaterialDesignIconView) b_add.getGraphic()).setIcon(MaterialDesignIcon.PLUS);
+				// if the clicked item is not playing now then just remove it
+				if(player.getCurrentAudio() == null || !player.getCurrentAudio().equals(item)) {
+					player.getPlayList().remove(item);
+					return;
+				}
+
+				player.pause();
+				if(player.getPlayList().size() <= 1) {
+					player.stop();
+					player.getPlayList().remove(item);
+				}else {
+					player.getPlayList().remove(item);
+					player.play();
 				}
 			}else if(e.getButton().equals(MouseButton.SECONDARY)) {
 				AudioSettingDialog dialog = new AudioSettingDialog(item);
