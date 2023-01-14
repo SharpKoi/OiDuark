@@ -114,22 +114,7 @@ public class PlayListCell extends ListCell<Audio> {
 	protected  void removeFromPlaylist() {
 		AudioPlayer player = OiDuarkApp.getInstance().getAudioPlayer();
 		SimpleAnimation.slideOut(this, getListView(), onFinish -> {
-			if(player.getCurrentAudio() != null) {
-				if(player.getCurrentAudio().equals(this.getItem())) {
-					player.pause();
-					getListView().getItems().remove(this.getItem());
-					if(player.getPlayList().size() >= 1) {
-						player.play();
-					}else {
-						player.stop();
-					}
-					this.setTranslateX(0);	//reset the cell's translation
-					AudioPageController.getInstance().refreshAudioList();
-					return;
-				}
-			}
-			
-			getListView().getItems().remove(this.getItem());
+			player.removeAudio(this.getItem());
 			this.setTranslateX(0);	//reset the cell's translation
 			AudioPageController.getInstance().refreshAudioList();
 		});

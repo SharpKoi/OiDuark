@@ -108,26 +108,29 @@ public class AudioPlayer {
 	public void setOnVolumeChanged(ChangeListener<? super Number> listener) {
 		onVolumeChanged = listener;
 	}
-	
-	public boolean play() {
-		if(playList.isEmpty()) {
-			return false;
-		}
-		
-		updateIndicator();
+
+	public void indicate(int index) {
+		this.indicator = index;
+	}
+
+	/**
+	 * The basic function for playing the audio at the indicated index currently.
+	 * @return if the media player is successfully playing.
+	 */
+	private boolean _play() {
 		currentAudio = playList.get(indicator);
 
 		Media media = new Media(Paths.get(currentAudio.getFilePath()).toUri().toString());
 		player = new MediaPlayer(media);
-		
+
 		if(onVolumeChanged != null) {
 			player.volumeProperty().addListener(onVolumeChanged);
 		}
 		player.setVolume(volume);
-		
+
 		// may cause memory leak
 		player.currentTimeProperty().addListener(onTimeUpdateListener);
-		
+
 		// check if user had changed the audio duration
 		player.setOnReady(() -> {
 			if(player.getTotalDuration().toSeconds() != getCurrentAudio().getDuration()) {
@@ -136,16 +139,37 @@ public class AudioPlayer {
 			Platform.runLater(onMediaReady);
 			player.play();
 		});
-		
+
 		player.setOnEndOfMedia(() -> {
 			player.stop();
 			player.dispose();
-			play();
+			play(true);
 			Console.getLogger().info("next audio id:" + indicator);
 		});
-		
-		isPlaying = true;
-		return isPlaying;
+
+		return isPlaying = true;
+	}
+
+	public boolean play(int index) {
+		if(playList.isEmpty()) {
+			return false;
+		}
+
+		indicate(index);
+
+		return _play();
+	}
+	
+	public boolean play(boolean updateIndicator) {
+		if(playList.isEmpty()) {
+			return false;
+		}
+
+		if(updateIndicator) {
+			this.updateIndicator();
+		}
+
+		return _play();
 	}
 	
 	public void pause() {
@@ -157,7 +181,7 @@ public class AudioPlayer {
 	
 	public void resume() {
 		isPlaying = true;
-		player.play();
+		player.play();		// call javafx player to play
 	}
 	
 	public void stop() {
@@ -205,22 +229,34 @@ public class AudioPlayer {
 	}
 	
 	public boolean removeAudio(int index) {
-		if(index != indicator && index >= 0 && index < playList.size()) {
-			playList.remove(index);
+		if(index >= 0 && index < playList.size()) {
+			if(index != indicator) {
+				playList.remove(index);
+				// TODO: deal with the audio queue under RANDOM mode.
+				return true;
+			}else {
+				// if the audio at the index to be removed is currently playing
+				boolean playingBeforeRemoving = isPlaying;		// cache the current playing status before removing
+				pause();
+				playList.remove(index);
+				// find the new index
+				indicate(indicator % playList.size());	// update for ORDERED mode
+				// TODO: update for RANDOM mode
+
+				if(playingBeforeRemoving) {
+					play(false);
+				}
+			}
+
 			return true;
-		}else {
-			return false;
 		}
+
+		return false;
 	}
 	
 	public boolean removeAudio(Audio audio) {
 		int targetIndex = playList.indexOf(audio);
-		if(targetIndex != indicator && targetIndex != -1) {
-			playList.remove(targetIndex);
-			return true;
-		}else {
-			return false;
-		}
+		return removeAudio(targetIndex);
 	}
 	
 	public void updateIndicator() {

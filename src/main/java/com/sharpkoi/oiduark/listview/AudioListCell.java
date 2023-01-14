@@ -62,20 +62,7 @@ public class AudioListCell extends ListCell<Audio> {
 				}
 
 				((MaterialDesignIconView) b_add.getGraphic()).setIcon(MaterialDesignIcon.PLUS);
-				// if the clicked item is not playing now then just remove it
-				if(player.getCurrentAudio() == null || !player.getCurrentAudio().equals(item)) {
-					player.getPlayList().remove(item);
-					return;
-				}
-
-				player.pause();
-				if(player.getPlayList().size() <= 1) {
-					player.stop();
-					player.getPlayList().remove(item);
-				}else {
-					player.getPlayList().remove(item);
-					player.play();
-				}
+				player.removeAudio(item);
 			}else if(e.getButton().equals(MouseButton.SECONDARY)) {
 				AudioSettingDialog dialog = new AudioSettingDialog(item);
 				dialog.show();
@@ -131,22 +118,7 @@ public class AudioListCell extends ListCell<Audio> {
 		b_add.setOnAction(e -> {
 			if(player.getPlayList().contains(item)) {
 				((MaterialDesignIconView) b_add.getGraphic()).setIcon(MaterialDesignIcon.PLUS);
-				if(player.getCurrentAudio() != null) {
-					if(player.getCurrentAudio().equals(item)) {
-						 player.pause();
-						if(player.getPlayList().size() <= 1) {
-							player.stop();
-							player.getPlayList().remove(item);
-						}else {
-							player.getPlayList().remove(item);
-							player.play();
-						}
-					}else {
-						player.getPlayList().remove(item);
-					}
-				}else {
-					player.getPlayList().remove(item);
-				}
+				player.removeAudio(item);
 			}else {
 				player.addAudio(item);
 				((MaterialDesignIconView) b_add.getGraphic()).setIcon(MaterialDesignIcon.MINUS);

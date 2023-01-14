@@ -329,7 +329,7 @@ public class PlayerControlPanel extends AnchorPane {
 				((ImageView) b_play.getGraphic()).setImage(this.playIcon);
 			}else {
 				if(player.indicator == -1) {
-					if(player.play()) {
+					if(player.play(true)) {
 						((ImageView) b_play.getGraphic()).setImage(this.pauseIcon);
 					}
 				}else {
