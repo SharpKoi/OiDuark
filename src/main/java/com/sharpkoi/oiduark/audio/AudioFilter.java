@@ -9,21 +9,21 @@ import javafx.collections.transformation.FilteredList;
 public class AudioFilter {
 	
 	private boolean onlyStared;
-	private String searchedTitle;
-	private LinkedList<Integer> selectedTags;
+	private String titleToSearch;
+	private LinkedList<Integer> tagsToSearch;
 	
 	public AudioFilter() {
 		this("");
 	}
 	
-	public AudioFilter(String searchedTitle) {
-		this(searchedTitle, new Integer[] {});
+	public AudioFilter(String titleToSearch) {
+		this(titleToSearch, new Integer[] {});
 	}
 	
-	public AudioFilter(String searchedTitle, Integer... tagID) {
-		this.searchedTitle = searchedTitle;
-		selectedTags = new LinkedList<>();
-		selectedTags.addAll(Arrays.asList(tagID));
+	public AudioFilter(String titleToSearch, Integer... tagID) {
+		this.titleToSearch = titleToSearch;
+		tagsToSearch = new LinkedList<>();
+		tagsToSearch.addAll(Arrays.asList(tagID));
 	}
 	
 	public void setOnlyStared(boolean b) {
@@ -35,25 +35,25 @@ public class AudioFilter {
 	}
 	
 	public void searchTitle(String title) {
-		this.searchedTitle = title;
+		this.titleToSearch = title.toLowerCase();
 	}
 	
 	public void selectTag(Integer tagID) {
-		this.selectedTags.add(tagID);
+		this.tagsToSearch.add(tagID);
 	}
 	
 	public void unselectTag(Integer tagID) {
-		this.selectedTags.remove(tagID);
+		this.tagsToSearch.remove(tagID);
 	}
 	
 	public Predicate<Audio> getPredicate() {
 		Predicate<Audio> starFilter = Audio::isFavorite;
-		Predicate<Audio> titleFilter = audio -> audio.getTitle().contains(searchedTitle);
+		Predicate<Audio> titleFilter = audio -> audio.getTitle().toLowerCase().contains(titleToSearch);
 		Predicate<Audio> tagFilter = audio -> {
-			if(selectedTags.contains(-1))
+			if(tagsToSearch.contains(-1))
 				return audio.getMetadata().getTags().size() == 0;
 			else
-				return audio.getMetadata().getTags().containsAll(selectedTags);
+				return audio.getMetadata().getTags().containsAll(tagsToSearch);
 		};
 		
 		Predicate<Audio> filter = titleFilter.and(tagFilter);
@@ -62,8 +62,8 @@ public class AudioFilter {
 	
 	public void clear() {
 		onlyStared = false;
-		searchedTitle = "";
-		selectedTags.clear();
+		titleToSearch = "";
+		tagsToSearch.clear();
 	}
 	
 	public void search(FilteredList<Audio> audioList) {
