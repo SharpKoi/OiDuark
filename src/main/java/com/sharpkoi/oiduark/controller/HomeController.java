@@ -40,7 +40,7 @@ public class HomeController extends AppController {
 		playerControlPanel.disable();
 		playerControlPanel.setOnPlayButtonClicked(e -> {
 			AudioPlayer player = OiDuarkApp.getInstance().getAudioPlayer();
-			if(!player.isPlaying() && player.indicator == -1) {
+			if(!player.isPlaying() && player.getIndicator() == -1) {
 				l_loading.setOpacity(1);
 			}
 		});

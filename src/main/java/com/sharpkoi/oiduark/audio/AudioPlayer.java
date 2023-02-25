@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
+import lombok.Getter;
 
 public class AudioPlayer {
 	
@@ -23,7 +24,8 @@ public class AudioPlayer {
 	private boolean isPlaying;
 	
 	// values
-	public int indicator = -1;
+	@Getter
+	private int indicator = -1;
 	private double volume = 1;
 	
 	// tools
@@ -111,13 +113,8 @@ public class AudioPlayer {
 
 	public void indicate(int index) {
 		this.indicator = index;
-	}
 
-	/**
-	 * The basic function for playing the audio at the indicated index currently.
-	 * @return if the media player is successfully playing.
-	 */
-	private boolean _play() {
+		// update the media
 		currentAudio = playList.get(indicator);
 
 		Media media = new Media(Paths.get(currentAudio.getFilePath()).toUri().toString());
@@ -146,8 +143,6 @@ public class AudioPlayer {
 			play(true);
 			Console.getLogger().info("next audio id:" + indicator);
 		});
-
-		return isPlaying = true;
 	}
 
 	public boolean play(int index) {
@@ -157,7 +152,7 @@ public class AudioPlayer {
 
 		indicate(index);
 
-		return _play();
+		return isPlaying = true;
 	}
 	
 	public boolean play(boolean updateIndicator) {
@@ -169,7 +164,7 @@ public class AudioPlayer {
 			this.updateIndicator();
 		}
 
-		return _play();
+		return isPlaying = true;
 	}
 	
 	public void pause() {
@@ -224,7 +219,6 @@ public class AudioPlayer {
 			player.seek(Duration.seconds(seconds));
 			return true;
 		}
-		
 		return false;
 	}
 	
@@ -237,20 +231,23 @@ public class AudioPlayer {
 			}else {
 				// if the audio at the index to be removed is currently playing
 				boolean playingBeforeRemoving = isPlaying;		// cache the current playing status before removing
-				pause();
+				player.stop();
+				player.dispose();
 				playList.remove(index);
-				// find the new index
-				indicate(indicator % playList.size());	// update for ORDERED mode
-				// TODO: update for RANDOM mode
+				if(playList.isEmpty()) {
+					this.stop();
+				}else {
+					// find the new index
+					indicate(indicator % playList.size());	// update for ORDERED mode
+					// TODO: update for RANDOM mode
 
-				if(playingBeforeRemoving) {
-					play(false);
+					if(playingBeforeRemoving) {
+						play(false);
+					}
 				}
 			}
-
 			return true;
 		}
-
 		return false;
 	}
 	
@@ -260,22 +257,20 @@ public class AudioPlayer {
 	}
 	
 	public void updateIndicator() {
-		switch(mode) {
-		case ORDERED:
-			if(++indicator >= playList.size()) {
-				indicator = 0;
+		int newIndex = indicator;
+		switch (mode) {
+			case ORDERED -> {
+				newIndex = (indicator + 1) % playList.size();
+				indicate(newIndex);
 			}
-			break;
-		case RANDOM:
-			int stepBound = playList.size() - 1;
-			int step = stepBound <= 0? 0 : selector.nextInt(playList.size() - 1);
-			indicator += step + 1;
-			indicator = indicator % playList.size();
-			break;
-		case LOOP:
-			break;
-		default:
-			break;
+			case RANDOM -> {
+				int stepBound = playList.size() - 1;
+				int step = stepBound <= 0 ? 0 : selector.nextInt(playList.size() - 1);
+				newIndex = (indicator + step + 1) % playList.size();
+				indicate(newIndex);
+			}
+			case LOOP, default -> {
+			}
 		}
 	}
 	
