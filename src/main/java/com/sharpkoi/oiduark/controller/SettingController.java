@@ -1,7 +1,6 @@
 package com.sharpkoi.oiduark.controller;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
@@ -15,14 +14,13 @@ import com.sharpkoi.oiduark.user.UserConfig;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.DirectoryChooser;
-import org.apache.commons.io.FileUtils;
 
 public class SettingController extends AppController {
 	@FXML JFXTextField f_dirPath_media;
-	@FXML JFXTextField f_dirPath_userdata;
+	@FXML JFXTextField f_dirPath_appdata;
 
 	@FXML Button b_browse_media;
-	@FXML Button b_browse_userdata;
+	@FXML Button b_browse_appdata;
 
 	@FXML JFXToggleButton toggle_mode;
 	@FXML JFXToggleButton toggle_lyrics;
@@ -46,8 +44,8 @@ public class SettingController extends AppController {
 				b_reset.setDisable(false);
 			}
 		});
-		f_dirPath_userdata.setText(config.getUserdataDirPath());
-		f_dirPath_userdata.textProperty().addListener((o, oldVal, newVal) -> {
+		f_dirPath_appdata.setText(config.getUserdataDirPath());
+		f_dirPath_appdata.textProperty().addListener((o, oldVal, newVal) -> {
 			if(!newVal.equals(oldVal)) {
 				b_apply.setDisable(false);
 				b_reset.setDisable(false);
@@ -66,13 +64,13 @@ public class SettingController extends AppController {
 			}
 		});
 
-		b_browse_userdata.setOnAction(e -> {
+		b_browse_appdata.setOnAction(e -> {
 			DirectoryChooser chooser = new DirectoryChooser();
 			File dir = chooser.showDialog(OiDuarkApp.getInstance().getStage());
 
 			if(dir != null) {
 				String path = dir.getAbsolutePath();
-				f_dirPath_userdata.setText(path);
+				f_dirPath_appdata.setText(path);
 				b_apply.setDisable(false);
 				b_reset.setDisable(false);
 			}
@@ -93,7 +91,7 @@ public class SettingController extends AppController {
 			String appName = app.getProperties().getProperty("app.name").toLowerCase();
 
 			String mediaPath = f_dirPath_media.getText();
-			String userdataPath = f_dirPath_userdata.getText();
+			String userdataPath = f_dirPath_appdata.getText();
 
 			// apply the new setting on user config
 			config.setMediaDirPath(mediaPath);
@@ -119,7 +117,7 @@ public class SettingController extends AppController {
 		b_reset.setOnAction(e -> {
 			OiDuarkApp app = OiDuarkApp.getInstance();
 			f_dirPath_media.setText(config.getMediaDirPath());
-			f_dirPath_userdata.setText(config.getUserdataDirPath());
+			f_dirPath_appdata.setText(config.getUserdataDirPath());
 
 			app.getLogger().info("Reset user setting changes.");
 			b_apply.setDisable(true);

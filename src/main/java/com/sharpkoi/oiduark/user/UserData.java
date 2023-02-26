@@ -13,15 +13,15 @@ public class UserData {
 
     public File getTagDataFile() {
         return Paths.get(
-                userConfig.getUserdataDirPath(),
-                props.getProperty("app.name").toLowerCase(),
+                userConfig.getMediaDirPath(),
+                "." + props.getProperty("app.name").toLowerCase(),
                 props.getProperty("tag-data-file")).toFile();
     }
 
     public File getMediaDataFile() {
         return Paths.get(
-                userConfig.getUserdataDirPath(),
-                props.getProperty("app.name").toLowerCase(),
+                userConfig.getMediaDirPath(),
+                "." + props.getProperty("app.name").toLowerCase(),
                 props.getProperty("media-data-file")).toFile();
     }
 }

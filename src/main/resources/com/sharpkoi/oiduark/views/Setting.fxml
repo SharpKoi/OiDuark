@@ -22,7 +22,7 @@
       <center>
          <AnchorPane layoutX="185.0" style="-fx-background-color: #2B3035;" AnchorPane.bottomAnchor="0.0"
                      AnchorPane.leftAnchor="164.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <Label contentDisplay="RIGHT" graphicTextGap="12.0" layoutX="39.0" layoutY="48.0" text="Media storage: "
+            <Label contentDisplay="RIGHT" graphicTextGap="12.0" layoutX="39.0" layoutY="48.0" text="Media location: "
                    textFill="WHITE" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="48.0">
                <font>
                   <Font size="14.0"/>
@@ -41,15 +41,15 @@
                </cursor>
             </Button>
             <Label contentDisplay="RIGHT" graphicTextGap="12.0" layoutX="34.0" layoutY="97.0"
-                   text="Userdata storage: " textFill="WHITE" AnchorPane.leftAnchor="32.0">
+                   text="Appdata location: " textFill="WHITE" AnchorPane.leftAnchor="32.0">
                <font>
                   <Font size="14.0"/>
                </font>
             </Label>
-            <JFXTextField fx:id="f_dirPath_userdata" focusColor="#ff0055" layoutX="156.0" layoutY="93.0"
+            <JFXTextField fx:id="f_dirPath_appdata" focusColor="#ff0055" layoutX="156.0" layoutY="93.0"
                           prefHeight="27.0" prefWidth="562.0" promptText="~/.local/share" styleClass="field-director"
                           unFocusColor="#cccccc" AnchorPane.leftAnchor="168.0" AnchorPane.rightAnchor="144.0"/>
-            <Button fx:id="b_browse_userdata" layoutX="888.0" layoutY="102.0" mnemonicParsing="false"
+            <Button fx:id="b_browse_appdata" layoutX="888.0" layoutY="102.0" mnemonicParsing="false"
                     styleClass="button-browse" text="browse" textFill="#cccccc" AnchorPane.rightAnchor="64.0"
                     AnchorPane.topAnchor="100.0">
                <cursor>
