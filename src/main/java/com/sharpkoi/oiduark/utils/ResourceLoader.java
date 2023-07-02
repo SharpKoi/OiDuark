@@ -24,7 +24,8 @@ public class ResourceLoader {
 	}
 	
 	public InputStream loadResource(String path) {
-//		InputStream stream = classLoader.getResourceAsStream(path);
+		// This is vital for Windows OS to use "/" rather than "\" since the file system in the JAR file is based on UNIX
+		path = path.replace("\\", "/");
 		InputStream stream = mainClass.getResourceAsStream(path);
 		if(stream == null) {
 			throw new IllegalArgumentException("resource not found: " + path);

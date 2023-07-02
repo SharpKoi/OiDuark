@@ -1,6 +1,7 @@
 package com.sharpkoi.oiduark.utils;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
@@ -59,6 +60,8 @@ public class Environment {
     public static String getUserConfigHomePath() {
         if(isLinux())
             return Paths.get(getUserHomePath(), ".config").toString();
+        if(isWindows())
+            return System.getenv("APPDATA");
 
         return getUserHomePath();
     }
