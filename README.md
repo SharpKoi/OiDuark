@@ -1,6 +1,14 @@
 # OiDuark
 
-> Whenever you want to enjoy musics or songs with specific styles, you won't need to add them into a new play list anymore. Just use **Tag Filter** 😍.  
+> **Warning**  
+> **The future of this project**:  
+> It has been a long time maintaining this project. Currently I'm going to plan the next version for it.
+> 
+> In the next version, **OiDuark** will never be developed in Java. Instead, it will be written in [Golang](https://go.dev). Golang is a quite beautiful programming language that may help this project become more concise and effective to run. Comparing to Java, Golang has been proved having a better performance, and we can directly compile Golang program into binary code so it doesn't need to be wrapped as an archive like JAR and run on any virtual machine like JVM.
+>
+> Moreover, the [Wails](https://wails.io) framework will give us an out-of-the-box solution to develop a frontend-backend separated application. This will help us to write tests or maintain project in a more efficient way.
+
+In any time you want to enjoy musics or songs with specific styles, you won't need to add them to a new play list anymore. Just use **Tag Filter** 😍.  
 
 ![Screenshot](static/screenshot.png)
 
